@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-white: #FFFFFF;
+  --color-gold: #FDB813;
+  --color-orange: #F26A21;
+  --color-green-medium: #2E7D32;
+  --color-green-dark: #124734;
+  --color-gold-metallic: #D4AF37;
+  --color-dark: #1A1A1A;
+  --color-gray-light: #F9F8F4;
+  --color-gray-medium: #555555;
+  --color-cream: #FFF8E7;
+  --color-warm-white: #FFFBF5;
+
+  --color-primary: var(--color-green-dark);
+  --color-secondary: var(--color-gold);
+  --color-accent: var(--color-orange);
+  --color-background: var(--color-warm-white);
+  --color-foreground: var(--color-dark);
+
+  --font-sans: 'Montserrat', 'Open Sans', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-opensans: 'Open Sans', sans-serif;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #1A1A1A;
+  background: #FFFBF5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFFBF5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FDB813;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+::selection {
+  background: rgba(253, 184, 19, 0.3);
+  color: #1A1A1A;
+}
+
+/* African pattern overlay */
+.african-pattern {
+  background-image: 
+    linear-gradient(30deg, #FDB813 12%, transparent 12.5%, transparent 87%, #FDB813 87.5%, #FDB813),
+    linear-gradient(150deg, #FDB813 12%, transparent 12.5%, transparent 87%, #FDB813 87.5%, #FDB813),
+    linear-gradient(30deg, #FDB813 12%, transparent 12.5%, transparent 87%, #FDB813 87.5%, #FDB813),
+    linear-gradient(150deg, #FDB813 12%, transparent 12.5%, transparent 87%, #FDB813 87.5%, #FDB813),
+    linear-gradient(60deg, #F26A21 25%, transparent 25.5%, transparent 75%, #F26A21 75%, #F26A21),
+    linear-gradient(60deg, #F26A21 25%, transparent 25.5%, transparent 75%, #F26A21 75%, #F26A21);
+  background-size: 20px 35px;
+  background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+}
+
+/* Kente-inspired diagonal stripes */
+.kente-stripes {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(253, 184, 19, 0.1) 10px,
+    rgba(253, 184, 19, 0.1) 20px
+  );
+}
