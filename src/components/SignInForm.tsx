@@ -23,22 +23,10 @@ export function SignInForm() {
     }
 
     try {
-      // 1. Try signing in
       await signIn("password", { email, password, flow: "signIn" });
     } catch (err) {
-      console.warn("Sign in failed, checking if account needs creation...", err);
-      
-      // 2. If it is the default admin credentials and login failed, try auto-signing up (creates account)
-      if (email === "info@fivaa.com" && password === "S1st3mas123!!!") {
-        try {
-          await signIn("password", { email, password, flow: "signUp" });
-        } catch (signUpErr) {
-          console.error("Auto sign up failed:", signUpErr);
-          setError("Credenciais inválidas ou erro ao configurar conta.");
-        }
-      } else {
-        setError("Credenciais inválidas.");
-      }
+      console.error("Authentication failed:", err);
+      setError("Credenciais inválidas.");
     } finally {
       setLoading(false);
     }
