@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { headers } from "next/headers";
+import { connection } from "next/server";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -31,20 +34,16 @@ export const metadata: Metadata = {
     type: "website",
     images: ["/images/logo-fivaa-principal.png"],
   },
-  other: {
-    "X-Content-Type-Options": "nosniff",
-    "X-Frame-Options": "DENY",
-    "X-XSS-Protection": "1; mode=block",
-    "Referrer-Policy": "strict-origin-when-cross-origin",
-    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
-  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await connection();
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <ConvexAuthNextjsServerProvider>
       <html lang="pt" className="scroll-smooth" suppressHydrationWarning>
@@ -54,12 +53,20 @@ export default function RootLayout({
           <link rel="apple-touch-icon" href="/images/ICONE 1.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link rel="preconnect" href="https://challenges.cloudflare.com" />
           <link
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
             rel="stylesheet"
           />
         </head>
         <body className="flex min-h-screen flex-col antialiased" suppressHydrationWarning>
+          {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? (
+            <Script
+              src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+              strategy="afterInteractive"
+              nonce={nonce}
+            />
+          ) : null}
           <ConvexClientProvider>
             <Header />
             <main className="flex-1">{children}</main>

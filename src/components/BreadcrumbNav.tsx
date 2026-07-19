@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import {
   Breadcrumb,
@@ -22,22 +23,21 @@ export default function BreadcrumbNav({ items }: { items: BreadcrumbNavItem[] })
             Home
           </BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        {items.map((item, i) => (
-          <BreadcrumbItem key={item.label}>
-            {item.href ? (
-              <>
+        {items.map((item) => (
+          <React.Fragment key={item.label}>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              {item.href ? (
                 <BreadcrumbLink render={<Link href={item.href} className="transition-colors hover:text-gold" />}>
                   {item.label}
                 </BreadcrumbLink>
-                {i < items.length - 1 && <BreadcrumbSeparator />}
-              </>
-            ) : (
-              <BreadcrumbPage className="font-medium text-green-dark">
-                {item.label}
-              </BreadcrumbPage>
-            )}
-          </BreadcrumbItem>
+              ) : (
+                <BreadcrumbPage className="font-medium text-green-dark">
+                  {item.label}
+                </BreadcrumbPage>
+              )}
+            </BreadcrumbItem>
+          </React.Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>

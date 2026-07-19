@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { TurnstileWidget } from "@/components/TurnstileWidget";
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [honeypot, setHoneypot] = useState("");
+  const [startedAt, setStartedAt] = useState(() => Date.now());
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileKey, setTurnstileKey] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const createMessage = useMutation(api.messages.create);
+  const [securityError, setSecurityError] = useState("");
+  const hasTurnstile = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -50,19 +54,45 @@ export default function ContactForm() {
     if (status === "loading") return;
 
     if (validateForm()) {
+      if (hasTurnstile && !turnstileToken) {
+        setSecurityError("Confirme a verificação de segurança antes de enviar.");
+        return;
+      }
+
       setStatus("loading");
+      setSecurityError("");
       
       try {
-        await createMessage({
-          name: form.name.trim().replace(/[<>]/g, ""),
-          email: form.email.trim().replace(/[<>]/g, ""),
-          // We prepend the subject to the message since our schema only has `message`
-          message: `[Assunto: ${form.subject.trim().replace(/[<>]/g, "")}]\n\n${form.message.trim().replace(/[<>]/g, "")}`,
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...form,
+            startedAt,
+            honeypot,
+            turnstileToken,
+          }),
         });
+
+        const result = (await response.json()) as { error?: string };
+
+        if (!response.ok) {
+          throw new Error(result.error ?? "Ocorreu um erro ao enviar a mensagem.");
+        }
+
         setStatus("success");
         setForm({ name: "", email: "", subject: "", message: "" });
+        setHoneypot("");
+        setStartedAt(Date.now());
+        setTurnstileToken("");
+        setTurnstileKey((current) => current + 1);
       } catch (error) {
         console.error("Erro ao enviar mensagem:", error);
+        setSecurityError(error instanceof Error ? error.message : "Falha na verificação de segurança.");
+        setTurnstileToken("");
+        setTurnstileKey((current) => current + 1);
         setStatus("error");
       }
     }
@@ -93,6 +123,39 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5" aria-label="Formulário de contacto">
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="contact-website">Website</label>
+        <input
+          id="contact-website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </div>
+
+      {hasTurnstile && (
+        <div>
+          <TurnstileWidget
+            key={turnstileKey}
+            action="contact_form"
+            onVerify={(token) => {
+              setTurnstileToken(token);
+              setSecurityError("");
+            }}
+            onExpire={() => {
+              setTurnstileToken("");
+              setSecurityError("A verificação expirou. Confirme novamente.");
+            }}
+            onError={() => {
+              setTurnstileToken("");
+              setSecurityError("Não foi possível validar a proteção anti-bot.");
+            }}
+          />
+        </div>
+      )}
+
       {[
         { id: "name", label: "Nome", type: "text", placeholder: "Insira o seu nome" },
         { id: "email", label: "E-mail", type: "email", placeholder: "exemplo@fivaaforum.com" },
@@ -161,6 +224,12 @@ export default function ContactForm() {
       {status === "error" && (
         <p className="text-sm font-medium text-rose-400">
           Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.
+        </p>
+      )}
+
+      {securityError && (
+        <p className="text-sm font-medium text-rose-400">
+          {securityError}
         </p>
       )}
 

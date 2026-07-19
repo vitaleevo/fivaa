@@ -28,6 +28,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   color: #1A1A1A;
   background: #FFFBF5;
+  text-rendering: optimizeLegibility;
 }
 
 html {
@@ -54,6 +55,30 @@ html {
 ::selection {
   background: rgba(253, 184, 19, 0.3);
   color: #1A1A1A;
+}
+
+:focus-visible {
+  outline: 3px solid #FDB813;
+  outline-offset: 3px;
+}
+
+button,
+a,
+input,
+textarea,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 /* African pattern overlay */

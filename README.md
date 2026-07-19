@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FIVAA — Fórum & Festival Internacional da Valorização da Arte Africana
 
-## Getting Started
+Website oficial do FIVAA 2026 — Palácio de Ferro, Luanda, Angola.
 
-First, run the development server:
+## Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Estilo:** Tailwind CSS 4
+- **Backend:** Convex (auth, base de dados, realtime)
+- **Idioma:** Português de Angola (PT-AO)
+
+## Setup Local
 
 ```bash
+# Instalar dependências
+npm install
+
+# Copiar variáveis de ambiente
+cp .env.example .env.local
+# Preencher os valores do Convex em .env.local
+
+# Iniciar Convex (terminal 1)
+npx convex dev
+
+# Iniciar Next.js (terminal 2)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O site fica disponível em http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy na Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push do código para um repositório GitHub
+2. Importar o repositório em [vercel.com/new](https://vercel.com/new)
+3. Configurar as **Environment Variables** (ver `.env.example`)
+4. Deploy automático
 
-## Learn More
+## Variáveis de Ambiente
 
-To learn more about Next.js, take a look at the following resources:
+| Variável | Descrição |
+|----------|-----------|
+| `CONVEX_DEPLOYMENT` | ID do deployment Convex |
+| `NEXT_PUBLIC_CONVEX_URL` | URL pública do Convex |
+| `NEXT_PUBLIC_CONVEX_SITE_URL` | URL do site Convex |
+| `CONVEX_SITE_URL` | URL do Convex (server-side) |
+| `JWT_PRIVATE_KEY` | Chave privada JWT |
+| `FIVAA_ADMIN_EMAILS` | E-mails de admin (vírgula separados) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estrutura
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+  app/           → Páginas (App Router)
+  components/    → Componentes React
+  lib/           → Utilitários
+convex/          → Backend Convex (schema, functions)
+public/          → Imagens e estáticos
+```
 
-## Deploy on Vercel
+## Comandos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev       # Desenvolvimento
+npm run build     # Build de produção
+npm run start     # Servidor de produção
+npm run lint      # Linting
+npx convex dev    # Convex dev server
+npx convex deploy # Deploy Convex
+```

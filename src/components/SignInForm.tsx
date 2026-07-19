@@ -15,15 +15,12 @@ export function SignInForm() {
     setLoading(true);
     setError("");
 
-    // Basic client validation
-    if (email !== "info@fivaa.com") {
-      setError("Apenas o administrador principal (info@fivaa.com) tem acesso.");
-      setLoading(false);
-      return;
-    }
-
     try {
-      await signIn("password", { email, password, flow: "signIn" });
+      await signIn("password", {
+        email: email.trim().toLowerCase(),
+        password,
+        flow: "signIn",
+      });
     } catch (err) {
       console.error("Authentication failed:", err);
       setError("Credenciais inválidas.");

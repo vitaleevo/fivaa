@@ -1,8 +1,11 @@
 import { mutation } from "./_generated/server";
+import { requireAdmin } from "./security";
 
 export const run = mutation({
   args: {},
   handler: async (ctx) => {
+    await requireAdmin(ctx);
+
     // Check if speakers already exist
     const existingSpeakers = await ctx.db.query("speakers").collect();
     if (existingSpeakers.length === 0) {

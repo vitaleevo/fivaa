@@ -1,22 +1,41 @@
 export function AfricanPattern({ className = "" }: { className?: string }) {
   return (
-    <div className={`absolute inset-0 opacity-[0.03] ${className}`} style={{
-      backgroundImage: `
-        repeating-linear-gradient(45deg, #FDB813 0px, #FDB813 1px, transparent 1px, transparent 20px),
-        repeating-linear-gradient(-45deg, #FDB813 0px, #FDB813 1px, transparent 1px, transparent 20px)
-      `,
-    }} />
+    <svg
+      className={`absolute inset-0 h-full w-full pointer-events-none opacity-[0.014] ${className}`}
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <pattern id="african-pattern-light" x="0" y="0" width="9" height="9" patternUnits="userSpaceOnUse">
+          <path d="M4.5 0.7L8.3 4.5L4.5 8.3L0.7 4.5Z" fill="none" stroke="#124734" strokeWidth="0.36" />
+          <path d="M2.2 2.2L4.5 4.5L2.2 6.8" fill="none" stroke="#FDB813" strokeWidth="0.34" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M6.8 2.2L4.5 4.5L6.8 6.8" fill="none" stroke="#FDB813" strokeWidth="0.34" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="4.5" cy="4.5" r="0.42" fill="#F26A21" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#african-pattern-light)" />
+    </svg>
   );
 }
 
 export function AfricanPatternDark({ className = "" }: { className?: string }) {
   return (
-    <div className={`absolute inset-0 opacity-[0.05] ${className}`} style={{
-      backgroundImage: `
-        repeating-linear-gradient(45deg, #FDB813 0px, #FDB813 1px, transparent 1px, transparent 25px),
-        repeating-linear-gradient(-45deg, #FDB813 0px, #FDB813 1px, transparent 1px, transparent 25px)
-      `,
-    }} />
+    <svg
+      className={`absolute inset-0 h-full w-full pointer-events-none opacity-[0.018] ${className}`}
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <pattern id="african-pattern-dark" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+          <path d="M0 5H10" stroke="#FDB813" strokeWidth="0.26" strokeDasharray="0.8 1.4" />
+          <path d="M5 0V10" stroke="#FDB813" strokeWidth="0.26" strokeDasharray="0.8 1.4" />
+          <path d="M5 1L9 5L5 9L1 5Z" fill="none" stroke="#FDB813" strokeWidth="0.34" />
+          <path d="M2.8 2.9L5 5L7.2 2.9" fill="none" stroke="#F26A21" strokeWidth="0.3" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M2.8 7.1L5 5L7.2 7.1" fill="none" stroke="#F26A21" strokeWidth="0.3" strokeLinecap="round" strokeLinejoin="round" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#african-pattern-dark)" />
+    </svg>
   );
 }
 
@@ -112,9 +131,44 @@ export function MudclothPattern({ className = "" }: { className?: string }) {
 
 export function TribalDivider({ className = "" }: { className?: string }) {
   return (
-    <div className={`w-full overflow-hidden leading-[0] ${className}`}>
-      <svg className="relative block w-full h-[30px]" viewBox="0 0 1200 120" preserveAspectRatio="none" fill="currentColor">
-        <path d="M0,0 L30,60 L60,0 L90,60 L120,0 L150,60 L180,0 L210,60 L240,0 L270,60 L300,0 L330,60 L360,0 L390,60 L420,0 L450,60 L480,0 L510,60 L540,0 L570,60 L600,0 L630,60 L660,0 L690,60 L720,0 L750,60 L780,0 L810,60 L840,0 L870,60 L900,0 L930,60 L960,0 L990,60 L1020,0 L1050,60 L1080,0 L1110,60 L1140,0 L1170,60 L1200,0 L1200,120 L0,120 Z" />
+    <div className={`relative w-full overflow-hidden leading-[0] ${className}`}>
+      <svg
+        className="relative block h-[42px] w-full md:h-[54px]"
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern id="tribal-divider-pattern" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+            <path d="M0 52L20 32L40 52L60 32L80 52L100 32L120 52" fill="none" stroke="rgba(253,184,19,0.28)" strokeWidth="3" strokeLinejoin="round" />
+            <path d="M0 72L20 92L40 72L60 92L80 72L100 92L120 72" fill="none" stroke="rgba(242,106,33,0.18)" strokeWidth="3" strokeLinejoin="round" />
+            <path d="M40 18L60 38L80 18" fill="none" stroke="rgba(255,255,255,0.09)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </pattern>
+        </defs>
+        <path
+          d="M0 58L40 36L80 58L120 36L160 58L200 36L240 58L280 36L320 58L360 36L400 58L440 36L480 58L520 36L560 58L600 36L640 58L680 36L720 58L760 36L800 58L840 36L880 58L920 36L960 58L1000 36L1040 58L1080 36L1120 58L1160 36L1200 58V120H0V58Z"
+          fill="currentColor"
+        />
+        <path
+          d="M0 58L40 36L80 58L120 36L160 58L200 36L240 58L280 36L320 58L360 36L400 58L440 36L480 58L520 36L560 58L600 36L640 58L680 36L720 58L760 36L800 58L840 36L880 58L920 36L960 58L1000 36L1040 58L1080 36L1120 58L1160 36L1200 58V120H0V58Z"
+          fill="url(#tribal-divider-pattern)"
+        />
+        <path
+          d="M0 58L40 36L80 58L120 36L160 58L200 36L240 58L280 36L320 58L360 36L400 58L440 36L480 58L520 36L560 58L600 36L640 58L680 36L720 58L760 36L800 58L840 36L880 58L920 36L960 58L1000 36L1040 58L1080 36L1120 58L1160 36L1200 58"
+          fill="none"
+          stroke="rgba(253,184,19,0.40)"
+          strokeWidth="2.2"
+          vectorEffect="non-scaling-stroke"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M20 76L40 56L60 76L80 56L100 76L120 56L140 76L160 56L180 76L200 56L220 76L240 56L260 76L280 56L300 76L320 56L340 76L360 56L380 76L400 56L420 76L440 56L460 76L480 56L500 76L520 56L540 76L560 56L580 76L600 56L620 76L640 56L660 76L680 56L700 76L720 56L740 76L760 56L780 76L800 56L820 76L840 56L860 76L880 56L900 76L920 56L940 76L960 56L980 76L1000 56L1020 76L1040 56L1060 76L1080 56L1100 76L1120 56L1140 76L1160 56L1180 76"
+          fill="none"
+          stroke="rgba(255,255,255,0.10)"
+          strokeWidth="1.4"
+          vectorEffect="non-scaling-stroke"
+          strokeLinejoin="round"
+        />
       </svg>
     </div>
   );

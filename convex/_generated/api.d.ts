@@ -13,6 +13,7 @@ import type * as http from "../http.js";
 import type * as messages from "../messages.js";
 import type * as registrations from "../registrations.js";
 import type * as schedule from "../schedule.js";
+import type * as security from "../security.js";
 import type * as seed from "../seed.js";
 import type * as speakers from "../speakers.js";
 import type * as testimonials from "../testimonials.js";
@@ -30,6 +31,7 @@ declare const fullApi: ApiFromModules<{
   messages: typeof messages;
   registrations: typeof registrations;
   schedule: typeof schedule;
+  security: typeof security;
   seed: typeof seed;
   speakers: typeof speakers;
   testimonials: typeof testimonials;

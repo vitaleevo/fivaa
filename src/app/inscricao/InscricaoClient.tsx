@@ -3,22 +3,28 @@
 import { useState } from "react";
 import { AccentBar, AfricanPatternDark } from "@/components/BrandElements";
 import PageHero from "@/components/PageHero";
+import { TurnstileWidget } from "@/components/TurnstileWidget";
 import { cn } from "@/lib/utils";
 
-import { useQuery, useMutation } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 
 const steps = ["Bilhete", "Dados Pessoais", "Confirmação"];
 
 export default function InscricaoClient() {
   const ticketTypes = useQuery(api.tickets.get);
-  const createRegistration = useMutation(api.registrations.create);
   
   const [step, setStep] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", email: "", phone: "", country: "", org: "" });
+  const [honeypot, setHoneypot] = useState("");
+  const [startedAt, setStartedAt] = useState(() => Date.now());
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileKey, setTurnstileKey] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [securityError, setSecurityError] = useState("");
+  const hasTurnstile = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -66,22 +72,50 @@ export default function InscricaoClient() {
       if (selected) setStep(1);
     } else if (step === 1) {
       if (validateForm()) {
+        if (hasTurnstile && !turnstileToken) {
+          setSecurityError("Confirme a verificação de segurança antes de continuar.");
+          return;
+        }
+
         setIsSubmitting(true);
+        setSecurityError("");
         try {
-          const sanitizedForm = {
-            name: form.name.trim().replace(/[<>]/g, ""),
-            email: form.email.trim().replace(/[<>]/g, ""),
-            phone: form.phone.trim().replace(/[<>]/g, ""),
-            country: form.country.trim().replace(/[<>]/g, ""),
-            org: form.org.trim().replace(/[<>]/g, ""),
-            ticketId: selected!,
-          };
-          
-          await createRegistration(sanitizedForm);
+          const response = await fetch("/api/registration", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: form.name.trim().replace(/[<>]/g, ""),
+              email: form.email.trim().replace(/[<>]/g, ""),
+              phone: form.phone.trim().replace(/[<>]/g, ""),
+              country: form.country.trim().replace(/[<>]/g, ""),
+              org: form.org.trim().replace(/[<>]/g, ""),
+              ticketId: selected!,
+              startedAt,
+              honeypot,
+              turnstileToken,
+            }),
+          });
+
+          const result = (await response.json()) as { error?: string };
+          if (!response.ok) {
+            throw new Error(result.error ?? "Ocorreu um erro ao confirmar a inscrição.");
+          }
+
           setStep(2);
+          setHoneypot("");
+          setTurnstileToken("");
+          setTurnstileKey((current) => current + 1);
         } catch (error) {
           console.error("Erro ao submeter:", error);
-          alert("Ocorreu um erro ao confirmar a inscrição. Tente novamente.");
+          setSecurityError(
+            error instanceof Error
+              ? error.message
+              : "Ocorreu um erro ao confirmar a inscrição. Tente novamente.",
+          );
+          setTurnstileToken("");
+          setTurnstileKey((current) => current + 1);
         } finally {
           setIsSubmitting(false);
         }
@@ -122,6 +156,45 @@ export default function InscricaoClient() {
           </div>
 
           <form onSubmit={handleSubmit} aria-label="Formulário de inscrição para o evento FIVAA">
+            <div className="hidden" aria-hidden="true">
+              <label htmlFor="registration-website">Website</label>
+              <input
+                id="registration-website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
+
+            {hasTurnstile && (
+              <div className="mb-8 flex justify-center">
+                <TurnstileWidget
+                  key={turnstileKey}
+                  action="registration_form"
+                  onVerify={(token) => {
+                    setTurnstileToken(token);
+                    setSecurityError("");
+                  }}
+                  onExpire={() => {
+                    setTurnstileToken("");
+                    setSecurityError("A verificação expirou. Confirme novamente.");
+                  }}
+                  onError={() => {
+                    setTurnstileToken("");
+                    setSecurityError("Não foi possível validar a proteção anti-bot.");
+                  }}
+                />
+              </div>
+            )}
+
+            {securityError && (
+              <p className="mb-6 text-center text-sm font-medium text-rose-400">
+                {securityError}
+              </p>
+            )}
+
             {/* Step 1 */}
             {step === 0 && (
               <div>
@@ -239,7 +312,7 @@ export default function InscricaoClient() {
                     <p><strong className="text-white">Valor:</strong> {ticketTypes?.find((t) => t._id === selected)?.price}</p>
                   </div>
                 </div>
-                <button type="button" onClick={() => { setStep(0); setSelected(null); setForm({ name: "", email: "", phone: "", country: "", org: "" }); }}
+                <button type="button" onClick={() => { setStep(0); setSelected(null); setForm({ name: "", email: "", phone: "", country: "", org: "" }); setHoneypot(""); setStartedAt(Date.now()); setTurnstileToken(""); setTurnstileKey((current) => current + 1); setSecurityError(""); }}
                   aria-label="Iniciar nova inscrição"
                   className="mt-10 rounded-full border border-white/20 px-8 py-4 font-montserrat text-sm font-semibold text-white/50 transition-all hover:border-white/30 hover:text-white/70">
                   Nova Inscrição

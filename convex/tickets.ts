@@ -1,5 +1,10 @@
-import { query, mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import {
+  requireAdmin,
+  sanitizeText,
+  validateRequiredLength,
+} from "./security";
 
 // Public: anyone can read tickets (displayed on inscription page)
 export const get = query({
@@ -18,21 +23,29 @@ export const create = mutation({
     features: v.array(v.string()),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Unauthorized: must be logged in to manage tickets.");
+    await requireAdmin(ctx);
+
+    const name = sanitizeText(args.name);
+    const price = sanitizeText(args.price);
+    const desc = sanitizeText(args.desc);
+    const features = args.features.map((feature) => sanitizeText(feature));
+
+    validateRequiredLength("Nome do bilhete", name, 2, 60);
+    validateRequiredLength("Preço", price, 1, 40);
+    validateRequiredLength("Descrição", desc, 10, 240);
+
+    for (const feature of features) {
+      validateRequiredLength("Característica", feature, 2, 120);
     }
-    return await ctx.db.insert("tickets", args);
+
+    return await ctx.db.insert("tickets", { name, price, desc, features });
   },
 });
 
 export const remove = mutation({
   args: { id: v.id("tickets") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Unauthorized: must be logged in to delete tickets.");
-    }
+    await requireAdmin(ctx);
     await ctx.db.delete(args.id);
   },
 });

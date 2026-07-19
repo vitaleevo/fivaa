@@ -12,19 +12,17 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-green-dark">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <footer className="border-t-4 border-gold bg-green-dark">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="mb-5">
-              <Image
-                src="/images/LOGO FIVAA - MONOCRÓMATICO - BRANCO SEM FUNDO.png"
-                alt="FIVAA — Fórum Internacional para a Valorização da Arte Africana"
-                width={480}
-                height={150}
-                className="h-36 w-auto object-contain"
-              />
-            </div>
+            <Image
+              src="/images/LOGO FIVAA - MONOCRÓMATICO - BRANCO SEM FUNDO.png"
+              alt="FIVAA"
+              width={480}
+              height={150}
+              className="h-36 w-auto object-contain"
+            />
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               Plataforma internacional dedicada à promoção, valorização e
               desenvolvimento das indústrias criativas africanas.

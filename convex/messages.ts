@@ -1,5 +1,14 @@
-import { query, mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import {
+  enforceSubmissionRateLimit,
+  ensureHumanSubmission,
+  requireTrustedSubmission,
+  requireAdmin,
+  sanitizeText,
+  validateEmail,
+  validateRequiredLength,
+} from "./security";
 
 // Public: anyone can send a message (contact form)
 export const create = mutation({
@@ -7,9 +16,38 @@ export const create = mutation({
     name: v.string(),
     email: v.string(),
     message: v.string(),
+    submittedAt: v.number(),
+    honeypot: v.optional(v.string()),
+    clientIp: v.string(),
+    submissionSecret: v.string(),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("messages", { ...args, read: false });
+    requireTrustedSubmission(args.submissionSecret);
+    ensureHumanSubmission({
+      honeypot: args.honeypot,
+      submittedAt: args.submittedAt,
+    });
+
+    const name = sanitizeText(args.name);
+    const email = sanitizeText(args.email);
+    const message = sanitizeText(args.message);
+
+    validateRequiredLength("Nome", name, 3, 80);
+    validateEmail(email);
+    validateRequiredLength("Mensagem", message, 10, 1200);
+    await enforceSubmissionRateLimit(ctx, {
+      scope: "contact",
+      clientIp: args.clientIp,
+      identity: email,
+      maxAttempts: 5,
+    });
+
+    return await ctx.db.insert("messages", {
+      name,
+      email,
+      message,
+      read: false,
+    });
   },
 });
 
@@ -17,10 +55,7 @@ export const create = mutation({
 export const get = query({
   args: {},
   handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Unauthorized: must be logged in to view messages.");
-    }
+    await requireAdmin(ctx);
     return await ctx.db.query("messages").collect();
   },
 });
@@ -28,10 +63,7 @@ export const get = query({
 export const remove = mutation({
   args: { id: v.id("messages") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Unauthorized: must be logged in to delete messages.");
-    }
+    await requireAdmin(ctx);
     await ctx.db.delete(args.id);
   },
 });
@@ -39,10 +71,7 @@ export const remove = mutation({
 export const markRead = mutation({
   args: { id: v.id("messages") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Unauthorized: must be logged in to update messages.");
-    }
+    await requireAdmin(ctx);
     await ctx.db.patch(args.id, { read: true });
   },
 });

@@ -1,5 +1,10 @@
-import { query, mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import {
+  requireAdmin,
+  sanitizeText,
+  validateRequiredLength,
+} from "./security";
 
 // Public: anyone can read speakers (displayed on public site)
 export const get = query({
@@ -13,21 +18,26 @@ export const get = query({
 export const create = mutation({
   args: { name: v.string(), role: v.string(), country: v.string(), color: v.string() },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Unauthorized: must be logged in to add speakers.");
-    }
-    return await ctx.db.insert("speakers", args);
+    await requireAdmin(ctx);
+
+    const name = sanitizeText(args.name);
+    const role = sanitizeText(args.role);
+    const country = sanitizeText(args.country);
+    const color = sanitizeText(args.color);
+
+    validateRequiredLength("Nome", name, 2, 80);
+    validateRequiredLength("Função", role, 2, 120);
+    validateRequiredLength("País", country, 2, 60);
+    validateRequiredLength("Cor", color, 2, 80);
+
+    return await ctx.db.insert("speakers", { name, role, country, color });
   },
 });
 
 export const remove = mutation({
   args: { id: v.id("speakers") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Unauthorized: must be logged in to delete speakers.");
-    }
+    await requireAdmin(ctx);
     await ctx.db.delete(args.id);
   },
 });

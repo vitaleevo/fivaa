@@ -1,50 +1,33 @@
+import Image from "next/image";
+
 export function LogoPrimary({ className = "h-12 w-auto" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* F */}
-      <path d="M10 10H40V20H20V28H35V38H20V55H10V10Z" fill="#124734"/>
-      {/* I */}
-      <path d="M48 10H58V55H48V10Z" fill="#124734"/>
-      {/* V */}
-      <path d="M66 10H76L91 55H81L76 40L71 55H61L66 10Z" fill="#124734"/>
-      {/* A */}
-      <path d="M100 55L120 10H130L150 55H140L135 42H115L110 55H100ZM117 32H133L125 12L117 32Z" fill="#124734"/>
-      {/* A */}
-      <path d="M158 55L178 10H188L208 55H198L193 42H173L168 55H158ZM175 32H191L183 12L175 32Z" fill="#124734"/>
-      {/* Gold accent diamond */}
-      <path d="M95 30L105 40L95 50L85 40Z" fill="#FDB813"/>
-      <path d="M95 33L102 40L95 47L88 40Z" fill="#124734"/>
-      {/* Orange underline */}
-      <rect x="10" y="58" width="198" height="3" rx="1.5" fill="#F26A21"/>
-    </svg>
+    <Image
+      src="/images/LOGO FIVAA - PRINCIPAL  SEM FUNDO.png"
+      alt="FIVAA"
+      width={420}
+      height={128}
+      priority
+      className={className}
+    />
   );
 }
 
 export function LogoWhite({ className = "h-12 w-auto" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* F */}
-      <path d="M10 10H40V20H20V28H35V38H20V55H10V10Z" fill="white"/>
-      {/* I */}
-      <path d="M48 10H58V55H48V10Z" fill="white"/>
-      {/* V */}
-      <path d="M66 10H76L91 55H81L76 40L71 55H61L66 10Z" fill="white"/>
-      {/* A */}
-      <path d="M100 55L120 10H130L150 55H140L135 42H115L110 55H100ZM117 32H133L125 12L117 32Z" fill="white"/>
-      {/* A */}
-      <path d="M158 55L178 10H188L208 55H198L193 42H173L168 55H158ZM175 32H191L183 12L175 32Z" fill="white"/>
-      {/* Gold accent diamond */}
-      <path d="M95 30L105 40L95 50L85 40Z" fill="#FDB813"/>
-      <path d="M95 33L102 40L95 47L88 40Z" fill="#124734"/>
-      {/* Orange underline */}
-      <rect x="10" y="58" width="198" height="3" rx="1.5" fill="#F26A21"/>
-    </svg>
+    <Image
+      src="/images/LOGO FIVAA - MONOCRÓMATICO - BRANCO SEM FUNDO.png"
+      alt="FIVAA"
+      width={420}
+      height={128}
+      className={className}
+    />
   );
 }
 
 export function LogoDark({ className = "h-12 w-auto" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className={className} viewBox="0 0 210 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* F */}
       <path d="M10 10H40V20H20V28H35V38H20V55H10V10Z" fill="#1A1A1A"/>
       {/* I */}
