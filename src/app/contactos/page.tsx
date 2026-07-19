@@ -66,7 +66,7 @@ export default function Contactos() {
                     const IconComponent = social.Icon;
                     return (
                       <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer"
-                        className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/50 transition-all hover:border-gold hover:bg-gold hover:text-white"
+                        className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/50 transition-all hover:border-gold hover:bg-gold hover:text-green-dark"
                         aria-label={social.label}>
                         <IconComponent className="h-5 w-5" />
                       </a>

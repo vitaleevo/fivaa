@@ -77,7 +77,7 @@ export function SignInForm() {
           type="submit"
           disabled={loading}
           aria-label={loading ? "A processar autenticação..." : "Entrar no painel administrativo"}
-          className="flex w-full justify-center rounded-md border border-transparent bg-gold py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gold-metallic focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 disabled:opacity-50 transition-colors"
+          className="flex w-full justify-center rounded-md border border-transparent bg-gold py-2 px-4 text-sm font-medium text-green-dark shadow-sm hover:bg-gold-metallic focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 disabled:opacity-50 transition-colors"
         >
           {loading ? "A processar..." : "Entrar no Backoffice"}
         </button>

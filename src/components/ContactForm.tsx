@@ -237,7 +237,7 @@ export default function ContactForm() {
         type="submit"
         disabled={status === "loading"}
         aria-label={status === "loading" ? "A enviar mensagem..." : "Enviar mensagem de contacto"}
-        className="flex items-center justify-center gap-3 rounded-full bg-gold px-12 py-5 font-montserrat text-base font-bold text-white transition-all hover:shadow-2xl hover:shadow-gold/20 disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex items-center justify-center gap-3 rounded-full bg-gold px-12 py-5 font-montserrat text-base font-bold text-green-dark transition-all hover:shadow-2xl hover:shadow-gold/20 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {status === "loading" ? (
           <>

@@ -87,7 +87,7 @@ export default function ProgramacaoClient() {
                           </svg>
                         </div>
                         <div className="flex items-start gap-4">
-                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gold/10 text-gold transition-all group-hover:bg-gold group-hover:text-white">
+                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gold/10 text-gold transition-all group-hover:bg-gold group-hover:text-green-dark">
                             {Icon && <Icon className="w-6 h-6" />}
                           </div>
                           <div className="flex-1 min-w-0">

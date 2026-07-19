@@ -37,7 +37,7 @@ export default function HeroSlideshow() {
   const activeSlide = slides[current];
 
   return (
-    <section className="relative h-[calc(100svh-7rem)] min-h-[560px] max-h-[820px] w-full overflow-hidden bg-green-dark" aria-label="Apresentação de imagens do evento FIVAA">
+    <section className="relative h-[calc(100svh-7rem)] min-h-[560px] w-full overflow-hidden bg-green-dark" aria-label="Apresentação de imagens do evento FIVAA">
       <h1 className="sr-only">FIVAA 2026 — Fórum Internacional para a Valorização da Arte Africana em Luanda, Angola</h1>
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         Slide {current + 1} de {slides.length}: {activeSlide.title} — {activeSlide.subtitle}

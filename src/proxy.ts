@@ -51,20 +51,24 @@ function applySecurityHeaders(
 }
 
 export default convexAuthNextjsMiddleware(async (request: NextRequest) => {
-  const requestHeaders = new Headers(request.headers);
-  const nonce = crypto.randomUUID().replace(/-/g, "");
-  const contentSecurityPolicy = buildContentSecurityPolicy(nonce);
+  try {
+    const requestHeaders = new Headers(request.headers);
+    const nonce = crypto.randomUUID().replace(/-/g, "");
+    const contentSecurityPolicy = buildContentSecurityPolicy(nonce);
 
-  requestHeaders.set("x-nonce", nonce);
-  requestHeaders.set("Content-Security-Policy", contentSecurityPolicy);
+    requestHeaders.set("x-nonce", nonce);
+    requestHeaders.set("Content-Security-Policy", contentSecurityPolicy);
 
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
+    const response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
 
-  return applySecurityHeaders(response, requestHeaders, nonce);
+    return applySecurityHeaders(response, requestHeaders, nonce);
+  } catch {
+    return NextResponse.next();
+  }
 });
 
 export const config = {

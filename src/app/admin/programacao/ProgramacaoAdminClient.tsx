@@ -71,7 +71,7 @@ export default function ProgramacaoAdmin() {
                 <option value="Pausa">Pausa</option>
               </select>
             </div>
-            <button type="submit" disabled={loading} className="w-full bg-gold text-white p-2 rounded hover:bg-gold-metallic disabled:opacity-50">
+            <button type="submit" disabled={loading} className="w-full bg-gold text-green-dark p-2 rounded hover:bg-gold-metallic disabled:opacity-50">
               {loading ? "A Adicionar..." : "Adicionar Evento"}
             </button>
           </form>

@@ -84,7 +84,7 @@ export default function Footer() {
                 const IconComponent = social.Icon;
                 return (
                   <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/60 transition-all hover:border-gold hover:bg-gold hover:text-white"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/60 transition-all hover:border-gold hover:bg-gold hover:text-green-dark"
                     aria-label={social.label}>
                     <IconComponent className="h-4.5 w-4.5" />
                   </a>

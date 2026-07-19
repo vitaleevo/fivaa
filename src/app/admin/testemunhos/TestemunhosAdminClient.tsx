@@ -57,7 +57,7 @@ export default function TestemunhosAdmin() {
               <textarea required value={form.quote} onChange={e => setForm({...form, quote: e.target.value})} rows={4}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold focus:ring-gold sm:text-sm p-2 border"></textarea>
             </div>
-            <button type="submit" disabled={loading} className="w-full bg-gold text-white p-2 rounded hover:bg-gold-metallic disabled:opacity-50">
+            <button type="submit" disabled={loading} className="w-full bg-gold text-green-dark p-2 rounded hover:bg-gold-metallic disabled:opacity-50">
               {loading ? "A Adicionar..." : "Adicionar Testemunho"}
             </button>
           </form>

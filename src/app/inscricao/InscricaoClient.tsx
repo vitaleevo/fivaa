@@ -142,7 +142,7 @@ export default function InscricaoClient() {
             {steps.map((s, i) => (
               <div key={s} className="flex items-center gap-2">
                 <div 
-                  className={`flex h-10 w-10 items-center justify-center rounded-full font-montserrat text-sm font-bold transition-all ${i <= step ? "bg-gold text-white" : "bg-white/10 text-white/30"}`}
+                  className={`flex h-10 w-10 items-center justify-center rounded-full font-montserrat text-sm font-bold transition-all ${i <= step ? "bg-gold text-green-dark" : "bg-white/10 text-white/30"}`}
                   aria-current={i === step ? "step" : undefined}
                 >
                   {i + 1}
@@ -227,7 +227,7 @@ export default function InscricaoClient() {
                 <div className="mt-12 text-center">
                   <button type="submit" disabled={!selected}
                     aria-label={selected ? "Continuar para preenchimento de dados" : "Selecione um bilhete para continuar"}
-                    className="rounded-full bg-gold px-14 py-5 font-montserrat text-base font-bold text-white transition-all hover:shadow-2xl hover:shadow-gold/20 disabled:cursor-not-allowed disabled:opacity-30">
+                    className="rounded-full bg-gold px-14 py-5 font-montserrat text-base font-bold text-green-dark transition-all hover:shadow-2xl hover:shadow-gold/20 disabled:cursor-not-allowed disabled:opacity-30">
                     Continuar
                   </button>
                 </div>
@@ -284,7 +284,7 @@ export default function InscricaoClient() {
                   </button>
                   <button type="submit" disabled={isSubmitting}
                     aria-label={isSubmitting ? "A processar inscrição..." : "Confirmar inscrição no evento"}
-                    className="rounded-full bg-gold px-14 py-5 font-montserrat text-base font-bold text-white transition-all hover:shadow-2xl hover:shadow-gold/20 disabled:opacity-50">
+                    className="rounded-full bg-gold px-14 py-5 font-montserrat text-base font-bold text-green-dark transition-all hover:shadow-2xl hover:shadow-gold/20 disabled:opacity-50">
                     {isSubmitting ? "A processar..." : "Confirmar Inscrição"}
                   </button>
                 </div>

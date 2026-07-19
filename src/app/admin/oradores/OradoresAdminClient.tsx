@@ -65,7 +65,7 @@ export default function OradoresAdmin() {
                 <option value="from-gold to-green-medium">Ouro para Verde</option>
               </select>
             </div>
-            <button type="submit" disabled={loading} className="w-full bg-gold text-white p-2 rounded hover:bg-gold-metallic disabled:opacity-50">
+            <button type="submit" disabled={loading} className="w-full bg-gold text-green-dark p-2 rounded hover:bg-gold-metallic disabled:opacity-50">
               {loading ? "A Adicionar..." : "Adicionar Orador"}
             </button>
           </form>
