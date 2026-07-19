@@ -22,8 +22,11 @@ export const metadata: Metadata = {
     "cultura angolana",
   ],
   icons: {
-    icon: "/images/ICONE 1.png",
-    apple: "/images/ICONE 1.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
   },
   openGraph: {
     title: "FIVAA 2026",
@@ -49,8 +52,8 @@ export default async function RootLayout({
       <html lang="pt" className="scroll-smooth" suppressHydrationWarning>
         <head>
           <link rel="icon" href="/favicon.ico" sizes="any" />
-          <link rel="icon" href="/images/ICONE 1.png" type="image/png" />
-          <link rel="apple-touch-icon" href="/images/ICONE 1.png" />
+          <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://challenges.cloudflare.com" />
