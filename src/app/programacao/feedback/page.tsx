@@ -40,7 +40,7 @@ export default function ProgramacaoFeedback() {
         badge="Sessões de Feedback"
         title="Crítica Construtiva"
         subtitle="Sessões semanais para receber feedback e crescer como artista"
-        backgroundImage="/images/hero/387c1334-f070-4f6a-a569-6d63e85e9101.webp"
+        backgroundImage="/images/hero/fivaa-art-culture.png"
         breadcrumbs={[
           { label: "Programação", href: "/programacao" },
           { label: "Feedback" },

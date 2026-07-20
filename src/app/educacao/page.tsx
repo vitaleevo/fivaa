@@ -37,7 +37,7 @@ export default function EducacaoPage() {
         badge="Educação"
         title="Educação Artística"
         subtitle="Recursos, workshops e certificações para o seu desenvolvimento artístico"
-        backgroundImage="/images/hero/LC_CERT-10-1.webp"
+        backgroundImage="/images/hero/fivaa-educacao.png"
       />
 
       {/* Áreas */}

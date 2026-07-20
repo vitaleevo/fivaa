@@ -48,7 +48,7 @@ export default function EducacaoRecursos() {
         badge="Recursos Educativos"
         title="Biblioteca de Recursos"
         subtitle="Conteúdo educativo para aprimorar as suas habilidades artísticas"
-        backgroundImage="/images/hero/LC_CERT-10-1.webp"
+        backgroundImage="/images/hero/fivaa-educacao.png"
         breadcrumbs={[
           { label: "Educação", href: "/educacao" },
           { label: "Recursos" },

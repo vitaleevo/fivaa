@@ -59,7 +59,7 @@ export default function ProgramacaoFestival() {
         badge="Festival Anual"
         title="Festival Anual"
         subtitle="O maior evento de arte africana do ano - Dezembro 2026"
-        backgroundImage="/images/hero/387c1334-f070-4f6a-a569-6d63e85e9101.webp"
+        backgroundImage="/images/hero/fivaa-art-culture.png"
         breadcrumbs={[
           { label: "Programação", href: "/programacao" },
           { label: "Festival" },

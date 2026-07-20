@@ -54,7 +54,7 @@ export default function SobreObjetivos() {
       <PageHero
         badge="Objetivos"
         title="O que nos move"
-        backgroundImage="/images/hero/BeauxArtsFestival-3_F6F5D918-D076-2506-9708329E3D1124EA_f6f70129-d4ea-262f-31953200ed3efa60.webp"
+        backgroundImage="/images/hero/fivaa-junte-se.png"
         breadcrumbs={[
           { label: "Sobre", href: "/sobre" },
           { label: "Objetivos" },

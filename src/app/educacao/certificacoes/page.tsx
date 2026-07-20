@@ -45,7 +45,7 @@ export default function EducacaoCertificacoes() {
         badge="Certificações"
         title="Certificações"
         subtitle="Reconhecimento profissional do seu percurso artístico no FIVAA"
-        backgroundImage="/images/hero/LC_CERT-10-1.webp"
+        backgroundImage="/images/hero/fivaa-educacao.png"
         breadcrumbs={[
           { label: "Educação", href: "/educacao" },
           { label: "Certificações" },

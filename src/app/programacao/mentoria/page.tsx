@@ -55,7 +55,7 @@ export default function ProgramacaoMentoria() {
         badge="Programa de Mentoria"
         title="Programa de Mentoria"
         subtitle="6 meses de desenvolvimento artístico personalizado com artistas experientes"
-        backgroundImage="/images/hero/387c1334-f070-4f6a-a569-6d63e85e9101.webp"
+        backgroundImage="/images/hero/fivaa-art-culture.png"
         breadcrumbs={[
           { label: "Programação", href: "/programacao" },
           { label: "Mentoria" },

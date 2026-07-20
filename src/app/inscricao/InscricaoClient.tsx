@@ -129,7 +129,7 @@ export default function InscricaoClient() {
         badge="Inscrição"
         title="Garanta o seu lugar"
         subtitle="No maior evento de valorização da arte africana"
-        backgroundImage="/images/hero/whatsapp-image-2025-09-08-at-10-01-27-am-1200x800.jpeg"
+        backgroundImage="/images/hero/fivaa-experiencia.png"
       />
 
       {/* 2. Form — Dark */}

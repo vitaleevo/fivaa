@@ -50,7 +50,7 @@ export default function ProgramacaoDesafios() {
         badge="Desafios Criativos"
         title="Desafios Artísticos"
         subtitle="Estimule a sua criatividade com desafios mensais e competições"
-        backgroundImage="/images/hero/387c1334-f070-4f6a-a569-6d63e85e9101.webp"
+        backgroundImage="/images/hero/fivaa-art-culture.png"
         breadcrumbs={[
           { label: "Programação", href: "/programacao" },
           { label: "Desafios" },

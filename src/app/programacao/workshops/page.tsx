@@ -79,7 +79,7 @@ export default function ProgramacaoWorkshops() {
         badge="Programação Mensal"
         title="Workshops Interativos"
         subtitle="Sessões práticas mensais de aperfeiçoamento artístico e troca de experiências"
-        backgroundImage="/images/hero/387c1334-f070-4f6a-a569-6d63e85e9101.webp"
+        backgroundImage="/images/hero/fivaa-art-culture.png"
         breadcrumbs={[
           { label: "Programação", href: "/programacao" },
           { label: "Workshops" },

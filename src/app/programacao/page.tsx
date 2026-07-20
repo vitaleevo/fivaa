@@ -16,7 +16,7 @@ export default function Programacao() {
         badge="Programação"
         title="Dois dias de imersão"
         subtitle="Na arte e cultura africana"
-        backgroundImage="/images/hero/387c1334-f070-4f6a-a569-6d63e85e9101.webp"
+        backgroundImage="/images/hero/fivaa-art-culture.png"
       />
 
       <AccentBar />
