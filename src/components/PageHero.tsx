@@ -25,9 +25,11 @@ export default function PageHero({
           src={backgroundImage}
           alt=""
           fill
-          className="object-cover opacity-20"
+          sizes="100vw"
+          className="opacity-20"
           priority
           aria-hidden="true"
+          style={{ objectFit: "cover", objectPosition: "center" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-green-dark/75 to-green-dark" />
       </div>

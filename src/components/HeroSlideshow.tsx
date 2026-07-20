@@ -55,9 +55,11 @@ export default function HeroSlideshow() {
               src={slide.bg}
               alt=""
               fill
+              sizes="100vw"
               priority={index === 0}
               aria-hidden="true"
-              className={`object-cover ${reducedMotion ? "" : "transition-transform duration-[7000ms] ease-out"} ${active ? "scale-105" : "scale-100"}`}
+              style={{ objectFit: "cover", objectPosition: "center" }}
+              className={`${reducedMotion ? "" : "transition-transform duration-[7000ms] ease-out"} ${active ? "scale-105" : "scale-100"}`}
             />
           </div>
         );
