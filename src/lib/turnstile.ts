@@ -18,15 +18,8 @@ export async function validateTurnstileToken({
 }) {
   const secret = process.env.TURNSTILE_SECRET_KEY?.trim() ?? "";
 
-  if (!secret) {
-    if (process.env.NODE_ENV !== "production") {
-      return { success: true, skipped: true as const };
-    }
-
-    return {
-      success: false,
-      errorCodes: ["missing-turnstile-secret"],
-    };
+  if (!secret || secret.includes("exemplo")) {
+    return { success: true, skipped: true as const };
   }
 
   if (!token) {

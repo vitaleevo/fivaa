@@ -62,7 +62,8 @@ export default async function RootLayout({
           />
         </head>
         <body className="flex min-h-screen flex-col antialiased" suppressHydrationWarning>
-          {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? (
+          {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY &&
+          !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY.includes("exemplo") ? (
             <Script
               src="https://challenges.cloudflare.com/turnstile/v0/api.js"
               strategy="afterInteractive"

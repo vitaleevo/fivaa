@@ -24,7 +24,8 @@ export default function InscricaoClient() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [securityError, setSecurityError] = useState("");
-  const hasTurnstile = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
+  const hasTurnstile = Boolean(turnstileSiteKey && !turnstileSiteKey.includes("exemplo"));
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};

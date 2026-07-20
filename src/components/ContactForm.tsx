@@ -13,7 +13,8 @@ export default function ContactForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [securityError, setSecurityError] = useState("");
-  const hasTurnstile = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
+  const hasTurnstile = Boolean(turnstileSiteKey && !turnstileSiteKey.includes("exemplo"));
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
