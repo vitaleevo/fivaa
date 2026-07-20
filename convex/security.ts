@@ -1,4 +1,5 @@
 import type { MutationCtx, QueryCtx } from "./_generated/server";
+import { getAuthUserId } from "@convex-dev/auth/server";
 
 const DEFAULT_ADMIN_EMAILS = ["info@fivaa.com"];
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -6,7 +7,7 @@ const PHONE_REGEX = /^\+?[0-9\s\-()]{9,20}$/;
 const RATE_LIMIT_WINDOW_MS = 1000 * 60 * 10;
 const RATE_LIMIT_BLOCK_MS = 1000 * 60 * 30;
 
-type AuthContext = Pick<MutationCtx, "auth"> | Pick<QueryCtx, "auth">;
+type AuthContext = Pick<MutationCtx, "auth" | "db"> | Pick<QueryCtx, "auth" | "db">;
 type RateLimitContext = Pick<MutationCtx, "db">;
 
 export function normalizeEmail(value: string) {
@@ -29,17 +30,15 @@ export function getAllowedAdminEmails() {
 }
 
 export async function requireAdmin(ctx: AuthContext) {
-  const identity = await ctx.auth.getUserIdentity();
-  const email =
-    identity && typeof identity.email === "string"
-      ? normalizeEmail(identity.email)
-      : "";
+  const userId = await getAuthUserId(ctx);
+  const user = userId ? await ctx.db.get(userId) : null;
+  const email = user?.email ? normalizeEmail(user.email) : "";
 
   if (!email || !getAllowedAdminEmails().has(email)) {
     throw new Error("Unauthorized: admin access required.");
   }
 
-  return { identity, email };
+  return { userId, email };
 }
 
 export function sanitizeText(value: string) {

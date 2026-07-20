@@ -3,8 +3,7 @@ import Script from "next/script";
 import { headers } from "next/headers";
 import { connection } from "next/server";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { AppChrome } from "@/components/AppChrome";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 
@@ -71,9 +70,7 @@ export default async function RootLayout({
             />
           ) : null}
           <ConvexClientProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <AppChrome>{children}</AppChrome>
           </ConvexClientProvider>
         </body>
       </html>

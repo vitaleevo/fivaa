@@ -27,7 +27,7 @@ export function LogoWhite({ className = "h-12 w-auto" }: { className?: string })
 
 export function LogoDark({ className = "h-12 w-auto" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 210 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg role="img" aria-label="Logótipo FIVAA (Escuro)" className={className} viewBox="0 0 210 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* F */}
       <path d="M10 10H40V20H20V28H35V38H20V55H10V10Z" fill="#1A1A1A"/>
       {/* I */}
@@ -49,7 +49,7 @@ export function LogoDark({ className = "h-12 w-auto" }: { className?: string }) 
 
 export function LogoIcon({ className = "h-10 w-10" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg role="img" aria-label="Ícone FIVAA" className={className} viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="30" cy="30" r="28" fill="#124734" stroke="#FDB813" strokeWidth="2"/>
       <path d="M18 18H38V24H24V28H34V32H24V42H18V18Z" fill="white"/>
       <path d="M30 42L40 18H44L50 42H46L44 36H38L36 42H30ZM39 32H43L41 20L39 32Z" fill="white"/>

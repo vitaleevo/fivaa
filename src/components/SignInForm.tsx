@@ -5,7 +5,7 @@ import { useAuthActions } from "@convex-dev/auth/react";
 
 export function SignInForm() {
   const { signIn } = useAuthActions();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("info@fivaa.com");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,8 +21,7 @@ export function SignInForm() {
         password,
         flow: "signIn",
       });
-    } catch (err) {
-      console.error("Authentication failed:", err);
+    } catch {
       setError("Credenciais inválidas.");
     } finally {
       setLoading(false);
@@ -43,6 +42,8 @@ export function SignInForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="username"
+            inputMode="email"
             aria-describedby={error ? "login-error" : undefined}
             aria-invalid={error ? "true" : "false"}
             className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gold focus:outline-none focus:ring-gold sm:text-sm"
@@ -51,7 +52,7 @@ export function SignInForm() {
       </div>
 
       <div>
-        <label htmlFor="admin-password" className="block text-sm font-medium text-gray-700">Password</label>
+        <label htmlFor="admin-password" className="block text-sm font-medium text-gray-700">Senha</label>
         <div className="mt-1">
           <input
             id="admin-password"
@@ -59,6 +60,7 @@ export function SignInForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            autoComplete="current-password"
             aria-describedby={error ? "login-error" : undefined}
             aria-invalid={error ? "true" : "false"}
             className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-gold focus:outline-none focus:ring-gold sm:text-sm"
