@@ -48,7 +48,7 @@ export default function EducacaoRecursos() {
         badge="Recursos Educativos"
         title="Biblioteca de Recursos"
         subtitle="Conteúdo educativo para aprimorar as suas habilidades artísticas"
-        backgroundImage="/images/hero/fivaa-educacao.png"
+        backgroundImage="/images/hero/fivaa-educacao.webp"
         breadcrumbs={[
           { label: "Educação", href: "/educacao" },
           { label: "Recursos" },

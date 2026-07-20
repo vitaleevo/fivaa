@@ -70,7 +70,7 @@ export default function ProgramacaoPalestras() {
         badge="Programação Mensal"
         title="Palestras Inspiradoras"
         subtitle="Sessões de conhecimento e reflexão sobre arte, cultura e desenvolvimento"
-        backgroundImage="/images/hero/fivaa-art-culture.png"
+        backgroundImage="/images/hero/fivaa-art-culture.webp"
         breadcrumbs={[
           { label: "Programação", href: "/programacao" },
           { label: "Palestras" },

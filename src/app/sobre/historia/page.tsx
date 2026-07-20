@@ -57,7 +57,7 @@ export default function SobreHistoria() {
         badge="História"
         title="A nossa história"
         subtitle="De uma visão a uma organização continental que transforma vidas através da arte"
-        backgroundImage="/images/hero/fivaa-junte-se.png"
+        backgroundImage="/images/hero/fivaa-junte-se.webp"
         breadcrumbs={[
           { label: "Sobre", href: "/sobre" },
           { label: "História" },

@@ -37,7 +37,7 @@ export default function ParceirosPage() {
         badge="Parcerias"
         title="Os Nossos Parceiros"
         subtitle="Uma parceria que vai além do financeiro - impacto cultural e social"
-        backgroundImage="/images/hero/fivaa-palacio-ferro.png"
+        backgroundImage="/images/hero/fivaa-palacio-ferro.webp"
       />
 
       {/* Áreas */}

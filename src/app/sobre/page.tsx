@@ -15,7 +15,7 @@ export default function Sobre() {
         badge="Sobre"
         title="FIVAA"
         subtitle="Fórum & Festival Internacional da Valorização da Arte Africana"
-        backgroundImage="/images/hero/fivaa-junte-se.png"
+        backgroundImage="/images/hero/fivaa-junte-se.webp"
       />
 
       {/* 2. Missão — Dark */}

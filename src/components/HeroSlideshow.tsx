@@ -5,12 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 const slides = [
-  { bg: "/images/hero/fivaa-forum-hero.png", title: "FIVAA 2026", subtitle: "Fórum Internacional para a Valorização da Arte Africana" },
-  { bg: "/images/hero/fivaa-art-culture.png", title: "Arte & Cultura", subtitle: "Dois dias de imersão na arte africana" },
-  { bg: "/images/hero/fivaa-palacio-ferro.png", title: "20–21 Novembro", subtitle: "Palácio de Ferro, Luanda, Angola" },
-  { bg: "/images/hero/fivaa-junte-se.png", title: "Junte-se a nós", subtitle: "Inscreva-se agora no maior evento de arte africana" },
-  { bg: "/images/hero/fivaa-educacao.png", title: "Luanda, Angola", subtitle: "Palácio de Ferro — o palco da arte africana" },
-  { bg: "/images/hero/fivaa-experiencia.png", title: "Experiência única", subtitle: "Música, exposições, networking e muito mais" },
+  { bg: "/images/hero/fivaa-forum-hero.webp", title: "FIVAA 2026", subtitle: "Fórum Internacional para a Valorização da Arte Africana" },
+  { bg: "/images/hero/fivaa-art-culture.webp", title: "Arte & Cultura", subtitle: "Dois dias de imersão na arte africana" },
+  { bg: "/images/hero/fivaa-palacio-ferro.webp", title: "20–21 Novembro", subtitle: "Palácio de Ferro, Luanda, Angola" },
+  { bg: "/images/hero/fivaa-junte-se.webp", title: "Junte-se a nós", subtitle: "Inscreva-se agora no maior evento de arte africana" },
+  { bg: "/images/hero/fivaa-educacao.webp", title: "Luanda, Angola", subtitle: "Palácio de Ferro — o palco da arte africana" },
+  { bg: "/images/hero/fivaa-experiencia.webp", title: "Experiência única", subtitle: "Música, exposições, networking e muito mais" },
 ];
 
 export default function HeroSlideshow() {

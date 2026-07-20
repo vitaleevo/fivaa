@@ -16,7 +16,7 @@ export default function ParceirosTestemunhos() {
         badge="Testemunhos"
         title="Vozes do FIVAA"
         subtitle="Histórias reais de quem faz parte desta comunidade"
-        backgroundImage="/images/hero/fivaa-palacio-ferro.png"
+        backgroundImage="/images/hero/fivaa-palacio-ferro.webp"
         breadcrumbs={[
           { label: "Parceiros", href: "/parceiros" },
           { label: "Testemunhos" },

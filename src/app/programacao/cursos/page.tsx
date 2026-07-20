@@ -58,7 +58,7 @@ export default function ProgramacaoCursos() {
         badge="Cursos Online"
         title="Cursos Estruturados"
         subtitle="Formação profissional em diferentes áreas artísticas com certificação"
-        backgroundImage="/images/hero/fivaa-art-culture.png"
+        backgroundImage="/images/hero/fivaa-art-culture.webp"
         breadcrumbs={[
           { label: "Programação", href: "/programacao" },
           { label: "Cursos" },

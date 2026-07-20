@@ -22,7 +22,7 @@ export default function SobreVisaoGeral() {
       <PageHero
         badge="Visão Geral"
         title="Mais que artistas, somos educadores"
-        backgroundImage="/images/hero/fivaa-junte-se.png"
+        backgroundImage="/images/hero/fivaa-junte-se.webp"
         breadcrumbs={[
           { label: "Sobre", href: "/sobre" },
           { label: "Visão Geral" },

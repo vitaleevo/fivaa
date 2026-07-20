@@ -51,7 +51,7 @@ export default function EducacaoWorkshops() {
         badge="Workshops Educacionais"
         title="Workshops de Aprendizagem"
         subtitle="Formação prática para todos os níveis de experiência artística"
-        backgroundImage="/images/hero/fivaa-educacao.png"
+        backgroundImage="/images/hero/fivaa-educacao.webp"
         breadcrumbs={[
           { label: "Educação", href: "/educacao" },
           { label: "Workshops" },

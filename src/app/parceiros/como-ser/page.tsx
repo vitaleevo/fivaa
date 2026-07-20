@@ -61,7 +61,7 @@ export default function ParceirosComoSer() {
         badge="Torne-se Parceiro"
         title="Como Ser Parceiro"
         subtitle="Um processo simples para uma parceria que transforma"
-        backgroundImage="/images/hero/fivaa-palacio-ferro.png"
+        backgroundImage="/images/hero/fivaa-palacio-ferro.webp"
         breadcrumbs={[
           { label: "Parceiros", href: "/parceiros" },
           { label: "Como Ser Parceiro" },

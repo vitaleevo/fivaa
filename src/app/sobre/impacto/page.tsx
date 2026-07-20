@@ -72,7 +72,7 @@ export default function SobreImpacto() {
         badge="Impacto"
         title="Impacto do FIVAA"
         subtitle="O FIVAA desempenha um papel fundamental na valorização da arte em várias dimensões"
-        backgroundImage="/images/hero/fivaa-junte-se.png"
+        backgroundImage="/images/hero/fivaa-junte-se.webp"
         breadcrumbs={[
           { label: "Sobre", href: "/sobre" },
           { label: "Impacto" },

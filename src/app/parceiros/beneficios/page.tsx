@@ -59,7 +59,7 @@ export default function ParceirosBeneficios() {
         badge="Parceria"
         title="Benefícios para Parceiros"
         subtitle="Uma parceria que vai além do financeiro - impacto cultural e social"
-        backgroundImage="/images/hero/fivaa-palacio-ferro.png"
+        backgroundImage="/images/hero/fivaa-palacio-ferro.webp"
         breadcrumbs={[
           { label: "Parceiros", href: "/parceiros" },
           { label: "Benefícios" },

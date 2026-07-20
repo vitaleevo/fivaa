@@ -16,7 +16,7 @@ export default function Oradores() {
         badge="Oradores"
         title="Artistas e pensadores"
         subtitle="Da arte africana no FIVAA 2026"
-        backgroundImage="/images/hero/fivaa-forum-hero.png"
+        backgroundImage="/images/hero/fivaa-forum-hero.webp"
       />
 
       {/* 2. Speakers Grid — Dark */}

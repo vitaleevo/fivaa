@@ -24,7 +24,7 @@ export default function Contactos() {
         badge="Contactos"
         title="Estamos aqui"
         subtitle="Entre em contacto com a equipa do FIVAA. Estamos em Luanda, Angola."
-        backgroundImage="/images/hero/fivaa-forum-hero.png"
+        backgroundImage="/images/hero/fivaa-forum-hero.webp"
       />
 
       {/* 2. Content — Dark */}

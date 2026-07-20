@@ -70,7 +70,7 @@ export default function ProgramacaoExposicoes() {
         badge="Exposições"
         title="Exposições"
         subtitle="Plataformas de exposição para artistas de todas as disciplinas e regiões"
-        backgroundImage="/images/hero/fivaa-art-culture.png"
+        backgroundImage="/images/hero/fivaa-art-culture.webp"
         breadcrumbs={[
           { label: "Programação", href: "/programacao" },
           { label: "Exposições" },
