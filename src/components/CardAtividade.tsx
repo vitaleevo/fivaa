@@ -33,10 +33,10 @@ export default function CardAtividade({
   const cardContent = (
     <Card
       className={cn(
-        "transition-all hover:shadow-lg hover:shadow-gold/10",
+        "content-card rounded-[1.5rem] transition-all",
         variant === "dark"
           ? "border-white/10 bg-white/5 text-white"
-          : "border-gold/10 bg-white shadow-md shadow-gold/5 hover:border-gold/30"
+          : "border-gold/10 bg-white"
       )}
     >
       <CardHeader>
@@ -121,11 +121,11 @@ export default function CardAtividade({
           <Link
             href={href}
             className={cn(
-              "font-montserrat text-sm font-bold transition-colors",
+              "inline-flex items-center gap-2 font-montserrat text-sm font-bold transition-colors",
               variant === "dark" ? "text-gold hover:text-gold/80" : "text-gold hover:text-gold/80"
             )}
           >
-            Saber mais &rarr;
+            Saber mais <span aria-hidden="true">→</span>
           </Link>
         </CardFooter>
       )}

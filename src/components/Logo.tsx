@@ -5,8 +5,8 @@ export function LogoPrimary({ className = "h-12 w-auto" }: { className?: string 
     <Image
       src="/images/LOGO FIVAA - PRINCIPAL  SEM FUNDO.png"
       alt="FIVAA"
-      width={420}
-      height={128}
+      width={1000}
+      height={1000}
       priority
       className={className}
     />
@@ -18,8 +18,8 @@ export function LogoWhite({ className = "h-12 w-auto" }: { className?: string })
     <Image
       src="/images/LOGO FIVAA - MONOCRÓMATICO - BRANCO SEM FUNDO.png"
       alt="FIVAA"
-      width={420}
-      height={128}
+      width={1000}
+      height={1000}
       className={className}
     />
   );

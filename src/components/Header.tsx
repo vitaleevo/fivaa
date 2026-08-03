@@ -77,13 +77,23 @@ function DesktopDropdown({ link }: { link: NavigationLink }) {
   const isActive = pathname === link.href || children.some((child) => pathname === child.href);
 
   return (
-    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onFocus={() => setOpen(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) setOpen(false);
+      }}
+    >
       <Link
         href={link.href}
         className={cn(
           "flex items-center gap-1 rounded-lg px-3 py-2 font-montserrat text-[13px] font-semibold transition-all",
           isActive ? "bg-gold/10 text-gold" : "text-gray-medium hover:bg-gold/5 hover:text-gold"
         )}
+        aria-haspopup="menu"
+        aria-expanded={open}
       >
         {link.label}
         <svg className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -91,11 +101,12 @@ function DesktopDropdown({ link }: { link: NavigationLink }) {
         </svg>
       </Link>
       {open && (
-        <div className="absolute left-0 top-full z-50 mt-2 min-w-[220px] rounded-xl border border-gold/15 bg-warm-white p-2 shadow-xl shadow-green-dark/10">
+        <div role="menu" className="absolute left-0 top-full z-50 mt-2 min-w-[220px] rounded-2xl border border-gold/15 bg-warm-white p-2 shadow-xl shadow-green-dark/10">
           {children.map((child) => (
             <Link
               key={child.href}
               href={child.href}
+              role="menuitem"
               className={cn(
                 "block rounded-lg px-4 py-2.5 font-montserrat text-sm transition-all",
                 pathname === child.href ? "bg-gold/10 font-semibold text-gold" : "text-gray-medium hover:bg-gold/5 hover:text-gold"
@@ -168,7 +179,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="border-b border-white/10 bg-green-dark py-2">
+      <div className="border-b border-white/10 bg-green-dark py-2.5">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-4 sm:gap-6">
             <a href="tel:+244931238451" className="flex items-center gap-2 whitespace-nowrap text-xs text-white/70 transition-colors hover:text-gold">
@@ -202,10 +213,10 @@ export default function Header() {
         </div>
       </div>
 
-      <header className="sticky top-0 z-50 w-full border-b border-green-dark/10 bg-warm-white/95 shadow-[0_10px_30px_rgba(18,71,52,0.06)] backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-50 w-full border-b border-green-dark/10 bg-warm-white/95 shadow-[0_8px_28px_rgba(18,71,52,0.08)] backdrop-blur-xl">
+        <div className="mx-auto flex h-[100px] max-w-7xl items-center justify-between gap-4 px-4 sm:h-[116px] sm:px-6 lg:px-8">
           <Link href="/" className="flex shrink-0 items-center rounded-lg" aria-label="FIVAA — Página inicial">
-            <LogoPrimary className="h-22 w-auto sm:h-24" />
+            <LogoPrimary className="h-32 w-auto sm:h-36" />
           </Link>
 
           <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navegação principal">
@@ -225,7 +236,7 @@ export default function Header() {
                 </Link>
               )
             )}
-            <Link href="/inscricao" className="ml-3 rounded-full bg-gold px-5 py-2.5 font-montserrat text-[13px] font-extrabold text-green-dark transition-all hover:bg-gold-metallic hover:shadow-lg hover:shadow-gold/20">
+            <Link href="/inscricao" className="ml-3 rounded-full bg-gold px-5 py-2.5 font-montserrat text-[13px] font-extrabold text-green-dark shadow-[0_8px_18px_rgba(253,184,19,0.24)] transition-all hover:-translate-y-0.5 hover:bg-gold-metallic hover:shadow-lg hover:shadow-gold/20">
               Inscrição
             </Link>
           </nav>

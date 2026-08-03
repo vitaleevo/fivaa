@@ -32,7 +32,12 @@ export function getErrorStatus(message: string) {
     return 400;
   }
 
-  if (message.includes("indisponíveis")) {
+  if (
+    message.includes("indisponíveis") ||
+    message.includes("indisponível") ||
+    message.includes("fetch failed") ||
+    message.includes("tente novamente")
+  ) {
     return 503;
   }
 

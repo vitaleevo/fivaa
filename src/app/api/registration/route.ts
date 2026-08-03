@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
-import { fetchMutation } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
 import { getClientIp, getErrorStatus, getSubmissionSecret } from "@/lib/request";
-import { validateTurnstileToken } from "@/lib/turnstile";
+import {
+  fetchMutationWithRetry,
+  isNetworkError,
+  getNetworkErrorMessage,
+} from "@/lib/convex";
 
 export const runtime = "nodejs";
 
@@ -17,7 +20,6 @@ export async function POST(request: Request) {
       ticketId?: string;
       startedAt?: number;
       honeypot?: string;
-      turnstileToken?: string;
     };
 
     const submissionSecret = getSubmissionSecret();
@@ -29,20 +31,8 @@ export async function POST(request: Request) {
     }
 
     const clientIp = getClientIp(request);
-    const verification = await validateTurnstileToken({
-      token: body.turnstileToken?.trim() ?? "",
-      remoteIp: clientIp,
-      expectedAction: "registration_form",
-    });
 
-    if (!verification.success) {
-      return NextResponse.json(
-        { error: "Verificação anti-bot falhou." },
-        { status: 400 },
-      );
-    }
-
-    await fetchMutation(api.registrations.create, {
+    await fetchMutationWithRetry(api.registrations.create, {
       name: body.name ?? "",
       email: body.email ?? "",
       phone: body.phone ?? "",
@@ -57,8 +47,11 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Falha ao concluir a inscrição.";
+    const message = isNetworkError(error)
+      ? getNetworkErrorMessage()
+      : error instanceof Error
+        ? error.message
+        : "Falha ao concluir a inscrição.";
 
     return NextResponse.json(
       { error: message },

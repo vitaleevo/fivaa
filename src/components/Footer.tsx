@@ -12,16 +12,17 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t-4 border-gold bg-green-dark">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <footer className="relative overflow-hidden border-t-4 border-gold bg-green-dark">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.06] kente-stripes" aria-hidden="true" />
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Image
               src="/images/LOGO FIVAA - MONOCRÓMATICO - BRANCO SEM FUNDO.png"
               alt="FIVAA"
-              width={480}
-              height={150}
-              className="h-36 w-auto object-contain"
+              width={1000}
+              height={1000}
+              className="h-28 w-auto object-contain sm:h-32"
             />
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               Plataforma internacional dedicada à promoção, valorização e
@@ -79,7 +80,7 @@ export default function Footer() {
             <p className="mb-4 text-sm text-white/60">
               Siga o FIVAA nas redes sociais.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-3" aria-label="Redes sociais">
               {socialLinks.map((social) => {
                 const IconComponent = social.Icon;
                 return (
@@ -96,7 +97,7 @@ export default function Footer() {
 
         <DividerWhite className="my-12" />
 
-        <div className="text-center">
+        <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
           <p className="text-sm text-white/40">
             &copy; {new Date().getFullYear()} FIVAA — Fórum & Festival
             Internacional da Valorização da Arte Africana.

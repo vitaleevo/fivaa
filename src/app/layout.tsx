@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
-import { headers } from "next/headers";
 import { connection } from "next/server";
 import "./globals.css";
 import { AppChrome } from "@/components/AppChrome";
@@ -44,7 +42,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   await connection();
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   return (
     <ConvexAuthNextjsServerProvider>
@@ -55,21 +52,12 @@ export default async function RootLayout({
           <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <link rel="preconnect" href="https://challenges.cloudflare.com" />
           <link
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
             rel="stylesheet"
           />
         </head>
         <body className="flex min-h-screen flex-col antialiased" suppressHydrationWarning>
-          {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY &&
-          !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY.includes("exemplo") ? (
-            <Script
-              src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-              strategy="afterInteractive"
-              nonce={nonce}
-            />
-          ) : null}
           <ConvexClientProvider>
             <AppChrome>{children}</AppChrome>
           </ConvexClientProvider>

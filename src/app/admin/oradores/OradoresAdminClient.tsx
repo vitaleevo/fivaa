@@ -1,111 +1,279 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
+import { Id } from "../../../../convex/_generated/dataModel";
+import {
+  AdminPageHeader,
+  AdminSearch,
+  AdminSectionCard,
+  AdminConfirmDialog,
+  AdminToast,
+  AdminLoading,
+  AdminTable,
+  AdminTableHead,
+  AdminTableHeadCell,
+  AdminTableBody,
+  AdminTableRow,
+  AdminTableCell,
+  AdminPagination,
+} from "@/components/admin/AdminUI";
+
+const ITEMS_PER_PAGE = 10;
+
+const colorOptions = [
+  { value: "from-gold to-orange", label: "Ouro → Laranja", preview: "bg-gradient-to-r from-gold to-orange" },
+  { value: "from-green-medium to-green-dark", label: "Verde", preview: "bg-gradient-to-r from-green-medium to-green-dark" },
+  { value: "from-orange to-gold", label: "Laranja → Ouro", preview: "bg-gradient-to-r from-orange to-gold" },
+  { value: "from-gold-metallic to-gold", label: "Dourado", preview: "bg-gradient-to-r from-gold-metallic to-gold" },
+  { value: "from-green-dark to-green-medium", label: "Verde Escuro", preview: "bg-gradient-to-r from-green-dark to-green-medium" },
+  { value: "from-orange to-gold-metallic", label: "Laranja → Metálico", preview: "bg-gradient-to-r from-orange to-gold-metallic" },
+  { value: "from-gold to-green-medium", label: "Ouro → Verde", preview: "bg-gradient-to-r from-gold to-green-medium" },
+];
 
 export default function OradoresAdmin() {
   const speakers = useQuery(api.speakers.get);
   const createSpeaker = useMutation(api.speakers.create);
   const removeSpeaker = useMutation(api.speakers.remove);
 
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ name: "", role: "", country: "", color: "from-gold to-orange" });
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [deleteTarget, setDeleteTarget] = useState<{ id: Id<"speakers">; name: string } | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const filtered = useMemo(() => {
+    if (!speakers) return [];
+    return speakers.filter(
+      (s) =>
+        search === "" ||
+        s.name.toLowerCase().includes(search.toLowerCase()) ||
+        s.role.toLowerCase().includes(search.toLowerCase()) ||
+        s.country.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [speakers, search]);
+
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+
+  const validate = () => {
+    const e: Record<string, string> = {};
+    if (form.name.trim().length < 2) e.name = "Nome deve ter pelo menos 2 caracteres.";
+    if (form.role.trim().length < 2) e.role = "Cargo deve ter pelo menos 2 caracteres.";
+    if (form.country.trim().length < 2) e.country = "País deve ter pelo menos 2 caracteres.";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleSubmit = async (ev: React.FormEvent) => {
+    ev.preventDefault();
+    if (!validate()) return;
     setLoading(true);
     try {
       await createSpeaker(form);
       setForm({ name: "", role: "", country: "", color: "from-gold to-orange" });
-    } catch (err) {
-      console.error(err);
-      alert("Erro ao adicionar orador.");
+      setShowForm(false);
+      setToast({ message: "Orador adicionado com sucesso.", type: "success" });
+    } catch {
+      setToast({ message: "Erro ao adicionar orador.", type: "error" });
     } finally {
       setLoading(false);
     }
   };
 
-  if (speakers === undefined) return <div className="p-8">Carregando...</div>;
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+    try {
+      await removeSpeaker({ id: deleteTarget.id });
+      setToast({ message: "Orador removido com sucesso.", type: "success" });
+      setDeleteTarget(null);
+    } catch {
+      setToast({ message: "Erro ao remover orador.", type: "error" });
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  if (speakers === undefined) return <AdminLoading />;
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Gestão de Oradores</h1>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Form */}
-        <div className="bg-white p-6 shadow sm:rounded-lg">
-          <h2 className="text-xl font-bold mb-4">Adicionar Orador</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Nome</label>
-              <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold focus:ring-gold sm:text-sm p-2 border" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Cargo</label>
-              <input type="text" required value={form.role} onChange={e => setForm({...form, role: e.target.value})}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold focus:ring-gold sm:text-sm p-2 border" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">País</label>
-              <input type="text" required value={form.country} onChange={e => setForm({...form, country: e.target.value})}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold focus:ring-gold sm:text-sm p-2 border" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Gradiente de Cor</label>
-              <select value={form.color} onChange={e => setForm({...form, color: e.target.value})}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold focus:ring-gold sm:text-sm p-2 border">
-                <option value="from-gold to-orange">Ouro para Laranja</option>
-                <option value="from-green-medium to-green-dark">Verde</option>
-                <option value="from-orange to-gold">Laranja para Ouro</option>
-                <option value="from-gold-metallic to-gold">Dourado Metálico</option>
-                <option value="from-green-dark to-green-medium">Verde Escuro</option>
-                <option value="from-orange to-gold-metallic">Laranja para Metálico</option>
-                <option value="from-gold to-green-medium">Ouro para Verde</option>
-              </select>
-            </div>
-            <button type="submit" disabled={loading} className="w-full bg-gold text-green-dark p-2 rounded hover:bg-gold-metallic disabled:opacity-50">
-              {loading ? "A Adicionar..." : "Adicionar Orador"}
+    <div>
+      <AdminPageHeader
+        title="Oradores"
+        subtitle={`${speakers.length} oradores registados`}
+        breadcrumbs={[
+          { label: "Admin", href: "/admin" },
+          { label: "Oradores" },
+        ]}
+        action={
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="inline-flex items-center gap-2 rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-green-dark transition-colors hover:bg-gold-metallic"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Novo Orador
+          </button>
+        }
+      />
+
+      {/* Create Form (collapsible) */}
+      {showForm && (
+        <div className="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-gray-900">Adicionar Orador</h2>
+            <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
+          </div>
+          <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-gray-700">Nome *</label>
+              <input
+                type="text"
+                required
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className={`w-full rounded-lg border px-3 py-2.5 text-sm outline-none transition-colors focus:ring-1 ${errors.name ? "border-red-300 focus:border-red-500 focus:ring-red-200" : "border-gray-300 focus:border-gold focus:ring-gold/20"}`}
+                placeholder="Nome completo"
+              />
+              {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-gray-700">Cargo *</label>
+              <input
+                type="text"
+                required
+                value={form.role}
+                onChange={(e) => setForm({ ...form, role: e.target.value })}
+                className={`w-full rounded-lg border px-3 py-2.5 text-sm outline-none transition-colors focus:ring-1 ${errors.role ? "border-red-300 focus:border-red-500 focus:ring-red-200" : "border-gray-300 focus:border-gold focus:ring-gold/20"}`}
+                placeholder="Ex: Artista Plástica"
+              />
+              {errors.role && <p className="mt-1 text-xs text-red-500">{errors.role}</p>}
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-gray-700">País *</label>
+              <input
+                type="text"
+                required
+                value={form.country}
+                onChange={(e) => setForm({ ...form, country: e.target.value })}
+                className={`w-full rounded-lg border px-3 py-2.5 text-sm outline-none transition-colors focus:ring-1 ${errors.country ? "border-red-300 focus:border-red-500 focus:ring-red-200" : "border-gray-300 focus:border-gold focus:ring-gold/20"}`}
+                placeholder="Ex: Angola"
+              />
+              {errors.country && <p className="mt-1 text-xs text-red-500">{errors.country}</p>}
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-gray-700">Cor</label>
+              <div className="flex items-center gap-2">
+                <select
+                  value={form.color}
+                  onChange={(e) => setForm({ ...form, color: e.target.value })}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/20"
+                >
+                  {colorOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+                <div className={`h-8 w-8 shrink-0 rounded-lg ${form.color}`} />
+              </div>
+            </div>
+            <div className="sm:col-span-2 lg:col-span-4 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setShowForm(false)}
+                className="rounded-lg border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-sm font-semibold text-green-dark transition-colors hover:bg-gold-metallic disabled:opacity-50"
+              >
+                {loading ? "A adicionar..." : "Adicionar Orador"}
+              </button>
+            </div>
           </form>
         </div>
+      )}
 
-        {/* List */}
-        <div className="lg:col-span-2">
-          <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nome</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cargo</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">País</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ações</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {speakers.map((speaker) => (
-                  <tr key={speaker._id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{speaker.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{speaker.role}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{speaker.country}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <button onClick={() => { if(confirm("Apagar?")) removeSpeaker({ id: speaker._id }) }} className="text-red-600 hover:text-red-900">
-                        Remover
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-                {speakers.length === 0 && (
-                  <tr>
-                    <td colSpan={4} className="px-6 py-4 text-center text-sm text-gray-500">Nenhum orador registado.</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+      {/* Search */}
+      <div className="mb-6">
+        <AdminSearch
+          value={search}
+          onChange={(v) => { setSearch(v); setPage(1); }}
+          placeholder="Pesquisar por nome, cargo, país..."
+          className="w-full sm:w-72"
+        />
       </div>
+
+      {/* Table */}
+      <AdminSectionCard
+        title={`Oradores (${filtered.length})`}
+        empty={filtered.length === 0}
+        emptyMessage={search ? "Nenhum orador corresponde à pesquisa." : "Nenhum orador registado."}
+      >
+        <AdminTable>
+          <AdminTableHead>
+            <AdminTableHeadCell>Orador</AdminTableHeadCell>
+            <AdminTableHeadCell>Cargo</AdminTableHeadCell>
+            <AdminTableHeadCell>País</AdminTableHeadCell>
+            <AdminTableHeadCell>Cor</AdminTableHeadCell>
+            <AdminTableHeadCell align="right">Ações</AdminTableHeadCell>
+          </AdminTableHead>
+          <AdminTableBody empty={filtered.length === 0} emptyColSpan={5}>
+            {paginated.map((speaker) => (
+              <AdminTableRow key={speaker._id}>
+                <AdminTableCell primary>
+                  <div className="flex items-center gap-3">
+                    <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${speaker.color}`}>
+                      {speaker.name.charAt(0)}
+                    </div>
+                    {speaker.name}
+                  </div>
+                </AdminTableCell>
+                <AdminTableCell>{speaker.role}</AdminTableCell>
+                <AdminTableCell>{speaker.country}</AdminTableCell>
+                <AdminTableCell>
+                  <div className={`h-6 w-10 rounded-md ${speaker.color}`} />
+                </AdminTableCell>
+                <AdminTableCell align="right">
+                  <button
+                    onClick={() => setDeleteTarget({ id: speaker._id, name: speaker.name })}
+                    className="rounded-md px-2 py-1 text-sm text-red-500 transition-colors hover:bg-red-50 hover:text-red-700"
+                  >
+                    Remover
+                  </button>
+                </AdminTableCell>
+              </AdminTableRow>
+            ))}
+          </AdminTableBody>
+        </AdminTable>
+        <AdminPagination page={page} totalPages={totalPages} onPageChange={setPage} />
+      </AdminSectionCard>
+
+      {/* Delete Dialog */}
+      <AdminConfirmDialog
+        open={!!deleteTarget}
+        title="Remover orador"
+        message={`Tem a certeza que deseja remover "${deleteTarget?.name}"? Esta ação não pode ser desfeita.`}
+        confirmLabel="Remover"
+        onConfirm={handleDelete}
+        onCancel={() => setDeleteTarget(null)}
+        loading={deleting}
+      />
+
+      {toast && <AdminToast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   );
 }

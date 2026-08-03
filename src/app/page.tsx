@@ -1,4 +1,5 @@
 import HeroSlideshow from "@/components/HeroSlideshow";
+import Link from "next/link";
 import { IconLectures, IconExhibition, IconLivePerformance, IconNetworking } from "@/components/HighlightIcons";
 import { AfricanPatternDark, Divider, Badge, MudclothPattern, TribalDivider } from "@/components/BrandElements";
 
@@ -63,9 +64,9 @@ export default function Home() {
       <TribalDivider className="text-green-dark bg-warm-white rotate-180" />
 
       {/* 3. Números — Light */}
-      <section className="relative bg-warm-white py-20 md:py-28">
+      <section className="site-grid relative bg-warm-white py-20 md:py-28">
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-[2rem] border border-gold/15 bg-white shadow-[0_24px_70px_rgba(18,71,52,0.10)]">
+          <div className="overflow-hidden rounded-[2rem] border border-gold/15 bg-white/95 shadow-[0_24px_70px_rgba(18,71,52,0.10)] backdrop-blur-sm">
             <div className="grid grid-cols-2 divide-y divide-gold/10 md:grid-cols-4 md:divide-x md:divide-y-0">
               {stats.map((stat) => (
                 <div key={stat.label} className="group px-4 py-9 text-center sm:px-6 sm:py-11">
@@ -118,7 +119,7 @@ export default function Home() {
       <TribalDivider className="text-green-dark bg-warm-white rotate-180" />
 
       {/* 5. Programação — Light */}
-      <section className="relative bg-warm-white py-24 md:py-32">
+      <section className="site-grid relative bg-warm-white py-24 md:py-32">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="mb-14 text-center md:mb-16">
             <Badge>Programação</Badge>
@@ -148,10 +149,10 @@ export default function Home() {
           </div>
           <Divider className="my-10" />
           <div className="text-center">
-            <a href="/programacao" className="inline-flex items-center gap-2 rounded-full border-2 border-green-dark px-8 py-4 font-montserrat text-sm font-extrabold text-green-dark transition-all hover:bg-green-dark hover:text-white">
+            <Link href="/programacao" className="inline-flex items-center gap-2 rounded-full border-2 border-green-dark px-8 py-4 font-montserrat text-sm font-extrabold text-green-dark transition-all hover:-translate-y-0.5 hover:bg-green-dark hover:text-white hover:shadow-xl hover:shadow-green-dark/15">
               Ver programação completa
               <span className="text-lg">→</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -180,8 +181,9 @@ export default function Home() {
       <TribalDivider className="text-green-dark bg-cream rotate-180" />
 
       {/* 7. CTA Final — Light */}
-      <section className="relative overflow-hidden bg-cream py-24 md:py-32">
-        <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <section className="site-grid relative overflow-hidden bg-cream py-24 md:py-32">
+        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <div className="rounded-[2rem] border border-gold/20 bg-warm-white/90 px-6 py-14 shadow-[0_24px_70px_rgba(18,71,52,0.10)] backdrop-blur-sm sm:px-12 sm:py-16">
           <h2 className="mb-6 font-montserrat text-4xl font-black text-green-dark sm:text-5xl">
             Vai perder esta{" "}
             <span className="text-gold">oportunidade</span>?
@@ -190,10 +192,11 @@ export default function Home() {
             Junte-se a nós no maior evento de valorização da arte africana.
             Lugares limitados.
           </p>
-          <a href="/inscricao" className="group relative inline-block overflow-hidden rounded-full bg-gold px-14 py-5 font-montserrat text-base font-extrabold text-green-dark transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-gold/30">
+          <Link href="/inscricao" className="group relative inline-block overflow-hidden rounded-full bg-gold px-14 py-5 font-montserrat text-base font-extrabold text-green-dark transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-gold/30">
             <span className="relative z-10">Inscreva-se Agora</span>
             <div className="absolute inset-0 bg-gradient-to-r from-gold to-gold-metallic opacity-0 transition-opacity group-hover:opacity-100" />
-          </a>
+          </Link>
+          </div>
         </div>
       </section>
     </>

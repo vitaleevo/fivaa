@@ -2,19 +2,14 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { TurnstileWidget } from "@/components/TurnstileWidget";
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [honeypot, setHoneypot] = useState("");
   const [startedAt, setStartedAt] = useState(() => Date.now());
-  const [turnstileToken, setTurnstileToken] = useState("");
-  const [turnstileKey, setTurnstileKey] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [securityError, setSecurityError] = useState("");
-  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
-  const hasTurnstile = Boolean(turnstileSiteKey && !turnstileSiteKey.includes("exemplo"));
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -55,11 +50,6 @@ export default function ContactForm() {
     if (status === "loading") return;
 
     if (validateForm()) {
-      if (hasTurnstile && !turnstileToken) {
-        setSecurityError("Confirme a verificação de segurança antes de enviar.");
-        return;
-      }
-
       setStatus("loading");
       setSecurityError("");
       
@@ -73,7 +63,6 @@ export default function ContactForm() {
             ...form,
             startedAt,
             honeypot,
-            turnstileToken,
           }),
         });
 
@@ -87,13 +76,9 @@ export default function ContactForm() {
         setForm({ name: "", email: "", subject: "", message: "" });
         setHoneypot("");
         setStartedAt(Date.now());
-        setTurnstileToken("");
-        setTurnstileKey((current) => current + 1);
       } catch (error) {
         console.error("Erro ao enviar mensagem:", error);
-        setSecurityError(error instanceof Error ? error.message : "Falha na verificação de segurança.");
-        setTurnstileToken("");
-        setTurnstileKey((current) => current + 1);
+        setSecurityError(error instanceof Error ? error.message : "Falha ao enviar a mensagem.");
         setStatus("error");
       }
     }
@@ -136,26 +121,7 @@ export default function ContactForm() {
         />
       </div>
 
-      {hasTurnstile && (
-        <div>
-          <TurnstileWidget
-            key={turnstileKey}
-            action="contact_form"
-            onVerify={(token) => {
-              setTurnstileToken(token);
-              setSecurityError("");
-            }}
-            onExpire={() => {
-              setTurnstileToken("");
-              setSecurityError("A verificação expirou. Confirme novamente.");
-            }}
-            onError={() => {
-              setTurnstileToken("");
-              setSecurityError("Não foi possível validar a proteção anti-bot.");
-            }}
-          />
-        </div>
-      )}
+
 
       {[
         { id: "name", label: "Nome", type: "text", placeholder: "Insira o seu nome" },
