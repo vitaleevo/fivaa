@@ -37,7 +37,7 @@ export default function HeroSlideshow() {
   const activeSlide = slides[current];
 
   return (
-    <section className="relative h-[calc(100svh-7rem)] min-h-[620px] w-full overflow-hidden bg-green-dark" aria-label="Apresentação de imagens do evento FIVAA">
+    <section className="relative h-[calc(100vh-7rem)] min-h-[620px] w-full overflow-hidden bg-green-dark supports-[height:100svh]:h-[calc(100svh-7rem)]" aria-label="Apresentação de imagens do evento FIVAA">
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         Slide {current + 1} de {slides.length}: {activeSlide.title} — {activeSlide.subtitle}
       </div>

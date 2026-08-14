@@ -22,6 +22,7 @@ export default function MensagensAdmin() {
   const messages = useQuery(api.messages.get);
   const removeMessage = useMutation(api.messages.remove);
   const markRead = useMutation(api.messages.markRead);
+  const markAllRead = useMutation(api.messages.markAllRead);
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -66,9 +67,7 @@ export default function MensagensAdmin() {
     if (!messages) return;
     const unread = messages.filter((m) => !m.read);
     try {
-      for (const msg of unread) {
-        await markRead({ id: msg._id });
-      }
+      await markAllRead({});
       setToast({ message: `${unread.length} mensagens marcadas como lidas.`, type: "success" });
     } catch {
       setToast({ message: "Erro ao marcar mensagens.", type: "error" });

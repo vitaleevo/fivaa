@@ -49,3 +49,31 @@ export const remove = mutation({
     await ctx.db.delete(args.id);
   },
 });
+
+export const update = mutation({
+  args: {
+    id: v.id("tickets"),
+    name: v.string(),
+    price: v.string(),
+    desc: v.string(),
+    features: v.array(v.string()),
+  },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+
+    const name = sanitizeText(args.name);
+    const price = sanitizeText(args.price);
+    const desc = sanitizeText(args.desc);
+    const features = args.features.map((feature) => sanitizeText(feature));
+
+    validateRequiredLength("Nome do bilhete", name, 2, 60);
+    validateRequiredLength("Preço", price, 1, 40);
+    validateRequiredLength("Descrição", desc, 10, 240);
+
+    for (const feature of features) {
+      validateRequiredLength("Característica", feature, 2, 120);
+    }
+
+    return await ctx.db.patch(args.id, { name, price, desc, features });
+  },
+});

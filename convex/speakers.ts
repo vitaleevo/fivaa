@@ -41,3 +41,28 @@ export const remove = mutation({
     await ctx.db.delete(args.id);
   },
 });
+
+export const update = mutation({
+  args: {
+    id: v.id("speakers"),
+    name: v.string(),
+    role: v.string(),
+    country: v.string(),
+    color: v.string(),
+  },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+
+    const name = sanitizeText(args.name);
+    const role = sanitizeText(args.role);
+    const country = sanitizeText(args.country);
+    const color = sanitizeText(args.color);
+
+    validateRequiredLength("Nome", name, 2, 80);
+    validateRequiredLength("Função", role, 2, 120);
+    validateRequiredLength("País", country, 2, 60);
+    validateRequiredLength("Cor", color, 2, 80);
+
+    return await ctx.db.patch(args.id, { name, role, country, color });
+  },
+});

@@ -55,12 +55,14 @@ const typeBadgeVariant: Record<string, "default" | "success" | "warning" | "dang
 export default function ProgramacaoAdmin() {
   const schedule = useQuery(api.schedule.get);
   const createSchedule = useMutation(api.schedule.create);
+  const updateSchedule = useMutation(api.schedule.update);
   const removeSchedule = useMutation(api.schedule.remove);
 
   const [search, setSearch] = useState("");
   const [dayFilter, setDayFilter] = useState("all");
   const [page, setPage] = useState(1);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<Id<"schedule"> | null>(null);
   const [form, setForm] = useState({ day: "20 de Novembro", time: "", title: "", type: "Painel" });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -101,14 +103,41 @@ export default function ProgramacaoAdmin() {
     if (!validate()) return;
     setLoading(true);
     try {
-      await createSchedule({ ...form, time: form.time.trim(), title: form.title.trim() });
-      setForm({ ...form, time: "", title: "" });
+      const data = { ...form, time: form.time.trim(), title: form.title.trim() };
+      if (editingId) {
+        await updateSchedule({ id: editingId, ...data });
+        setToast({ message: "Evento atualizado com sucesso.", type: "success" });
+      } else {
+        await createSchedule(data);
+        setToast({ message: "Evento adicionado com sucesso.", type: "success" });
+      }
+      setForm({ day: "20 de Novembro", time: "", title: "", type: "Painel" });
+      setEditingId(null);
       setShowForm(false);
-      setToast({ message: "Evento adicionado com sucesso.", type: "success" });
     } catch {
-      setToast({ message: "Erro ao adicionar evento.", type: "error" });
+      setToast({ message: editingId ? "Erro ao atualizar evento." : "Erro ao adicionar evento.", type: "error" });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleEdit = (item: { _id: Id<"schedule">; day: string; time: string; title: string; type: string }) => {
+    setEditingId(item._id);
+    setForm({ day: item.day, time: item.time, title: item.title, type: item.type });
+    setErrors({});
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const toggleForm = () => {
+    if (showForm) {
+      setShowForm(false);
+      setEditingId(null);
+    } else {
+      setForm({ day: "20 de Novembro", time: "", title: "", type: "Painel" });
+      setEditingId(null);
+      setErrors({});
+      setShowForm(true);
     }
   };
 
@@ -147,7 +176,7 @@ export default function ProgramacaoAdmin() {
         ]}
         action={
           <button
-            onClick={() => setShowForm(!showForm)}
+            onClick={toggleForm}
             className="inline-flex items-center gap-2 rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-green-dark transition-colors hover:bg-gold-metallic"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -162,8 +191,8 @@ export default function ProgramacaoAdmin() {
       {showForm && (
         <div className="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Adicionar Evento</h2>
-            <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600">
+            <h2 className="text-lg font-semibold text-gray-900">{editingId ? "Editar Evento" : "Adicionar Evento"}</h2>
+            <button onClick={toggleForm} className="text-gray-400 hover:text-gray-600">
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -221,7 +250,7 @@ export default function ProgramacaoAdmin() {
             <div className="sm:col-span-2 lg:col-span-4 flex justify-end gap-3">
               <button
                 type="button"
-                onClick={() => setShowForm(false)}
+                onClick={toggleForm}
                 className="rounded-lg border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 Cancelar
@@ -231,7 +260,7 @@ export default function ProgramacaoAdmin() {
                 disabled={loading}
                 className="inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-sm font-semibold text-green-dark transition-colors hover:bg-gold-metallic disabled:opacity-50"
               >
-                {loading ? "A adicionar..." : "Adicionar Evento"}
+                {loading ? "A guardar..." : editingId ? "Atualizar Evento" : "Adicionar Evento"}
               </button>
             </div>
           </form>
@@ -280,6 +309,12 @@ export default function ProgramacaoAdmin() {
                 </AdminTableCell>
                 <AdminTableCell>{item.day}</AdminTableCell>
                 <AdminTableCell align="right">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="rounded-md px-2 py-1 text-sm text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                  >
+                    Editar
+                  </button>
                   <button
                     onClick={() => setDeleteTarget({ id: item._id, title: item.title })}
                     className="rounded-md px-2 py-1 text-sm text-red-500 transition-colors hover:bg-red-50 hover:text-red-700"

@@ -3,17 +3,17 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "convex/react";
 import {
-  ArrowRight,
-  BadgeCheck,
-  CalendarDays,
-  Check,
-  Clock3,
-  Globe2,
-  MapPin,
-  ShieldCheck,
-  Sparkles,
-  Ticket,
-} from "lucide-react";
+  IconArrowRight,
+  IconBadgeCheck,
+  IconCalendarDays,
+  IconCheck,
+  IconClock3,
+  IconGlobe2,
+  IconMapPin,
+  IconShieldCheck,
+  IconSparkles,
+  IconTicket,
+} from "@/components/Icon";
 import {
   AccentBar,
   AfricanPattern,
@@ -40,17 +40,17 @@ const participationMoments = [
   {
     title: "Datas",
     description: "20 e 21 de Novembro de 2026",
-    icon: CalendarDays,
+    icon: IconCalendarDays,
   },
   {
     title: "Local",
     description: "Palácio de Ferro, Luanda",
-    icon: MapPin,
+    icon: IconMapPin,
   },
   {
     title: "Experiência",
     description: "Presencial, online e institucional",
-    icon: Globe2,
+    icon: IconGlobe2,
   },
 ];
 
@@ -288,7 +288,7 @@ export default function InscricaoClient() {
                 {eventHighlights.map((item) => (
                   <div key={item} className="flex items-start gap-3 text-sm leading-relaxed text-white/70">
                     <span className="mt-0.5 rounded-full bg-gold/15 p-1 text-gold">
-                      <Check className="h-3.5 w-3.5" />
+                      <IconCheck className="h-3.5 w-3.5" />
                     </span>
                     <span>{item}</span>
                   </div>
@@ -358,7 +358,7 @@ export default function InscricaoClient() {
               >
                 <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
                   <div className="mb-6 inline-flex rounded-full bg-gold/12 p-4 text-gold">
-                    <BadgeCheck className="h-10 w-10" />
+                    <IconBadgeCheck className="h-10 w-10" />
                   </div>
                   <Badge className="border-gold/25 bg-gold/10 text-gold">Inscrição confirmada</Badge>
                   <h2 className="mt-6 font-montserrat text-4xl font-black text-white sm:text-5xl">
@@ -405,7 +405,7 @@ export default function InscricaoClient() {
                       <div className="mt-5 space-y-2">
                         {selectedTicket.features.slice(0, 4).map((feature) => (
                           <div key={feature} className="flex items-start gap-3 text-sm text-white/65">
-                            <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                            <IconCheck className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                             <span>{feature}</span>
                           </div>
                         ))}
@@ -420,7 +420,7 @@ export default function InscricaoClient() {
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 font-montserrat text-sm font-bold text-green-dark transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-gold/20"
                   >
                     Ver programação
-                    <ArrowRight className="h-4 w-4" />
+                    <IconArrowRight className="h-4 w-4" />
                   </a>
                   <button
                     type="button"
@@ -445,7 +445,7 @@ export default function InscricaoClient() {
                         </h3>
                       </div>
                       <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/55">
-                        <Ticket className="h-4 w-4 text-gold" />
+                        <IconTicket className="h-4 w-4 text-gold" />
                         Seleção obrigatória
                       </div>
                     </div>
@@ -492,7 +492,7 @@ export default function InscricaoClient() {
                               <div className="mt-6 space-y-2.5">
                                 {ticket.features.map((feature) => (
                                   <div key={feature} className="flex items-start gap-3 text-sm text-white/68">
-                                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                                    <IconCheck className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                                     <span>{feature}</span>
                                   </div>
                                 ))}
@@ -522,7 +522,7 @@ export default function InscricaoClient() {
                         className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 font-montserrat text-sm font-bold text-green-dark transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-gold/20 disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         Continuar
-                        <ArrowRight className="h-4 w-4" />
+                        <IconArrowRight className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
@@ -532,7 +532,7 @@ export default function InscricaoClient() {
                   <div className="rounded-[2rem] border border-white/10 bg-white/[0.08] p-7 shadow-[0_28px_80px_rgba(0,0,0,0.20)] backdrop-blur-sm md:p-8">
                     <div className="flex items-center gap-3">
                       <div className="rounded-2xl bg-gold/12 p-3 text-gold">
-                        <ShieldCheck className="h-5 w-5" />
+                        <IconShieldCheck className="h-5 w-5" />
                       </div>
                       <div>
                         <p className="font-montserrat text-xs font-bold uppercase tracking-[0.2em] text-gold">
@@ -625,7 +625,7 @@ export default function InscricaoClient() {
                         className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 font-montserrat text-sm font-bold text-green-dark transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-gold/20 disabled:cursor-not-allowed disabled:opacity-45"
                       >
                         {isSubmitting ? "A processar..." : "Confirmar inscrição"}
-                        {!isSubmitting && <ArrowRight className="h-4 w-4" />}
+                        {!isSubmitting && <IconArrowRight className="h-4 w-4" />}
                       </button>
                     </div>
                   </div>
@@ -633,7 +633,7 @@ export default function InscricaoClient() {
                   <div className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-7 backdrop-blur-sm">
                     <div className="flex items-center gap-3">
                       <div className="rounded-2xl bg-white/8 p-3 text-gold">
-                        <Sparkles className="h-5 w-5" />
+                        <IconSparkles className="h-5 w-5" />
                       </div>
                       <p className="font-montserrat text-xs font-bold uppercase tracking-[0.2em] text-gold">
                         Antes de enviar
@@ -641,15 +641,15 @@ export default function InscricaoClient() {
                     </div>
                     <div className="mt-5 space-y-4 text-sm leading-relaxed text-white/65">
                       <div className="flex items-start gap-3">
-                        <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                        <IconClock3 className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                         <span>Verifique o e-mail informado para receber as próximas instruções.</span>
                       </div>
                       <div className="flex items-start gap-3">
-                        <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                        <IconShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                         <span>Os dados são validados antes do envio para reduzir inscrições inválidas.</span>
                       </div>
                       <div className="flex items-start gap-3">
-                        <Ticket className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                        <IconTicket className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                         <span>O bilhete selecionado fica resumido acima para evitar erros de confirmação.</span>
                       </div>
                     </div>
@@ -679,7 +679,7 @@ export default function InscricaoClient() {
             className="inline-flex items-center gap-2 rounded-full border-2 border-green-dark px-8 py-4 font-montserrat text-sm font-extrabold text-green-dark transition-all hover:bg-green-dark hover:text-white"
           >
             Falar com a organização
-            <ArrowRight className="h-4 w-4" />
+            <IconArrowRight className="h-4 w-4" />
           </a>
         </div>
       </section>

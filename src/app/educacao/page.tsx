@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Award, BookOpen, Palette } from "lucide-react";
+import { IconArrowUpRight, IconAward, IconBookOpen, IconPalette } from "@/components/Icon";
 import { AccentBar } from "@/components/BrandElements";
 import PageHero from "@/components/PageHero";
 
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 };
 
 const areas = [
-  { title: "Recursos", desc: "Biblioteca de artigos, tutoriais, vídeos e áudios sobre arte africana.", href: "/educacao/recursos", icon: BookOpen, label: "Explorar conteúdos" },
-  { title: "Workshops", desc: "Experiências práticas para todos os níveis de percurso artístico.", href: "/educacao/workshops", icon: Palette, label: "Ver workshops" },
-  { title: "Certificações", desc: "Reconhecimento profissional para o seu desenvolvimento criativo.", href: "/educacao/certificacoes", icon: Award, label: "Conhecer certificações" },
+  { title: "Recursos", desc: "Biblioteca de artigos, tutoriais, vídeos e áudios sobre arte africana.", href: "/educacao/recursos", icon: IconBookOpen, label: "Explorar conteúdos" },
+  { title: "Workshops", desc: "Experiências práticas para todos os níveis de percurso artístico.", href: "/educacao/workshops", icon: IconPalette, label: "Ver workshops" },
+  { title: "Certificações", desc: "Reconhecimento profissional para o seu desenvolvimento criativo.", href: "/educacao/certificacoes", icon: IconAward, label: "Conhecer certificações" },
 ];
 
 export default function EducacaoPage() {
@@ -40,7 +40,7 @@ export default function EducacaoPage() {
                   </div>
                   <h3 className="mt-8 font-montserrat text-2xl font-black tracking-[-0.025em] text-green-dark transition-colors group-hover:text-orange">{area.title}</h3>
                   <p className="mt-3 min-h-12 text-sm leading-relaxed text-gray-medium">{area.desc}</p>
-                  <span className="mt-8 inline-flex items-center gap-2 font-montserrat text-xs font-extrabold uppercase tracking-[0.12em] text-green-dark">{area.label}<ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></span>
+                  <span className="mt-8 inline-flex items-center gap-2 font-montserrat text-xs font-extrabold uppercase tracking-[0.12em] text-green-dark">{area.label}<IconArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></span>
                 </Link>
               );
             })}

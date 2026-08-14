@@ -24,10 +24,23 @@ import {
 
 const ITEMS_PER_PAGE = 10;
 
+const statusVariant: Record<string, "default" | "success" | "warning" | "danger" | "info"> = {
+  pending: "warning",
+  confirmed: "success",
+  cancelled: "danger",
+};
+
+const statusLabels: Record<string, string> = {
+  pending: "Pendente",
+  confirmed: "Confirmada",
+  cancelled: "Cancelada",
+};
+
 export default function InscricoesAdmin() {
   const registrations = useQuery(api.registrations.get);
   const tickets = useQuery(api.tickets.get);
   const removeRegistration = useMutation(api.registrations.remove);
+  const updateStatus = useMutation(api.registrations.updateStatus);
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -35,6 +48,7 @@ export default function InscricoesAdmin() {
   const [deleteTarget, setDeleteTarget] = useState<{ id: Id<"registrations">; name: string } | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
+  const [statusUpdating, setStatusUpdating] = useState(false);
 
   const ticketMap = useMemo(() => {
     if (!tickets) return new Map();
@@ -52,13 +66,20 @@ export default function InscricoesAdmin() {
         (reg.org && reg.org.toLowerCase().includes(search.toLowerCase()));
 
       const ticketName = ticketMap.get(reg.ticketId) ?? "";
-      const matchesFilter =
+      const matchesTicketFilter =
         filter === "all" ||
         (filter === "presencial" && ticketName.toLowerCase().includes("presencial")) ||
         (filter === "online" && ticketName.toLowerCase().includes("online")) ||
         (filter === "institucional" && ticketName.toLowerCase().includes("institucional"));
 
-      return matchesSearch && matchesFilter;
+      const matchesStatusFilter =
+        filter === "pending" ||
+        filter === "confirmed" ||
+        filter === "cancelled"
+          ? reg.status === filter
+          : true;
+
+      return matchesSearch && matchesTicketFilter && matchesStatusFilter;
     });
   }, [registrations, search, filter, ticketMap]);
 
@@ -76,6 +97,18 @@ export default function InscricoesAdmin() {
       setToast({ message: "Erro ao remover inscrição.", type: "error" });
     } finally {
       setDeleting(false);
+    }
+  };
+
+  const handleStatusChange = async (id: Id<"registrations">, status: string) => {
+    setStatusUpdating(true);
+    try {
+      await updateStatus({ id, status: status as "pending" | "confirmed" | "cancelled" });
+      setToast({ message: `Inscrição marcada como ${statusLabels[status]}.`, type: "success" });
+    } catch {
+      setToast({ message: "Erro ao atualizar estado.", type: "error" });
+    } finally {
+      setStatusUpdating(false);
     }
   };
 
@@ -102,6 +135,9 @@ export default function InscricoesAdmin() {
             { label: "Presencial", value: "presencial" },
             { label: "Online", value: "online" },
             { label: "Institucional", value: "institucional" },
+            { label: "Pendentes", value: "pending" },
+            { label: "Confirmadas", value: "confirmed" },
+            { label: "Canceladas", value: "cancelled" },
           ]}
           active={filter}
           onChange={(v) => { setFilter(v); setPage(1); }}
@@ -118,9 +154,9 @@ export default function InscricoesAdmin() {
       <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
           { label: "Total", value: registrations.length, color: "text-gray-900" },
-          { label: "Presencial", value: registrations.filter((r) => (ticketMap.get(r.ticketId) ?? "").toLowerCase().includes("presencial")).length, color: "text-blue-600" },
-          { label: "Online", value: registrations.filter((r) => (ticketMap.get(r.ticketId) ?? "").toLowerCase().includes("online")).length, color: "text-emerald-600" },
-          { label: "Institucional", value: registrations.filter((r) => (ticketMap.get(r.ticketId) ?? "").toLowerCase().includes("institucional")).length, color: "text-purple-600" },
+          { label: "Pendentes", value: registrations.filter((r) => r.status === "pending").length, color: "text-amber-600" },
+          { label: "Confirmadas", value: registrations.filter((r) => r.status === "confirmed").length, color: "text-emerald-600" },
+          { label: "Canceladas", value: registrations.filter((r) => r.status === "cancelled").length, color: "text-red-600" },
         ].map((stat) => (
           <div key={stat.label} className="rounded-lg border border-gray-200 bg-white p-4">
             <p className="text-xs font-medium text-gray-500">{stat.label}</p>
@@ -142,7 +178,7 @@ export default function InscricoesAdmin() {
             <AdminTableHeadCell>Telefone</AdminTableHeadCell>
             <AdminTableHeadCell>País</AdminTableHeadCell>
             <AdminTableHeadCell>Bilhete</AdminTableHeadCell>
-            <AdminTableHeadCell>Org/Cargo</AdminTableHeadCell>
+            <AdminTableHeadCell>Estado</AdminTableHeadCell>
             <AdminTableHeadCell align="right">Ações</AdminTableHeadCell>
           </AdminTableHead>
           <AdminTableBody empty={filtered.length === 0} emptyColSpan={7}>
@@ -155,7 +191,19 @@ export default function InscricoesAdmin() {
                 <AdminTableCell>
                   <AdminBadge variant="info">{ticketMap.get(reg.ticketId) ?? "—"}</AdminBadge>
                 </AdminTableCell>
-                <AdminTableCell truncate maxWidth="150px">{reg.org || "—"}</AdminTableCell>
+                <AdminTableCell>
+                  <select
+                    value={reg.status}
+                    disabled={statusUpdating}
+                    onChange={(e) => handleStatusChange(reg._id, e.target.value)}
+                    className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs font-medium outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/20 disabled:opacity-50"
+                    aria-label={`Estado da inscrição de ${reg.name}`}
+                  >
+                    <option value="pending">Pendente</option>
+                    <option value="confirmed">Confirmada</option>
+                    <option value="cancelled">Cancelada</option>
+                  </select>
+                </AdminTableCell>
                 <AdminTableCell align="right">
                   <button
                     onClick={() => setDeleteTarget({ id: reg._id, name: reg.name })}

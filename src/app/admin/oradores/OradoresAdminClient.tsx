@@ -35,11 +35,13 @@ const colorOptions = [
 export default function OradoresAdmin() {
   const speakers = useQuery(api.speakers.get);
   const createSpeaker = useMutation(api.speakers.create);
+  const updateSpeaker = useMutation(api.speakers.update);
   const removeSpeaker = useMutation(api.speakers.remove);
 
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<Id<"speakers"> | null>(null);
   const [form, setForm] = useState({ name: "", role: "", country: "", color: "from-gold to-orange" });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -75,14 +77,40 @@ export default function OradoresAdmin() {
     if (!validate()) return;
     setLoading(true);
     try {
-      await createSpeaker(form);
+      if (editingId) {
+        await updateSpeaker({ id: editingId, ...form });
+        setToast({ message: "Orador atualizado com sucesso.", type: "success" });
+      } else {
+        await createSpeaker(form);
+        setToast({ message: "Orador adicionado com sucesso.", type: "success" });
+      }
       setForm({ name: "", role: "", country: "", color: "from-gold to-orange" });
+      setEditingId(null);
       setShowForm(false);
-      setToast({ message: "Orador adicionado com sucesso.", type: "success" });
     } catch {
-      setToast({ message: "Erro ao adicionar orador.", type: "error" });
+      setToast({ message: editingId ? "Erro ao atualizar orador." : "Erro ao adicionar orador.", type: "error" });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleEdit = (speaker: { _id: Id<"speakers">; name: string; role: string; country: string; color: string }) => {
+    setEditingId(speaker._id);
+    setForm({ name: speaker.name, role: speaker.role, country: speaker.country, color: speaker.color });
+    setErrors({});
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const toggleForm = () => {
+    if (showForm) {
+      setShowForm(false);
+      setEditingId(null);
+    } else {
+      setForm({ name: "", role: "", country: "", color: "from-gold to-orange" });
+      setEditingId(null);
+      setErrors({});
+      setShowForm(true);
     }
   };
 
@@ -113,7 +141,7 @@ export default function OradoresAdmin() {
         ]}
         action={
           <button
-            onClick={() => setShowForm(!showForm)}
+            onClick={toggleForm}
             className="inline-flex items-center gap-2 rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-green-dark transition-colors hover:bg-gold-metallic"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -128,8 +156,8 @@ export default function OradoresAdmin() {
       {showForm && (
         <div className="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Adicionar Orador</h2>
-            <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600">
+            <h2 className="text-lg font-semibold text-gray-900">{editingId ? "Editar Orador" : "Adicionar Orador"}</h2>
+            <button onClick={toggleForm} className="text-gray-400 hover:text-gray-600">
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -190,7 +218,7 @@ export default function OradoresAdmin() {
             <div className="sm:col-span-2 lg:col-span-4 flex justify-end gap-3">
               <button
                 type="button"
-                onClick={() => setShowForm(false)}
+                onClick={toggleForm}
                 className="rounded-lg border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 Cancelar
@@ -200,7 +228,7 @@ export default function OradoresAdmin() {
                 disabled={loading}
                 className="inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-sm font-semibold text-green-dark transition-colors hover:bg-gold-metallic disabled:opacity-50"
               >
-                {loading ? "A adicionar..." : "Adicionar Orador"}
+                {loading ? "A guardar..." : editingId ? "Atualizar Orador" : "Adicionar Orador"}
               </button>
             </div>
           </form>
@@ -248,6 +276,12 @@ export default function OradoresAdmin() {
                   <div className={`h-6 w-10 rounded-md ${speaker.color}`} />
                 </AdminTableCell>
                 <AdminTableCell align="right">
+                  <button
+                    onClick={() => handleEdit(speaker)}
+                    className="rounded-md px-2 py-1 text-sm text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                  >
+                    Editar
+                  </button>
                   <button
                     onClick={() => setDeleteTarget({ id: speaker._id, name: speaker.name })}
                     className="rounded-md px-2 py-1 text-sm text-red-500 transition-colors hover:bg-red-50 hover:text-red-700"

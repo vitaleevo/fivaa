@@ -90,3 +90,11 @@ export const remove = mutation({
     await ctx.db.delete(args.id);
   },
 });
+
+export const updateStatus = mutation({
+  args: { id: v.id("registrations"), status: v.union(v.literal("pending"), v.literal("confirmed"), v.literal("cancelled")) },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+    return await ctx.db.patch(args.id, { status: args.status });
+  },
+});
