@@ -50,3 +50,6 @@ next-env.d.ts
 
 # convex
 /uploads/
+
+# helper scripts with credentials
+/scripts/
