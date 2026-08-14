@@ -455,6 +455,15 @@ export default function InscricaoClient() {
                         <div className="xl:col-span-3 flex justify-center py-16">
                           <div className="h-10 w-10 animate-spin rounded-full border-4 border-gold border-t-transparent" />
                         </div>
+                      ) : ticketTypes.length === 0 ? (
+                        <div className="xl:col-span-3 rounded-[1.5rem] border border-dashed border-white/15 bg-white/[0.03] px-6 py-16 text-center">
+                          <p className="font-montserrat text-lg font-bold text-white">
+                            As modalidades de bilhete ainda não estão disponíveis.
+                          </p>
+                          <p className="mt-2 text-sm leading-relaxed text-white/60">
+                            Por favor, volte mais tarde ou fale com a organização através da página de contactos.
+                          </p>
+                        </div>
                       ) : (
                         ticketTypes.map((ticket, index) => {
                           const isSelected = selected === ticket._id;

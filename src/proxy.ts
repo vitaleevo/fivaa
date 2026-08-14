@@ -51,13 +51,34 @@ function applySecurityHeaders(
 }
 
 const PAINEL_HOST = "painel.fivaa.com";
+const ADMIN_HOST = "admin.fivaaforum.com";
 
 export default convexAuthNextjsMiddleware(async (request: NextRequest) => {
   try {
     const host = request.headers.get("host") ?? "";
-    const isPainel = host.toLowerCase() === PAINEL_HOST;
+    const normalizedHost = host.toLowerCase();
+    const pathname = request.nextUrl.pathname;
+    const isAdminSubdomain = normalizedHost === ADMIN_HOST;
 
-    if (isPainel && !request.nextUrl.pathname.startsWith("/admin")) {
+    if (isAdminSubdomain) {
+      const url = request.nextUrl.clone();
+
+      if (pathname === "/") {
+        url.pathname = "/admin";
+        return applySecurityHeaders(NextResponse.rewrite(url), request.headers, crypto.randomUUID().replace(/-/g, ""));
+      }
+
+      if (pathname.startsWith("/admin")) {
+        return applySecurityHeaders(NextResponse.next(), request.headers, crypto.randomUUID().replace(/-/g, ""));
+      }
+
+      if (!pathname.startsWith("/api")) {
+        url.pathname = `/admin${pathname}`;
+        return applySecurityHeaders(NextResponse.rewrite(url), request.headers, crypto.randomUUID().replace(/-/g, ""));
+      }
+    }
+
+    if (normalizedHost === PAINEL_HOST && !pathname.startsWith("/admin")) {
       const target = new URL("https://fivaa.com/admin");
       return NextResponse.redirect(target, 308);
     }
