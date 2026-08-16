@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { DividerWhite } from "@/components/BrandElements";
 import { Instagram, Facebook, Linkedin, Youtube } from "@/components/SocialIcons";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 const socialLinks = [
   { Icon: Instagram, href: "https://instagram.com", label: "Instagram" },
@@ -11,6 +15,8 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="relative overflow-hidden border-t-4 border-gold bg-green-dark">
       <div className="pointer-events-none absolute inset-0 opacity-[0.06] kente-stripes" aria-hidden="true" />
@@ -25,24 +31,26 @@ export default function Footer() {
               className="h-28 w-auto object-contain sm:h-32"
             />
             <p className="mt-4 text-sm leading-relaxed text-white/60">
-              Plataforma internacional dedicada à promoção, valorização e
-              desenvolvimento das indústrias criativas africanas.
+              {t.footer.desc}
             </p>
+            <div className="mt-4">
+              <LanguageSwitcher />
+            </div>
           </div>
 
           <div>
             <h4 className="mb-5 font-montserrat text-xs font-bold uppercase tracking-[0.2em] text-gold">
-              Links
+              {t.footer.links}
             </h4>
             <ul className="space-y-3">
               {[
-                { href: "/sobre", label: "Sobre" },
-                { href: "/programacao", label: "Programação" },
-                { href: "/educacao", label: "Educação" },
-                { href: "/oradores", label: "Oradores" },
-                { href: "/parceiros", label: "Parceiros" },
-                { href: "/inscricao", label: "Inscrição" },
-                { href: "/contactos", label: "Contactos" },
+                { href: "/sobre", label: t.nav.about },
+                { href: "/programacao", label: t.nav.schedule },
+                { href: "/educacao", label: t.nav.education },
+                { href: "/oradores", label: t.nav.speakers },
+                { href: "/parceiros", label: t.nav.partners },
+                { href: "/inscricao", label: t.nav.register },
+                { href: "/contactos", label: t.nav.contacts },
               ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm text-white/60 transition-colors hover:text-gold">
@@ -55,7 +63,7 @@ export default function Footer() {
 
           <div>
             <h4 className="mb-5 font-montserrat text-xs font-bold uppercase tracking-[0.2em] text-gold">
-              Contacto
+              {t.footer.contact}
             </h4>
             <ul className="space-y-3 text-sm text-white/60">
               <li>Luanda, Angola</li>
@@ -75,10 +83,10 @@ export default function Footer() {
 
           <div>
             <h4 className="mb-5 font-montserrat text-xs font-bold uppercase tracking-[0.2em] text-gold">
-              Redes Sociais
+              {t.footer.social}
             </h4>
             <p className="mb-4 text-sm text-white/60">
-              Siga o FIVAA nas redes sociais.
+              {t.footer.socialText}
             </p>
             <div className="flex gap-3" aria-label="Redes sociais">
               {socialLinks.map((social) => {
@@ -97,16 +105,27 @@ export default function Footer() {
 
         <DividerWhite className="my-12" />
 
-        <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
-          <p className="text-sm text-white/40">
-            &copy; {new Date().getFullYear()} FIVAA — Fórum & Festival
-            Internacional da Valorização da Arte Africana.
-          </p>
-          <p className="mt-1 text-xs text-white/20">
-            fivaaforum.com &middot; Luanda, Angola
-          </p>
+        <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+          <div>
+            <p className="text-sm text-white/40">
+              &copy; {new Date().getFullYear()} {t.footer.rights}
+            </p>
+            <p className="mt-1 text-xs text-white/20">
+              fivaa.com &middot; Palácio de Ferro, Luanda, Angola
+            </p>
+          </div>
+          <div className="flex items-center gap-6 text-xs text-white/50">
+            <Link href="/privacidade" className="hover:text-gold transition-colors underline-offset-4 hover:underline">
+              {t.footer.privacy}
+            </Link>
+            <span>&middot;</span>
+            <Link href="/termos" className="hover:text-gold transition-colors underline-offset-4 hover:underline">
+              {t.footer.terms}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+

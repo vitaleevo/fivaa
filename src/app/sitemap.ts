@@ -36,6 +36,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/parceiros/como-ser", priority: 0.75, changeFrequency: "weekly" },
     { path: "/parceiros/testemunhos", priority: 0.7, changeFrequency: "weekly" },
     { path: "/contactos", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/privacidade", priority: 0.7, changeFrequency: "monthly" },
+    { path: "/termos", priority: 0.7, changeFrequency: "monthly" },
   ];
 
   return routes.map((route) => ({

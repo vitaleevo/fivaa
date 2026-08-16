@@ -3,6 +3,8 @@
 import { usePathname } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
+import { CookieConsent } from "@/components/CookieConsent";
 
 export function AppChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -13,10 +15,12 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <>
+    <LanguageProvider>
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
-    </>
+      <CookieConsent />
+    </LanguageProvider>
   );
 }
+

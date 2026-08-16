@@ -6,60 +6,14 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Instagram, Facebook, Linkedin, Youtube } from "@/components/SocialIcons";
 import { LogoPrimary } from "@/components/Logo";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 const socialLinks = [
   { Icon: Instagram, href: "https://instagram.com", label: "Instagram" },
   { Icon: Facebook, href: "https://facebook.com", label: "Facebook" },
   { Icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
   { Icon: Youtube, href: "https://youtube.com", label: "YouTube" },
-];
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  {
-    href: "/sobre",
-    label: "Sobre",
-    children: [
-      { href: "/sobre/visao-geral", label: "Visão Geral" },
-      { href: "/sobre/objetivos", label: "Objetivos" },
-      { href: "/sobre/impacto", label: "Impacto" },
-      { href: "/sobre/historia", label: "História" },
-    ],
-  },
-  {
-    href: "/programacao",
-    label: "Programação",
-    children: [
-      { href: "/programacao/workshops", label: "Workshops" },
-      { href: "/programacao/palestras", label: "Palestras" },
-      { href: "/programacao/exposicoes", label: "Exposições" },
-      { href: "/programacao/mentoria", label: "Mentoria" },
-      { href: "/programacao/cursos", label: "Cursos" },
-      { href: "/programacao/desafios", label: "Desafios" },
-      { href: "/programacao/feedback", label: "Feedback" },
-      { href: "/programacao/festival", label: "Festival" },
-    ],
-  },
-  {
-    href: "/educacao",
-    label: "Educação",
-    children: [
-      { href: "/educacao/recursos", label: "Recursos" },
-      { href: "/educacao/workshops", label: "Workshops" },
-      { href: "/educacao/certificacoes", label: "Certificações" },
-    ],
-  },
-  { href: "/oradores", label: "Oradores" },
-  {
-    href: "/parceiros",
-    label: "Parceiros",
-    children: [
-      { href: "/parceiros/beneficios", label: "Benefícios" },
-      { href: "/parceiros/como-ser", label: "Como Ser Parceiro" },
-      { href: "/parceiros/testemunhos", label: "Testemunhos" },
-    ],
-  },
-  { href: "/contactos", label: "Contactos" },
 ];
 
 type NavigationLink = {
@@ -176,6 +130,55 @@ function MobileDropdown({ link }: { link: NavigationLink }) {
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
+
+  const navLinks: NavigationLink[] = [
+    { href: "/", label: t.nav.home },
+    {
+      href: "/sobre",
+      label: t.nav.about,
+      children: [
+        { href: "/sobre/visao-geral", label: t.nav.aboutOverview },
+        { href: "/sobre/objetivos", label: t.nav.aboutObjectives },
+        { href: "/sobre/impacto", label: t.nav.aboutImpact },
+        { href: "/sobre/historia", label: t.nav.aboutHistory },
+      ],
+    },
+    {
+      href: "/programacao",
+      label: t.nav.schedule,
+      children: [
+        { href: "/programacao/workshops", label: t.nav.workshops },
+        { href: "/programacao/palestras", label: t.nav.lectures },
+        { href: "/programacao/exposicoes", label: t.nav.exhibitions },
+        { href: "/programacao/mentoria", label: t.nav.mentorship },
+        { href: "/programacao/cursos", label: t.nav.courses },
+        { href: "/programacao/desafios", label: t.nav.challenges },
+        { href: "/programacao/feedback", label: t.nav.feedback },
+        { href: "/programacao/festival", label: t.nav.festival },
+      ],
+    },
+    {
+      href: "/educacao",
+      label: t.nav.education,
+      children: [
+        { href: "/educacao/recursos", label: t.nav.resources },
+        { href: "/educacao/workshops", label: t.nav.workshops },
+        { href: "/educacao/certificacoes", label: t.nav.certifications },
+      ],
+    },
+    { href: "/oradores", label: t.nav.speakers },
+    {
+      href: "/parceiros",
+      label: t.nav.partners,
+      children: [
+        { href: "/parceiros/beneficios", label: t.nav.partnerBenefits },
+        { href: "/parceiros/como-ser", label: t.nav.howToBePartner },
+        { href: "/parceiros/testemunhos", label: t.nav.testimonials },
+      ],
+    },
+    { href: "/contactos", label: t.nav.contacts },
+  ];
 
   return (
     <>
@@ -201,6 +204,7 @@ export default function Header() {
               20–21 Nov 2026 · Luanda
             </span>
             <span className="hidden h-3 w-px bg-white/20 lg:block" aria-hidden="true" />
+            <LanguageSwitcher className="hidden sm:inline-block" />
             {socialLinks.map((social) => {
               const IconComponent = social.Icon;
               return (
@@ -236,53 +240,60 @@ export default function Header() {
                 </Link>
               )
             )}
-            <Link href="/inscricao" className="ml-3 rounded-full bg-gold px-5 py-2.5 font-montserrat text-[13px] font-extrabold text-green-dark shadow-[0_8px_18px_rgba(253,184,19,0.24)] transition-all hover:-translate-y-0.5 hover:bg-gold-metallic hover:shadow-lg hover:shadow-gold/20">
-              Inscrição
-            </Link>
+            <div className="ml-2 flex items-center gap-3">
+              <LanguageSwitcher />
+              <Link href="/inscricao" className="rounded-full bg-gold px-5 py-2.5 font-montserrat text-[13px] font-extrabold text-green-dark shadow-[0_8px_18px_rgba(253,184,19,0.24)] transition-all hover:-translate-y-0.5 hover:bg-gold-metallic hover:shadow-lg hover:shadow-gold/20">
+                {t.nav.register}
+              </Link>
+            </div>
           </nav>
 
-          <details className="group lg:hidden" open={mobileOpen ? true : undefined}>
-            <summary
-              className="flex cursor-pointer list-none flex-col gap-1.5 rounded-md p-2"
-              aria-label="Menu"
-              onClick={(e) => {
-                e.preventDefault();
-                setMobileOpen(!mobileOpen);
-              }}
-            >
-              <span className="block h-0.5 w-6 bg-green-dark transition-all group-open:translate-y-2 group-open:rotate-45" />
-              <span className="block h-0.5 w-6 bg-green-dark transition-all group-open:opacity-0" />
-              <span className="block h-0.5 w-6 bg-green-dark transition-all group-open:-translate-y-2 group-open:-rotate-45" />
-            </summary>
-            {mobileOpen && (
-              <div className="absolute left-0 right-0 top-full border-t border-gold/10 bg-warm-white/98 px-4 pb-6 pt-4 shadow-2xl backdrop-blur-xl">
-                <nav className="flex flex-col gap-2" aria-label="Navegação móvel">
-                  {navLinks.map((link) =>
-                    link.children ? (
-                      <MobileDropdown key={link.href} link={link} />
-                    ) : (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => setMobileOpen(false)}
-                        className={cn(
-                          "rounded-lg px-4 py-3 font-montserrat text-sm font-semibold transition-all",
-                          pathname === link.href ? "bg-gold/10 text-gold" : "text-gray-medium hover:bg-gold/5 hover:text-gold"
-                        )}
-                      >
-                        {link.label}
-                      </Link>
-                    )
-                  )}
-                  <Link href="/inscricao" onClick={() => setMobileOpen(false)} className="mt-2 rounded-full bg-gold px-6 py-3 text-center font-montserrat text-sm font-extrabold text-green-dark">
-                    Inscrição
-                  </Link>
-                </nav>
-              </div>
-            )}
-          </details>
+          <div className="flex items-center gap-2 lg:hidden">
+            <LanguageSwitcher />
+            <details className="group" open={mobileOpen ? true : undefined}>
+              <summary
+                className="flex cursor-pointer list-none flex-col gap-1.5 rounded-md p-2"
+                aria-label="Menu"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileOpen(!mobileOpen);
+                }}
+              >
+                <span className="block h-0.5 w-6 bg-green-dark transition-all group-open:translate-y-2 group-open:rotate-45" />
+                <span className="block h-0.5 w-6 bg-green-dark transition-all group-open:opacity-0" />
+                <span className="block h-0.5 w-6 bg-green-dark transition-all group-open:-translate-y-2 group-open:-rotate-45" />
+              </summary>
+              {mobileOpen && (
+                <div className="absolute left-0 right-0 top-full border-t border-gold/10 bg-warm-white/98 px-4 pb-6 pt-4 shadow-2xl backdrop-blur-xl">
+                  <nav className="flex flex-col gap-2" aria-label="Navegação móvel">
+                    {navLinks.map((link) =>
+                      link.children ? (
+                        <MobileDropdown key={link.href} link={link} />
+                      ) : (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          onClick={() => setMobileOpen(false)}
+                          className={cn(
+                            "rounded-lg px-4 py-3 font-montserrat text-sm font-semibold transition-all",
+                            pathname === link.href ? "bg-gold/10 text-gold" : "text-gray-medium hover:bg-gold/5 hover:text-gold"
+                          )}
+                        >
+                          {link.label}
+                        </Link>
+                      )
+                    )}
+                    <Link href="/inscricao" onClick={() => setMobileOpen(false)} className="mt-2 rounded-full bg-gold px-6 py-3 text-center font-montserrat text-sm font-extrabold text-green-dark">
+                      {t.nav.register}
+                    </Link>
+                  </nav>
+                </div>
+              )}
+            </details>
+          </div>
         </div>
       </header>
     </>
   );
 }
+
