@@ -19,9 +19,9 @@
   --color-background: var(--color-warm-white);
   --color-foreground: var(--color-dark);
 
-  --font-sans: 'Montserrat', 'Open Sans', sans-serif;
-  --font-montserrat: 'Montserrat', sans-serif;
-  --font-opensans: 'Open Sans', sans-serif;
+  --font-sans: var(--font-opensans), 'Open Sans', sans-serif;
+  --font-montserrat: var(--font-montserrat), 'Montserrat', sans-serif;
+  --font-opensans: var(--font-opensans), 'Open Sans', sans-serif;
 
   --radius-card: 1.5rem;
   --radius-panel: 2rem;
@@ -37,7 +37,7 @@ html {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-opensans), 'Open Sans', sans-serif;
   color: #1A1A1A;
   background: #FFFBF5;
   text-rendering: optimizeLegibility;

@@ -1,23 +1,68 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Montserrat, Open_Sans } from "next/font/google";
 import { connection } from "next/server";
 import "./globals.css";
 import { AppChrome } from "@/components/AppChrome";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
+import { EventJsonLd, OrganizationJsonLd } from "@/components/JsonLd";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-opensans",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#124734",
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fivaaforum.com"),
-  title: "FIVAA — Fórum Internacional para a Valorização da Arte Africana",
+  metadataBase: new URL("https://fivaa.com"),
+  title: {
+    default: "FIVAA 2026 — Fórum & Festival Internacional da Valorização da Arte Africana",
+    template: "%s | FIVAA 2026",
+  },
   description:
-    "20-21 Novembro 2026 | Palácio de Ferro, Luanda, Angola. Fórum & Festival Internacional dedicado à promoção, valorização e desenvolvimento das indústrias criativas africanas.",
+    "20-21 Novembro 2026 | Palácio de Ferro, Luanda, Angola. O maior Fórum & Festival Internacional dedicado à promoção, valorização e desenvolvimento das indústrias criativas e arte africana.",
   keywords: [
     "FIVAA",
+    "FIVAA 2026",
     "arte africana",
     "festival Luanda",
-    "indústrias criativas",
-    "África",
+    "Palácio de Ferro",
+    "indústrias criativas África",
     "cultura angolana",
+    "fórum arte africana",
+    "exposição arte Luanda",
+    "artistas africanos",
   ],
+  authors: [{ name: "FIVAA", url: "https://fivaa.com" }],
+  creator: "FIVAA",
+  publisher: "FIVAA",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "https://fivaa.com",
+    languages: {
+      "pt-AO": "https://fivaa.com",
+      "pt": "https://fivaa.com",
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -26,14 +71,41 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
   },
   openGraph: {
-    title: "FIVAA 2026",
+    title: "FIVAA 2026 — Fórum & Festival Internacional da Valorização da Arte Africana",
     description:
-      "Fórum & Festival Internacional da Valorização da Arte Africana",
-    siteName: "FIVAA",
+      "20-21 Novembro 2026 no Palácio de Ferro em Luanda, Angola. Debates, exposições, workshops e performances com artistas e líderes criativos de toda a África.",
+    url: "https://fivaa.com",
+    siteName: "FIVAA 2026",
     locale: "pt_AO",
     type: "website",
-    images: ["/images/logo-fivaa-principal.png"],
+    images: [
+      {
+        url: "/images/hero/fivaa-forum-hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "FIVAA 2026 — Palácio de Ferro, Luanda, Angola",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "FIVAA 2026 — Fórum & Festival Internacional da Valorização da Arte Africana",
+    description:
+      "20-21 Novembro 2026 | Palácio de Ferro, Luanda, Angola. O maior palco de valorização da arte africana.",
+    images: ["/images/hero/fivaa-forum-hero.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "culture",
 };
 
 export default async function RootLayout({
@@ -45,19 +117,16 @@ export default async function RootLayout({
 
   return (
     <ConvexAuthNextjsServerProvider>
-      <html lang="pt" className="scroll-smooth" suppressHydrationWarning>
+      <html
+        lang="pt-AO"
+        className={`scroll-smooth ${montserrat.variable} ${openSans.variable}`}
+        suppressHydrationWarning
+      >
         <head>
-          <link rel="icon" href="/favicon.ico" sizes="any" />
-          <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;600&display=swap"
-            rel="stylesheet"
-          />
+          <EventJsonLd />
+          <OrganizationJsonLd />
         </head>
-        <body className="flex min-h-screen flex-col antialiased" suppressHydrationWarning>
+        <body className="flex min-h-screen flex-col font-sans antialiased" suppressHydrationWarning>
           <ConvexClientProvider>
             <AppChrome>{children}</AppChrome>
           </ConvexClientProvider>
