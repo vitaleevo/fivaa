@@ -24,12 +24,6 @@ import {
 
 const ITEMS_PER_PAGE = 10;
 
-const statusVariant: Record<string, "default" | "success" | "warning" | "danger" | "info"> = {
-  pending: "warning",
-  confirmed: "success",
-  cancelled: "danger",
-};
-
 const statusLabels: Record<string, string> = {
   pending: "Pendente",
   confirmed: "Confirmada",
