@@ -204,7 +204,6 @@ export default function Header() {
               20–21 Nov 2026 · Luanda
             </span>
             <span className="hidden h-3 w-px bg-white/20 lg:block" aria-hidden="true" />
-            <LanguageSwitcher className="hidden sm:inline-block" />
             {socialLinks.map((social) => {
               const IconComponent = social.Icon;
               return (
