@@ -81,7 +81,7 @@ export function SignInForm() {
             required
             autoComplete="username"
             inputMode="email"
-            placeholder="admin@fivaa.com"
+            placeholder="admin@fivaaforum.com"
             className="w-full rounded-xl border border-gray-300 bg-white py-2.5 pl-11 pr-4 text-sm text-gray-900 shadow-sm outline-none transition-colors placeholder:text-gray-400 focus:border-gold focus:ring-2 focus:ring-gold/25"
           />
         </div>

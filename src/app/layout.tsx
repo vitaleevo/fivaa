@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fivaa.com"),
+  metadataBase: new URL("https://fivaaforum.com"),
   title: {
     default: "FIVAA 2026 — Fórum Internacional da Valorização da Arte Africana",
     template: "%s | FIVAA 2026",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     "exposição arte Luanda",
     "artistas africanos",
   ],
-  authors: [{ name: "FIVAA", url: "https://fivaa.com" }],
+  authors: [{ name: "FIVAA", url: "https://fivaaforum.com" }],
   creator: "FIVAA",
   publisher: "FIVAA",
   formatDetection: {
@@ -57,10 +57,10 @@ export const metadata: Metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: "https://fivaa.com",
+    canonical: "https://fivaaforum.com",
     languages: {
-      "pt-AO": "https://fivaa.com",
-      "pt": "https://fivaa.com",
+      "pt-AO": "https://fivaaforum.com",
+      "pt": "https://fivaaforum.com",
     },
   },
   icons: {
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     title: "FIVAA 2026 — Fórum Internacional da Valorização da Arte Africana",
     description:
       "20-21 Novembro 2026 no Palácio de Ferro em Luanda, Angola. Debates, exposições, workshops e performances com artistas e líderes criativos de toda a África.",
-    url: "https://fivaa.com",
+    url: "https://fivaaforum.com",
     siteName: "FIVAA 2026",
     locale: "pt_AO",
     type: "website",

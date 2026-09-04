@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Termos e condições gerais de utilização do website e participação no FIVAA 2026 no Palácio de Ferro, Luanda, Angola.",
   alternates: {
-    canonical: "https://fivaa.com/termos",
+    canonical: "https://fivaaforum.com/termos",
   },
 };
 
@@ -30,7 +30,7 @@ export default function TermosPage() {
                 1. Aceitação dos Termos
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-gray-600 sm:text-base">
-                Ao aceder ao website do FIVAA (fivaa.com / fivaaforum.com) e ao submeter qualquer formulário de inscrição ou contacto, o utilizador declara ter lido, compreendido e aceite os presentes Termos e Condições.
+                Ao aceder ao website do FIVAA (fivaaforum.com) e ao submeter qualquer formulário de inscrição ou contacto, o utilizador declara ter lido, compreendido e aceite os presentes Termos e Condições.
               </p>
             </div>
 

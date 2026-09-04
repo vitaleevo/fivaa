@@ -111,7 +111,7 @@ export default function Footer() {
               &copy; 2026 {t.footer.rights}
             </p>
             <p className="mt-1 text-xs text-white/20">
-              fivaa.com &middot; Palácio de Ferro, Luanda, Angola
+              fivaaforum.com &middot; Palácio de Ferro, Luanda, Angola
             </p>
           </div>
           <div className="flex items-center gap-6 text-xs text-white/50">

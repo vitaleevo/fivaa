@@ -29,15 +29,15 @@ export function EventJsonLd() {
       },
     ],
     image: [
-      "https://fivaa.com/images/hero/fivaa-forum-hero.webp",
-      "https://fivaa.com/images/hero/fivaa-junte-se.webp",
-      "https://fivaa.com/images/logo-fivaa-principal.png",
+      "https://fivaaforum.com/images/hero/fivaa-forum-hero.webp",
+      "https://fivaaforum.com/images/hero/fivaa-junte-se.webp",
+      "https://fivaaforum.com/images/logo-fivaa-principal.png",
     ],
     organizer: {
       "@type": "Organization",
       name: "FIVAA — Fórum Internacional para a Valorização da Arte Africana",
-      url: "https://fivaa.com",
-      logo: "https://fivaa.com/images/logo-fivaa-principal.png",
+      url: "https://fivaaforum.com",
+      logo: "https://fivaaforum.com/images/logo-fivaa-principal.png",
       sameAs: [
         "https://www.instagram.com/fivaaforum",
         "https://www.facebook.com/fivaaforum",
@@ -48,7 +48,7 @@ export function EventJsonLd() {
       {
         "@type": "Offer",
         name: "Acesso Fóruns",
-        url: "https://fivaa.com/inscricao",
+        url: "https://fivaaforum.com/inscricao",
         price: "3000",
         priceCurrency: "AOA",
         availability: "https://schema.org/InStock",
@@ -57,7 +57,7 @@ export function EventJsonLd() {
       {
         "@type": "Offer",
         name: "Acesso Concertos",
-        url: "https://fivaa.com/inscricao",
+        url: "https://fivaaforum.com/inscricao",
         price: "5000",
         priceCurrency: "AOA",
         availability: "https://schema.org/InStock",
@@ -66,7 +66,7 @@ export function EventJsonLd() {
       {
         "@type": "Offer",
         name: "Acesso Total",
-        url: "https://fivaa.com/inscricao",
+        url: "https://fivaaforum.com/inscricao",
         price: "14000",
         priceCurrency: "AOA",
         availability: "https://schema.org/InStock",
@@ -94,8 +94,8 @@ export function OrganizationJsonLd() {
     "@type": "Organization",
     name: "FIVAA",
     legalName: "Fórum Internacional para a Valorização da Arte Africana",
-    url: "https://fivaa.com",
-    logo: "https://fivaa.com/images/logo-fivaa-principal.png",
+    url: "https://fivaaforum.com",
+    logo: "https://fivaaforum.com/images/logo-fivaa-principal.png",
     description:
       "Organização dedicada à promoção, preservação e desenvolvimento da arte e cultura africana a nível global.",
     address: {
@@ -111,7 +111,7 @@ export function OrganizationJsonLd() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",
-      url: "https://fivaa.com/contactos",
+      url: "https://fivaaforum.com/contactos",
       availableLanguage: ["Portuguese", "English", "French"],
     },
   };

@@ -50,7 +50,6 @@ function applySecurityHeaders(
   return response;
 }
 
-const PAINEL_HOST = "painel.fivaa.com";
 const ADMIN_HOST = "admin.fivaaforum.com";
 
 export default convexAuthNextjsMiddleware(async (request: NextRequest) => {
@@ -76,11 +75,6 @@ export default convexAuthNextjsMiddleware(async (request: NextRequest) => {
         url.pathname = `/admin${pathname}`;
         return applySecurityHeaders(NextResponse.rewrite(url), request.headers, crypto.randomUUID().replace(/-/g, ""));
       }
-    }
-
-    if (normalizedHost === PAINEL_HOST && !pathname.startsWith("/admin")) {
-      const target = new URL("https://fivaa.com/admin");
-      return NextResponse.redirect(target, 308);
     }
 
     const requestHeaders = new Headers(request.headers);

@@ -37,7 +37,7 @@ Anote o URL do deployment (ex: `grateful-mouse-771`).
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | *(site key do Cloudflare Turnstile)* |
 | `TURNSTILE_SECRET_KEY` | *(secret key do Cloudflare Turnstile)* |
 | `FORM_SUBMISSION_SECRET` | *(mesmo valor na Vercel e no Convex)* |
-| `FIVAA_ADMIN_EMAILS` | `info@fivaa.com` |
+| `FIVAA_ADMIN_EMAILS` | `admin@fivaaforum.com` |
 
 4. Clique em **Deploy**
 

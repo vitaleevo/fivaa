@@ -11,8 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin/", "/api/"],
       },
     ],
-    sitemap: "https://fivaa.com/sitemap.xml",
-    host: "https://fivaa.com",
+    sitemap: "https://fivaaforum.com/sitemap.xml",
+    host: "https://fivaaforum.com",
   };
 }
-

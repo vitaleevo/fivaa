@@ -5,11 +5,11 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8?logo=tailwindcss&logoColor=white)
 ![Convex](https://img.shields.io/badge/Convex-backend-E10098?logo=convex&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-deployed-000000?logo=vercel&logoColor=white)
-[![Website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Ffivaa.com)](https://fivaa.com)
+[![Website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Ffivaaforum.com)](https://fivaaforum.com)
 
 Website oficial do FIVAA 2026 — Palácio de Ferro, Luanda, Angola.
 
-**Produção:** https://fivaa.com
+**Produção:** https://fivaaforum.com
 
 ## Funcionalidades
 
