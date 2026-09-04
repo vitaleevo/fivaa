@@ -106,7 +106,7 @@ export const translations: Record<Language, Translations> = {
     },
     home: {
       heroTag: "FIVAA 2026 • Luanda, Angola",
-      heroTitle: "Fórum & Festival Internacional da Valorização da Arte Africana",
+      heroTitle: "Fórum Internacional da Valorização da Arte Africana",
       heroSubtitle: "20 a 21 de Novembro de 2026 no emblemático Palácio de Ferro. O maior encontro de criatividade, cultura e indústrias criativas de África.",
       manifestoBadge: "O nosso manifesto",
       manifestoQuote: "A arte africana não precisa de validação externa. Ela precisa de um palco. O FIVAA é esse palco.",
@@ -143,7 +143,7 @@ export const translations: Record<Language, Translations> = {
       socialText: "Siga o FIVAA nas redes sociais.",
       privacy: "Política de Privacidade (Lei 22/11)",
       terms: "Termos de Uso",
-      rights: "FIVAA — Fórum & Festival Internacional da Valorização da Arte Africana. Todos os direitos reservados.",
+      rights: "FIVAA — Fórum Internacional da Valorização da Arte Africana. Todos os direitos reservados.",
     },
   },
   en: {
@@ -176,7 +176,7 @@ export const translations: Record<Language, Translations> = {
     },
     home: {
       heroTag: "FIVAA 2026 • Luanda, Angola",
-      heroTitle: "International Forum & Festival for the Appreciation of African Art",
+      heroTitle: "International Forum for the Appreciation of African Art",
       heroSubtitle: "November 20-21, 2026 at the iconic Iron Palace (Palácio de Ferro). The premier gathering of African creativity, culture, and creative industries.",
       manifestoBadge: "Our Manifesto",
       manifestoQuote: "African art does not need external validation. It needs a stage. FIVAA is that stage.",
@@ -213,7 +213,7 @@ export const translations: Record<Language, Translations> = {
       socialText: "Follow FIVAA on social networks.",
       privacy: "Privacy Policy (Law 22/11 & GDPR)",
       terms: "Terms of Use",
-      rights: "FIVAA — International Forum & Festival for the Appreciation of African Art. All rights reserved.",
+      rights: "FIVAA — International Forum for the Appreciation of African Art. All rights reserved.",
     },
   },
   fr: {
@@ -246,7 +246,7 @@ export const translations: Record<Language, Translations> = {
     },
     home: {
       heroTag: "FIVAA 2026 • Luanda, Angola",
-      heroTitle: "Forum & Festival International de Valorisation de l'Art Africain",
+      heroTitle: "Forum International de Valorisation de l'Art Africain",
       heroSubtitle: "20-21 Novembre 2026 au Palais de Fer à Luanda. Le grand rendez-vous de la créativité et des industries culturelles africaines.",
       manifestoBadge: "Notre Manifeste",
       manifestoQuote: "L'art africain n'a pas besoin de validation externe. Il a besoin d'une scène. Le FIVAA est cette scène.",
@@ -283,7 +283,7 @@ export const translations: Record<Language, Translations> = {
       socialText: "Suivez le FIVAA sur les réseaux sociaux.",
       privacy: "Politique de Confidentialité (Loi 22/11 & RGPD)",
       terms: "Conditions d'Utilisation",
-      rights: "FIVAA — Forum & Festival International de Valorisation de l'Art Africain. Tous droits réservés.",
+      rights: "FIVAA — Forum International de Valorisation de l'Art Africain. Tous droits réservés.",
     },
   },
 };
@@ -321,7 +321,18 @@ function getInitialLanguage(): Language {
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+  // The first client render must match the server render. Browser preferences
+  // are applied only after hydration, otherwise React receives PT from the
+  // server and a saved EN/FR value from the browser for the same tree.
+  const [language, setLanguageState] = useState<Language>("pt");
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setLanguageState(getInitialLanguage());
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     try {

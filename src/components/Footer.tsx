@@ -3,15 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DividerWhite } from "@/components/BrandElements";
-import { Instagram, Facebook, Linkedin, Youtube } from "@/components/SocialIcons";
+import { Instagram, Facebook, Linkedin } from "@/components/SocialIcons";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { contactEmail, socialLinks as fivaaSocialLinks } from "@/lib/site";
 
 const socialLinks = [
-  { Icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { Icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-  { Icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { Icon: Youtube, href: "https://youtube.com", label: "YouTube" },
+  { Icon: Instagram, ...fivaaSocialLinks[0], label: "Instagram" },
+  { Icon: Facebook, ...fivaaSocialLinks[1], label: "Facebook" },
+  { Icon: Linkedin, ...fivaaSocialLinks[2], label: "LinkedIn" },
 ];
 
 export default function Footer() {
@@ -28,7 +28,7 @@ export default function Footer() {
               alt="FIVAA"
               width={1000}
               height={1000}
-              className="h-28 w-auto object-contain sm:h-32"
+              className="h-24 w-auto object-contain sm:h-28"
             />
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               {t.footer.desc}
@@ -74,8 +74,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:info@fivaaforum.com" className="transition-colors hover:text-gold">
-                  info@fivaaforum.com
+                <a href={`mailto:${contactEmail}`} className="transition-colors hover:text-gold">
+                  {contactEmail}
                 </a>
               </li>
             </ul>
@@ -108,7 +108,7 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
           <div>
             <p className="text-sm text-white/40">
-              &copy; {new Date().getFullYear()} {t.footer.rights}
+              &copy; 2026 {t.footer.rights}
             </p>
             <p className="mt-1 text-xs text-white/20">
               fivaa.com &middot; Palácio de Ferro, Luanda, Angola
@@ -128,4 +128,3 @@ export default function Footer() {
     </footer>
   );
 }
-

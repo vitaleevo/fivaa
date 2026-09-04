@@ -33,22 +33,22 @@ export const run = mutation({
     if (existingTickets.length === 0) {
       const tickets = [
         {
-          name: "Presencial",
-          price: "150.000 Kz",
-          desc: "Acesso completo aos 2 dias do evento no Palácio de Ferro.",
-          features: ["Todas as palestras e painéis", "Workshops e masterclasses", "Exposições e feira", "Coffee breaks e almoço", "Certificado de participação"],
+          name: "Acesso Fóruns",
+          price: "3.000 AKZ",
+          desc: "Acesso aos workshops, showcases, palestras, exposições e masterclasses do dia escolhido.",
+          features: ["1.º ou 2.º dia", "Workshops", "Showcases", "Palestras", "Exposições", "Masterclasses"],
         },
         {
-          name: "Online",
-          price: "50.000 Kz",
-          desc: "Acesso virtual a todas as transmissões ao vivo do evento.",
-          features: ["Streaming de palestras", "Conteúdo gravado por 30 dias", "Chat com oradores", "Certificado digital"],
+          name: "Acesso Concertos",
+          price: "5.000 AKZ",
+          desc: "Acesso a todas as apresentações musicais do dia escolhido.",
+          features: ["1.º ou 2.º dia", "Apresentações musicais"],
         },
         {
-          name: "Pack Institucional",
-          price: "500.000 Kz",
-          desc: "Pacote premium para instituições e parceiros.",
-          features: ["Acesso presencial VIP", "Jantar de gala", "Meeting com oradores", "Kit institucional", "Visita guiada à exposição", "Certificado VIP"],
+          name: "Acesso Total",
+          price: "14.000 AKZ",
+          desc: "Acesso completo aos fóruns e concertos dos dois dias do evento.",
+          features: ["1.º e 2.º dia", "Workshops", "Showcases", "Palestras", "Exposições", "Masterclasses", "Apresentações musicais"],
         },
       ];
       for (const ticket of tickets) {

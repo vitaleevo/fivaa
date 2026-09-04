@@ -17,7 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/programacao/palestras", priority: 0.8, changeFrequency: "weekly" },
     { path: "/programacao/workshops", priority: 0.8, changeFrequency: "weekly" },
     { path: "/programacao/exposicoes", priority: 0.8, changeFrequency: "weekly" },
-    { path: "/programacao/festival", priority: 0.8, changeFrequency: "weekly" },
     { path: "/programacao/mentoria", priority: 0.75, changeFrequency: "weekly" },
     { path: "/programacao/cursos", priority: 0.75, changeFrequency: "weekly" },
     { path: "/programacao/desafios", priority: 0.75, changeFrequency: "weekly" },
@@ -47,4 +46,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route.priority,
   }));
 }
-

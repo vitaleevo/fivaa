@@ -1,4 +1,4 @@
-# FIVAA — Fórum & Festival Internacional da Valorização da Arte Africana
+# FIVAA — Fórum Internacional da Valorização da Arte Africana
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)

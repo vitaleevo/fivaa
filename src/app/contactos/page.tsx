@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { AccentBar, Badge, AfricanPatternDark } from "@/components/BrandElements";
 import PageHero from "@/components/PageHero";
 import { ContactFormWrapper } from "@/components/ContactFormWrapper";
-import { Instagram, Facebook, Linkedin, Youtube } from "@/components/SocialIcons";
+import { Instagram, Facebook, Linkedin } from "@/components/SocialIcons";
+import { contactEmail, socialLinks as fivaaSocialLinks } from "@/lib/site";
 
 const socialLinks = [
-  { Icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { Icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-  { Icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { Icon: Youtube, href: "https://youtube.com", label: "YouTube" },
+  { Icon: Instagram, ...fivaaSocialLinks[0], label: "Instagram" },
+  { Icon: Facebook, ...fivaaSocialLinks[1], label: "Facebook" },
+  { Icon: Linkedin, ...fivaaSocialLinks[2], label: "LinkedIn" },
 ];
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function Contactos() {
               <div className="space-y-10">
                 {[
                   { label: "Telefone", value: "+244 931 238 451", href: "tel:+244931238451" },
-                  { label: "E-mail", value: "info@fivaaforum.com", href: "mailto:info@fivaaforum.com" },
+                  { label: "E-mail", value: contactEmail, href: `mailto:${contactEmail}` },
                   { label: "Local", value: "Palácio de Ferro, Luanda, Angola" },
                   { label: "Data", value: "20-21 Novembro 2026" },
                 ].map((info) => (

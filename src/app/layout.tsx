@@ -31,16 +31,16 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://fivaa.com"),
   title: {
-    default: "FIVAA 2026 — Fórum & Festival Internacional da Valorização da Arte Africana",
+    default: "FIVAA 2026 — Fórum Internacional da Valorização da Arte Africana",
     template: "%s | FIVAA 2026",
   },
   description:
-    "20-21 Novembro 2026 | Palácio de Ferro, Luanda, Angola. O maior Fórum & Festival Internacional dedicado à promoção, valorização e desenvolvimento das indústrias criativas e arte africana.",
+    "20-21 Novembro 2026 | Palácio de Ferro, Luanda, Angola. O Fórum Internacional dedicado à promoção, valorização e desenvolvimento das indústrias criativas e arte africana.",
   keywords: [
     "FIVAA",
     "FIVAA 2026",
     "arte africana",
-    "festival Luanda",
+    "fórum Luanda",
     "Palácio de Ferro",
     "indústrias criativas África",
     "cultura angolana",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
   },
   openGraph: {
-    title: "FIVAA 2026 — Fórum & Festival Internacional da Valorização da Arte Africana",
+    title: "FIVAA 2026 — Fórum Internacional da Valorização da Arte Africana",
     description:
       "20-21 Novembro 2026 no Palácio de Ferro em Luanda, Angola. Debates, exposições, workshops e performances com artistas e líderes criativos de toda a África.",
     url: "https://fivaa.com",
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FIVAA 2026 — Fórum & Festival Internacional da Valorização da Arte Africana",
+    title: "FIVAA 2026 — Fórum Internacional da Valorização da Arte Africana",
     description:
       "20-21 Novembro 2026 | Palácio de Ferro, Luanda, Angola. O maior palco de valorização da arte africana.",
     images: ["/images/hero/fivaa-forum-hero.webp"],

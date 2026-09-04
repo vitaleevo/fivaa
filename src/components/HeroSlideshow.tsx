@@ -72,7 +72,7 @@ export default function HeroSlideshow() {
       <div className="absolute inset-0 z-20 flex items-center justify-center px-5 pb-16 pt-20 sm:px-8 lg:px-12">
         <div className="w-full max-w-4xl text-left">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-green-dark/60 px-4 py-2 shadow-lg backdrop-blur-md">
-            <span className="font-montserrat text-[10px] font-extrabold uppercase tracking-[0.24em] text-gold sm:text-xs">FIVAA Fórum & Festival 2026</span>
+            <span className="font-montserrat text-[10px] font-extrabold uppercase tracking-[0.24em] text-gold sm:text-xs">FIVAA Fórum 2026</span>
           </div>
           <h1 className="max-w-3xl font-montserrat text-5xl font-black leading-[0.98] tracking-[-0.045em] text-white drop-shadow-[0_5px_16px_rgba(0,0,0,0.55)] sm:text-6xl md:text-7xl lg:text-8xl">
             {activeSlide.title}

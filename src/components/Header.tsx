@@ -4,16 +4,16 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Instagram, Facebook, Linkedin, Youtube } from "@/components/SocialIcons";
+import { Instagram, Facebook, Linkedin } from "@/components/SocialIcons";
 import { LogoPrimary } from "@/components/Logo";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { contactEmail, socialLinks as fivaaSocialLinks } from "@/lib/site";
 
 const socialLinks = [
-  { Icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { Icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-  { Icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { Icon: Youtube, href: "https://youtube.com", label: "YouTube" },
+  { Icon: Instagram, ...fivaaSocialLinks[0], label: "Instagram" },
+  { Icon: Facebook, ...fivaaSocialLinks[1], label: "Facebook" },
+  { Icon: Linkedin, ...fivaaSocialLinks[2], label: "LinkedIn" },
 ];
 
 type NavigationLink = {
@@ -55,8 +55,9 @@ function DesktopDropdown({ link }: { link: NavigationLink }) {
         </svg>
       </Link>
       {open && (
-        <div role="menu" className="absolute left-0 top-full z-50 mt-2 min-w-[220px] rounded-2xl border border-gold/15 bg-warm-white p-2 shadow-xl shadow-green-dark/10">
-          {children.map((child) => (
+        <div className="absolute left-0 top-full z-50 min-w-[220px] pt-2">
+          <div role="menu" className="rounded-2xl border border-gold/15 bg-warm-white p-2 shadow-xl shadow-green-dark/10">
+            {children.map((child) => (
             <Link
               key={child.href}
               href={child.href}
@@ -68,7 +69,8 @@ function DesktopDropdown({ link }: { link: NavigationLink }) {
             >
               {child.label}
             </Link>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -155,7 +157,6 @@ export default function Header() {
         { href: "/programacao/cursos", label: t.nav.courses },
         { href: "/programacao/desafios", label: t.nav.challenges },
         { href: "/programacao/feedback", label: t.nav.feedback },
-        { href: "/programacao/festival", label: t.nav.festival },
       ],
     },
     {
@@ -191,12 +192,12 @@ export default function Header() {
               </svg>
               +244 931 238 451
             </a>
-            <a href="mailto:info@fivaaforum.com" className="hidden items-center gap-2 text-xs text-white/70 transition-colors hover:text-gold sm:flex">
+            <a href={`mailto:${contactEmail}`} className="hidden items-center gap-2 text-xs text-white/70 transition-colors hover:text-gold sm:flex">
               <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
-              info@fivaaforum.com
+              {contactEmail}
             </a>
           </div>
           <div className="flex shrink-0 items-center gap-3 sm:gap-4">
@@ -219,7 +220,7 @@ export default function Header() {
       <header className="sticky top-0 z-50 w-full border-b border-green-dark/10 bg-warm-white/95 shadow-[0_8px_28px_rgba(18,71,52,0.08)] backdrop-blur-xl">
         <div className="mx-auto flex h-[100px] max-w-7xl items-center justify-between gap-4 px-4 sm:h-[116px] sm:px-6 lg:px-8">
           <Link href="/" className="flex shrink-0 items-center rounded-lg" aria-label="FIVAA — Página inicial">
-            <LogoPrimary className="h-32 w-auto sm:h-36" />
+            <LogoPrimary className="h-24 w-auto sm:h-28" />
           </Link>
 
           <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navegação principal">
@@ -295,4 +296,3 @@ export default function Header() {
     </>
   );
 }
-
