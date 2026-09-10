@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { AccentBar } from "@/components/BrandElements";
 import PageHero from "@/components/PageHero";
 import CardAtividade from "@/components/CardAtividade";
-import Sidebar from "@/components/Sidebar";
 function ImageIcon({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -30,17 +29,6 @@ export const metadata: Metadata = {
   description:
     "Exposições virtuais e presenciais do FIVAA para divulgação de arte africana.",
 };
-
-const sidebarLinks = [
-  { href: "/programacao/workshops", label: "Workshops" },
-  { href: "/programacao/palestras", label: "Palestras" },
-  { href: "/programacao/exposicoes", label: "Exposições" },
-  { href: "/programacao/mentoria", label: "Mentoria" },
-  { href: "/programacao/cursos", label: "Cursos" },
-  { href: "/programacao/desafios", label: "Desafios" },
-  { href: "/programacao/feedback", label: "Feedback" },
-  { href: "/programacao/festival", label: "Festival" },
-];
 
 const exposicoes = [
   {
@@ -80,9 +68,7 @@ export default function ProgramacaoExposicoes() {
       {/* Content */}
       <AccentBar />
       <section className="relative bg-warm-white py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
-            <Sidebar title="Programação" links={sidebarLinks} />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-6 sm:grid-cols-2">
               {exposicoes.map((exp) => (
                 <CardAtividade
@@ -94,7 +80,6 @@ export default function ProgramacaoExposicoes() {
                   icon={<ImageIcon className="h-5 w-5 text-gold" />}
                 />
               ))}
-            </div>
           </div>
         </div>
       </section>

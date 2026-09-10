@@ -4,7 +4,7 @@
 
 1. Conta na [Vercel](https://vercel.com)
 2. Conta no [Convex](https://convex.dev)
-3. Node.js 18+ instalado
+3. Node.js 22+ instalado (Vercel configurada para Node.js 24)
 
 ## Passo 1: Configurar o Convex
 
@@ -79,13 +79,15 @@ npx vercel logs
 
 - O projeto usa Next.js 16 com App Router
 - Autenticação via Convex Auth
-- Imagens otimizadas (`images.unoptimized: true` no next.config.ts)
+- Imagens otimizadas (`images.unoptimized: false` no next.config.ts)
 - Headers de segurança e CSP por nonce configurados em `src/proxy.ts`
 - Formulários públicos passam pelo servidor do Next.js antes de gravarem no Convex
 - As mutations públicas agora exigem um segredo interno, portanto `FORM_SUBMISSION_SECRET` precisa existir tanto na Vercel quanto no Convex
 - O ficheiro legado `src/middleware.ts` foi substituído por `src/proxy.ts`, conforme o padrão do Next.js 16
 
 ## Produção segura
+
+As chaves Turnstile abaixo são opcionais e, por si só, não ativam um CAPTCHA: a integração do widget/verificação ainda não está implementada. A proteção ativa dos formulários usa validação, limite de tamanho, origem, honeypot, tempo mínimo, segredo servidor/Convex e limite de submissões no backend.
 
 1. Crie um widget no Cloudflare Turnstile para o domínio público.
 2. Configure `NEXT_PUBLIC_TURNSTILE_SITE_KEY` e `TURNSTILE_SECRET_KEY` na Vercel.

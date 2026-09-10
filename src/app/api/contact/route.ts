@@ -1,24 +1,14 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
-import { getClientIp, getErrorStatus, getSubmissionSecret } from "@/lib/request";
-import {
-  fetchMutationWithRetry,
-  isNetworkError,
-  getNetworkErrorMessage,
-} from "@/lib/convex";
+import { getClientIp, getSubmissionSecret } from "@/lib/request";
+import { fetchMutation } from "convex/nextjs";
+import { readForm, contactFields, publicFormError } from "@/lib/form-validation";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as {
-      name?: string;
-      email?: string;
-      subject?: string;
-      message?: string;
-      startedAt?: number;
-      honeypot?: string;
-    };
+    const fields = contactFields(await readForm(request));
 
     const submissionSecret = getSubmissionSecret();
     if (!submissionSecret) {
@@ -30,27 +20,16 @@ export async function POST(request: Request) {
 
     const clientIp = getClientIp(request);
 
-    await fetchMutationWithRetry(api.messages.create, {
-      name: body.name ?? "",
-      email: body.email ?? "",
-      message: `[Assunto: ${(body.subject ?? "").trim()}]\n\n${body.message ?? ""}`,
-      submittedAt: Number(body.startedAt ?? 0),
-      honeypot: body.honeypot ?? "",
+    await fetchMutation(api.messages.create, {
+      ...fields,
       clientIp,
       submissionSecret,
     });
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    const message = isNetworkError(error)
-      ? getNetworkErrorMessage()
-      : error instanceof Error
-        ? error.message
-        : "Falha ao enviar a mensagem.";
-
-    return NextResponse.json(
-      { error: message },
-      { status: getErrorStatus(message) },
-    );
+    const { message, status } = publicFormError(error);
+    console.error("contact_submission_failed", { status });
+    return NextResponse.json({ error: message }, { status });
   }
 }

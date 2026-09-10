@@ -1,26 +1,14 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
-import { getClientIp, getErrorStatus, getSubmissionSecret } from "@/lib/request";
-import {
-  fetchMutationWithRetry,
-  isNetworkError,
-  getNetworkErrorMessage,
-} from "@/lib/convex";
+import { getClientIp, getSubmissionSecret } from "@/lib/request";
+import { fetchMutation } from "convex/nextjs";
+import { readForm, registrationFields, publicFormError } from "@/lib/form-validation";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as {
-      name?: string;
-      email?: string;
-      phone?: string;
-      country?: string;
-      org?: string;
-      ticketId?: string;
-      startedAt?: number;
-      honeypot?: string;
-    };
+    const fields = registrationFields(await readForm(request));
 
     const submissionSecret = getSubmissionSecret();
     if (!submissionSecret) {
@@ -32,30 +20,16 @@ export async function POST(request: Request) {
 
     const clientIp = getClientIp(request);
 
-    await fetchMutationWithRetry(api.registrations.create, {
-      name: body.name ?? "",
-      email: body.email ?? "",
-      phone: body.phone ?? "",
-      country: body.country ?? "",
-      org: body.org ?? "",
-      ticketId: body.ticketId ?? "",
-      submittedAt: Number(body.startedAt ?? 0),
-      honeypot: body.honeypot ?? "",
+    await fetchMutation(api.registrations.create, {
+      ...fields,
       clientIp,
       submissionSecret,
     });
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    const message = isNetworkError(error)
-      ? getNetworkErrorMessage()
-      : error instanceof Error
-        ? error.message
-        : "Falha ao concluir a inscrição.";
-
-    return NextResponse.json(
-      { error: message },
-      { status: getErrorStatus(message) },
-    );
+    const { message, status } = publicFormError(error);
+    console.error("registration_submission_failed", { status });
+    return NextResponse.json({ error: message }, { status });
   }
 }

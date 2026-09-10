@@ -3,7 +3,6 @@ import Link from "next/link";
 import { AccentBar } from "@/components/BrandElements";
 import PageHero from "@/components/PageHero";
 import CardAtividade from "@/components/CardAtividade";
-import Sidebar from "@/components/Sidebar";
 function BookOpenIcon({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -29,17 +28,6 @@ export const metadata: Metadata = {
   description:
     "Workshops interativos mensais do FIVAA para aperfeiçoamento artístico.",
 };
-
-const sidebarLinks = [
-  { href: "/programacao/workshops", label: "Workshops" },
-  { href: "/programacao/palestras", label: "Palestras" },
-  { href: "/programacao/exposicoes", label: "Exposições" },
-  { href: "/programacao/mentoria", label: "Mentoria" },
-  { href: "/programacao/cursos", label: "Cursos" },
-  { href: "/programacao/desafios", label: "Desafios" },
-  { href: "/programacao/feedback", label: "Feedback" },
-  { href: "/programacao/festival", label: "Festival" },
-];
 
 const workshops = [
   {
@@ -89,9 +77,7 @@ export default function ProgramacaoWorkshops() {
       {/* Content */}
       <AccentBar />
       <section className="relative bg-warm-white py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
-            <Sidebar title="Programação" links={sidebarLinks} />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-6 sm:grid-cols-2">
               {workshops.map((ws) => (
                 <CardAtividade
@@ -104,7 +90,6 @@ export default function ProgramacaoWorkshops() {
                   icon={<BookOpenIcon className="h-5 w-5 text-gold" />}
                 />
               ))}
-            </div>
           </div>
         </div>
       </section>
@@ -113,9 +98,9 @@ export default function ProgramacaoWorkshops() {
       <section className="relative bg-green-dark py-16">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-montserrat text-3xl font-bold text-white">Interessado nos nossos workshops?</h2>
-          <p className="mt-4 text-white/70">Inscreva-se agora e comece a aperfeiçoar a sua arte</p>
+          <p className="mt-4 text-white/70">Consulte as modalidades de acesso e descubra os workshops do FIVAA</p>
           <Link href="/inscricao" className="mt-8 inline-block rounded-full bg-gold px-8 py-4 font-montserrat text-sm font-bold text-green-dark shadow-lg shadow-gold/20 transition-all hover:bg-gold/90 hover:shadow-xl">
-            Inscrever-me agora
+            Consultar bilhetes
           </Link>
         </div>
       </section>

@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -15,12 +18,14 @@ interface BreadcrumbNavItem {
 }
 
 export default function BreadcrumbNav({ items }: { items: BreadcrumbNavItem[] }) {
+  const { t } = useLanguage();
+
   return (
-    <Breadcrumb className="mb-8 font-montserrat text-sm text-gray-medium">
-      <BreadcrumbList>
+    <Breadcrumb className="font-montserrat text-sm">
+      <BreadcrumbList className="text-white/65">
         <BreadcrumbItem>
-          <BreadcrumbLink render={<Link href="/" className="transition-colors hover:text-gold" />}>
-            Home
+          <BreadcrumbLink render={<Link href="/" className="text-white/70 transition-colors hover:text-gold" />}>
+            {t.nav.home}
           </BreadcrumbLink>
         </BreadcrumbItem>
         {items.map((item) => (
@@ -28,11 +33,11 @@ export default function BreadcrumbNav({ items }: { items: BreadcrumbNavItem[] })
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               {item.href ? (
-                <BreadcrumbLink render={<Link href={item.href} className="transition-colors hover:text-gold" />}>
+                <BreadcrumbLink render={<Link href={item.href} className="text-white/70 transition-colors hover:text-gold" />}>
                   {item.label}
                 </BreadcrumbLink>
               ) : (
-                <BreadcrumbPage className="font-medium text-green-dark">
+                <BreadcrumbPage className="font-bold text-white">
                   {item.label}
                 </BreadcrumbPage>
               )}

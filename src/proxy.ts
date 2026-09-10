@@ -16,23 +16,21 @@ function buildContentSecurityPolicy(nonce: string) {
     `style-src 'self' https://fonts.googleapis.com ${
       isDevelopment ? "'unsafe-inline'" : `'nonce-${nonce}'`
     }`,
+    // Next/Image and React use style attributes; script and style elements remain nonce-protected.
+    "style-src-attr 'unsafe-inline'",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: https:",
     "frame-src https://challenges.cloudflare.com",
     "connect-src 'self' https://*.convex.cloud https://*.convex.site wss://*.convex.cloud wss://*.convex.site https://challenges.cloudflare.com",
-    "upgrade-insecure-requests",
+    ...(isDevelopment ? [] : ["upgrade-insecure-requests"]),
   ].join("; ");
 }
 
 function applySecurityHeaders(
   response: NextResponse,
-  headers: Headers,
   nonce: string,
 ) {
   const contentSecurityPolicy = buildContentSecurityPolicy(nonce);
-
-  headers.set("x-nonce", nonce);
-  headers.set("Content-Security-Policy", contentSecurityPolicy);
 
   response.headers.set("Content-Security-Policy", contentSecurityPolicy);
   response.headers.set("X-Frame-Options", "DENY");
@@ -53,7 +51,11 @@ function applySecurityHeaders(
 const ADMIN_HOST = "admin.fivaaforum.com";
 
 export default convexAuthNextjsMiddleware(async (request: NextRequest) => {
-  try {
+    const requestHeaders = new Headers(request.headers);
+    const nonce = crypto.randomUUID().replace(/-/g, "");
+    requestHeaders.set("x-nonce", nonce);
+    requestHeaders.set("Content-Security-Policy", buildContentSecurityPolicy(nonce));
+    const forwarding = { request: { headers: requestHeaders } };
     const host = request.headers.get("host") ?? "";
     const normalizedHost = host.toLowerCase();
     const pathname = request.nextUrl.pathname;
@@ -64,36 +66,20 @@ export default convexAuthNextjsMiddleware(async (request: NextRequest) => {
 
       if (pathname === "/") {
         url.pathname = "/admin";
-        return applySecurityHeaders(NextResponse.rewrite(url), request.headers, crypto.randomUUID().replace(/-/g, ""));
+        return applySecurityHeaders(NextResponse.rewrite(url, forwarding), nonce);
       }
 
-      if (pathname.startsWith("/admin")) {
-        return applySecurityHeaders(NextResponse.next(), request.headers, crypto.randomUUID().replace(/-/g, ""));
+      if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+        return applySecurityHeaders(NextResponse.next(forwarding), nonce);
       }
 
-      if (!pathname.startsWith("/api")) {
+      if (pathname !== "/api" && !pathname.startsWith("/api/")) {
         url.pathname = `/admin${pathname}`;
-        return applySecurityHeaders(NextResponse.rewrite(url), request.headers, crypto.randomUUID().replace(/-/g, ""));
+        return applySecurityHeaders(NextResponse.rewrite(url, forwarding), nonce);
       }
     }
 
-    const requestHeaders = new Headers(request.headers);
-    const nonce = crypto.randomUUID().replace(/-/g, "");
-    const contentSecurityPolicy = buildContentSecurityPolicy(nonce);
-
-    requestHeaders.set("x-nonce", nonce);
-    requestHeaders.set("Content-Security-Policy", contentSecurityPolicy);
-
-    const response = NextResponse.next({
-      request: {
-        headers: requestHeaders,
-      },
-    });
-
-    return applySecurityHeaders(response, requestHeaders, nonce);
-  } catch {
-    return NextResponse.next();
-  }
+    return applySecurityHeaders(NextResponse.next(forwarding), nonce);
 });
 
 export const config = {

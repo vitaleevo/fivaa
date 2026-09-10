@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { AccentBar, Badge } from "@/components/BrandElements";
 import PageHero from "@/components/PageHero";
 
@@ -12,7 +13,7 @@ const passos = [
   {
     step: "1",
     title: "Contacte-nos",
-    desc: "Entre em contato connosco através do formulário ou email para expressar o seu interesse.",
+    desc: "Entre em contacto connosco através do formulário ou por e-mail para manifestar o seu interesse.",
   },
   {
     step: "2",
@@ -34,7 +35,7 @@ const passos = [
 const tipos = [
   {
     title: "Parceiro Institucional",
-    desc: "Organizações governamentais e não-governamentais que apoiam a cultura e arte.",
+    desc: "Organizações governamentais e não governamentais que apoiam a cultura e a arte.",
     examples: ["Ministérios", "Embaixadas", "Fundações culturais"],
   },
   {
@@ -48,8 +49,8 @@ const tipos = [
     examples: ["Universidades", "Escolas de arte", "Institutos culturais"],
   },
   {
-    title: "Parceiro Mediático",
-    desc: "Media e plataformas de comunicação que divulgam arte e cultura.",
+    title: "Parceiro Midiático",
+    desc: "Mídia e plataformas de comunicação que divulgam arte e cultura.",
     examples: ["Jornais", "TV", "Rádio", "Plataformas digitais"],
   },
 ];
@@ -87,6 +88,15 @@ export default function ParceirosComoSer() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="bg-warm-white pb-4 text-center">
+        <Link
+          href="/contactos"
+          className="inline-flex items-center justify-center rounded-full bg-gold px-8 py-4 font-montserrat text-sm font-bold text-green-dark shadow-lg shadow-gold/20 transition-all hover:-translate-y-0.5 hover:bg-gold-metallic hover:shadow-xl"
+        >
+          Falar com a equipa
+        </Link>
       </section>
 
       {/* Tipos de Parceiros */}

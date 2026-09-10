@@ -78,7 +78,7 @@ export interface Translations {
 export const translations: Record<Language, Translations> = {
   pt: {
     nav: {
-      home: "Home",
+      home: "Início",
       about: "Sobre",
       aboutOverview: "Visão Geral",
       aboutObjectives: "Objetivos",
@@ -102,12 +102,12 @@ export const translations: Record<Language, Translations> = {
       howToBePartner: "Como Ser Parceiro",
       testimonials: "Testemunhos",
       contacts: "Contactos",
-      register: "Inscreva-se",
+      register: "Bilhetes",
     },
     home: {
       heroTag: "FIVAA 2026 • Luanda, Angola",
       heroTitle: "Fórum Internacional da Valorização da Arte Africana",
-      heroSubtitle: "20 a 21 de Novembro de 2026 no emblemático Palácio de Ferro. O maior encontro de criatividade, cultura e indústrias criativas de África.",
+      heroSubtitle: "20 e 21 de novembro de 2026 no emblemático Palácio de Ferro. O maior encontro de criatividade, cultura e indústrias criativas de África.",
       manifestoBadge: "O nosso manifesto",
       manifestoQuote: "A arte africana não precisa de validação externa. Ela precisa de um palco. O FIVAA é esse palco.",
       manifestoAuthor: "FIVAA 2026",
@@ -126,7 +126,7 @@ export const translations: Record<Language, Translations> = {
       ctaTitle1: "Vai perder esta",
       ctaTitle2: "oportunidade",
       ctaSubtitle: "Junte-se a nós no maior evento de valorização da arte africana. Lugares limitados.",
-      ctaButton: "Inscreva-se Agora",
+      ctaButton: "Consultar bilhetes",
     },
     cookies: {
       title: "Privacidade e Gestão de Cookies",
@@ -172,7 +172,7 @@ export const translations: Record<Language, Translations> = {
       howToBePartner: "Become a Partner",
       testimonials: "Testimonials",
       contacts: "Contact",
-      register: "Register Now",
+      register: "Tickets",
     },
     home: {
       heroTag: "FIVAA 2026 • Luanda, Angola",
@@ -196,7 +196,7 @@ export const translations: Record<Language, Translations> = {
       ctaTitle1: "Don't miss this",
       ctaTitle2: "opportunity",
       ctaSubtitle: "Join us at the largest event celebrating African art and creative economy. Limited seats.",
-      ctaButton: "Register Now",
+      ctaButton: "View tickets",
     },
     cookies: {
       title: "Privacy & Cookie Management",
@@ -242,7 +242,7 @@ export const translations: Record<Language, Translations> = {
       howToBePartner: "Devenir Partenaire",
       testimonials: "Témoignages",
       contacts: "Contact",
-      register: "S'inscrire",
+      register: "Billets",
     },
     home: {
       heroTag: "FIVAA 2026 • Luanda, Angola",
@@ -266,7 +266,7 @@ export const translations: Record<Language, Translations> = {
       ctaTitle1: "Ne manquez pas cette",
       ctaTitle2: "opportunité",
       ctaSubtitle: "Rejoignez-nous au plus grand événement de valorisation de l'art africain. Places limitées.",
-      ctaButton: "Inscrivez-vous",
+      ctaButton: "Voir les billets",
     },
     cookies: {
       title: "Confidentialité et Gestion des Cookies",

@@ -13,7 +13,7 @@ Website oficial do FIVAA 2026 — Palácio de Ferro, Luanda, Angola.
 
 ## Funcionalidades
 
-- 🎟️ **Inscrições** — formulário de registo com bilhetes (honeypot, timing anti-bot, rate-limit)
+- 🎟️ **Bilhetes** — três modalidades e compra externa na Ticket.ao; enquanto o evento não estiver publicado, os botões permitem contactar a equipa por e-mail. O contacto não confirma uma inscrição.
 - 💬 **Contactos** — formulário com proteção de submissões (secret interno server-side)
 - 🔐 **Backoffice admin** — login único (email + password), gestão de inscrições, mensagens, oradores, programação, bilhetes e testemunhos
 - 🛡️ **Segurança** — auth JWT (RS256), rate-limiting por IP/email, validação server-side, CSP estrito, sem dados de clientes expostos publicamente
@@ -69,6 +69,25 @@ O site fica disponível em http://localhost:3000
 | `FIVAA_ENABLE_ADMIN_SETUP` | `true` para permitir criação do 1.º admin (desativar depois) |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Chave pública Cloudflare Turnstile |
 | `TURNSTILE_SECRET_KEY` | Chave secreta Cloudflare Turnstile (server-side) |
+| `NEXT_PUBLIC_TICKET_URL_FORUMS` | URL HTTPS oficial do FIVAA para Acesso Fóruns |
+| `NEXT_PUBLIC_TICKET_URL_CONCERTS` | URL HTTPS oficial do FIVAA para Acesso Concertos |
+| `NEXT_PUBLIC_TICKET_URL_TOTAL` | URL HTTPS oficial do FIVAA para Acesso Total |
+
+As três URLs podem apontar para a mesma página do evento se a escolha de modalidade for feita na Ticket.ao. Não configurar URLs de outros eventos. Depois de alterar estas variáveis na Vercel, é necessário um novo build.
+
+## Verificação
+
+```bash
+npm run lint
+npm test
+npm run build
+npm run start
+# Noutro terminal, depois de instalar o navegador uma vez:
+npx playwright install chromium
+npm run test:browser
+```
+
+Os testes de formulário no navegador simulam as respostas e não enviam mensagens reais. Os testes de API usam apenas submissões inválidas. A tradução da página de bilhetes, navegação e rodapé cobre PT/EN/FR; a tradução do restante conteúdo ainda está parcial.
 
 ## Segurança
 

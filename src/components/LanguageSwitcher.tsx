@@ -28,7 +28,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
   }, []);
 
   return (
-    <div ref={dropdownRef} className={cn("relative inline-block text-left", className)}>
+    <div ref={dropdownRef} className={cn("relative inline-block text-left", className)} onKeyDown={(event) => { if (event.key === "Escape") { setOpen(false); dropdownRef.current?.querySelector("button")?.focus(); } }} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setOpen(false); }}>
       <button
         type="button"
         onClick={() => setOpen(!open)}

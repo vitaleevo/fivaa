@@ -4,10 +4,10 @@ import { IconLectures, IconExhibition, IconLivePerformance, IconNetworking } fro
 import { AfricanPatternDark, Divider, Badge, MudclothPattern, TribalDivider } from "@/components/BrandElements";
 
 const stats = [
-  { number: "500+", label: "Artistas e Criadores" },
+  { number: "100+", label: "Artistas e Criadores" },
   { number: "30+", label: "Países Representados" },
-  { number: "40+", label: "Oradores e Palestrantes" },
-  { number: "10K+", label: "Participantes Esperados" },
+  { number: "30+", label: "Oradores e Palestrantes" },
+  { number: "1K+", label: "Participantes Esperados" },
 ];
 
 const highlights = [
@@ -172,7 +172,7 @@ export default function Home() {
             Um dos mais emblemáticos edifícios de Luanda, Angola
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-xs font-medium uppercase tracking-wider text-white/40">
-            <span className="rounded-full border border-white/20 px-4 py-2">20-21 Novembro 2026</span>
+            <span className="rounded-full border border-white/20 px-4 py-2">20 e 21 de novembro de 2026</span>
             <span className="rounded-full border border-white/20 px-4 py-2">Luanda, Angola</span>
             <span className="rounded-full border border-white/20 px-4 py-2">fivaaforum.com</span>
           </div>
@@ -193,7 +193,7 @@ export default function Home() {
             Lugares limitados.
           </p>
           <Link href="/inscricao" className="group relative inline-block overflow-hidden rounded-full bg-gold px-14 py-5 font-montserrat text-base font-extrabold text-green-dark transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-gold/30">
-            <span className="relative z-10">Inscreva-se Agora</span>
+            <span className="relative z-10">Consultar bilhetes</span>
             <div className="absolute inset-0 bg-gradient-to-r from-gold to-gold-metallic opacity-0 transition-opacity group-hover:opacity-100" />
           </Link>
           </div>

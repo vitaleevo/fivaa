@@ -2,14 +2,16 @@ import Image from "next/image";
 
 export function LogoPrimary({ className = "h-12 w-auto" }: { className?: string }) {
   return (
-    <Image
-      src="/images/LOGO FIVAA - PRINCIPAL  SEM FUNDO.png"
-      alt="FIVAA"
-      width={1000}
-      height={1000}
-      priority
-      className={className}
-    />
+    <span className={`relative block overflow-hidden ${className}`} data-public-logo>
+      <Image
+        src="/images/LOGO FIVAA - PRINCIPAL  SEM FUNDO.png"
+        alt="FIVAA"
+        fill
+        sizes="(max-width: 639px) 160px, 208px"
+        priority
+        className="object-cover object-center"
+      />
+    </span>
   );
 }
 

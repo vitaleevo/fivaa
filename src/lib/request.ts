@@ -1,6 +1,6 @@
 export function getClientIp(request: Request) {
   return (
-    request.headers.get("cf-connecting-ip") ??
+    request.headers.get("x-vercel-forwarded-for") ??
     request.headers.get("x-forwarded-for") ??
     request.headers.get("x-real-ip") ??
     ""

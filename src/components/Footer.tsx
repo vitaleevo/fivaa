@@ -23,13 +23,15 @@ export default function Footer() {
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Image
-              src="/images/LOGO FIVAA - MONOCRÓMATICO - BRANCO SEM FUNDO.png"
-              alt="FIVAA"
-              width={1000}
-              height={1000}
-              className="h-24 w-auto object-contain sm:h-28"
-            />
+            <div className="relative h-20 w-52 overflow-hidden sm:h-24 sm:w-60">
+              <Image
+                src="/images/LOGO FIVAA - MONOCRÓMATICO - BRANCO SEM FUNDO.png"
+                alt="FIVAA"
+                fill
+                sizes="(max-width: 639px) 208px, 240px"
+                className="object-cover object-center"
+              />
+            </div>
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               {t.footer.desc}
             </p>

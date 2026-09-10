@@ -39,7 +39,7 @@ export default function TermosPage() {
                 2. Inscrições e Participação no Evento
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-gray-600 sm:text-base">
-                A inscrição através do website confere o direito a solicitar a credencial de acesso ao FIVAA 2026, a realizar-se de 20 a 21 de Novembro de 2026 no Palácio de Ferro, em Luanda. A organização reserva-se o direito de limitar a admissão de acordo com a lotação máxima de segurança do recinto.
+                A inscrição através do website confere o direito a solicitar a credencial de acesso ao FIVAA 2026, a realizar-se nos dias 20 e 21 de novembro de 2026 no Palácio de Ferro, em Luanda. A organização reserva-se o direito de limitar a admissão de acordo com a lotação máxima de segurança do recinto.
               </p>
             </div>
 

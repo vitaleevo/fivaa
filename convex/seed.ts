@@ -61,40 +61,22 @@ export const run = mutation({
     if (existingTestimonials.length === 0) {
       const testimonials = [
         {
-          name: "Maria Santos",
-          role: "Artista Visual",
-          quote: "O FIVAA transformou a minha carreira. Através dos workshops e da mentoria, consegui desenvolver um estilo próprio e receber reconhecimento internacional.",
+          name: "Direção do FIVAA",
+          role: "Direção Institucional",
+          quote: "O FIVAA nasce para dar à arte africana o palco, a projeção e as oportunidades que merece, aproximando criadores, instituições e mercados.",
           location: "Luanda, Angola",
         },
         {
-          name: "João Silva",
-          role: "Parceiro Empresarial",
-          quote: "Associar a nossa marca ao FIVAA foi uma decisão estratégica. O retorno em visibilidade e networking superou todas as expectativas.",
+          name: "Coordenação de Parcerias",
+          role: "Parcerias Estratégicas",
+          quote: "Cada parceria é construída para gerar valor partilhado, ampliar o impacto cultural e criar ligações duradouras no ecossistema criativo africano.",
           location: "Luanda, Angola",
         },
         {
-          name: "Ana Costa",
-          role: "Mentora",
-          quote: "Partilhar o meu conhecimento com artistas emergentes é extremamente gratificante. O FIVAA cria um ambiente perfeito para esta troca.",
-          location: "Maputo, Moçambique",
-        },
-        {
-          name: "Pedro Mendes",
-          role: "Galerista",
-          quote: "O Festival Anual do FIVAA é um dos eventos culturais mais importantes da região. É onde encontro os novos talentos da arte africana.",
-          location: "Johannesburg, África do Sul",
-        },
-        {
-          name: "Lucia Fernandes",
-          role: "Estudante de Arte",
-          quote: "Os recursos educativos do FIVAA são incomparáveis. Aprendi mais em 6 meses do que em anos de estudo formal.",
-          location: "Windhoek, Namíbia",
-        },
-        {
-          name: "Carlos Matos",
-          role: "Músico",
-          quote: "A comunidade do FIVAA é como uma família. O apoio e a encorajamento que recebo são fundamentais para a minha evolução artística.",
-          location: "Maputo, Moçambique",
+          name: "Curadoria do FIVAA",
+          role: "Direção Artística",
+          quote: "A programação reúne diferentes linguagens, gerações e territórios para celebrar a diversidade e projetar novas narrativas da arte africana.",
+          location: "Luanda, Angola",
         },
       ];
       for (const testimonial of testimonials) {

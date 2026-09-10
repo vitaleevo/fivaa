@@ -41,7 +41,7 @@ export default function Contactos() {
                   { label: "Telefone", value: "+244 931 238 451", href: "tel:+244931238451" },
                   { label: "E-mail", value: contactEmail, href: `mailto:${contactEmail}` },
                   { label: "Local", value: "Palácio de Ferro, Luanda, Angola" },
-                  { label: "Data", value: "20-21 Novembro 2026" },
+                  { label: "Data", value: "20 e 21 de novembro de 2026" },
                 ].map((info) => (
                   <div key={info.label}>
                     <p className="mb-2 font-montserrat text-xs font-bold uppercase tracking-[0.2em] text-gold">

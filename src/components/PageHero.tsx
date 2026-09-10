@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Badge } from "@/components/BrandElements";
+import { Badge, OsramScrollCue } from "@/components/BrandElements";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 interface PageHeroProps {
@@ -12,7 +12,7 @@ interface PageHeroProps {
 
 export default function PageHero({ title, subtitle, badge, backgroundImage, breadcrumbs }: PageHeroProps) {
   return (
-    <section className="relative isolate overflow-hidden bg-green-dark py-24 text-center text-white sm:py-28 lg:py-32">
+    <section data-page-hero className="relative isolate flex min-h-[340px] items-center overflow-hidden bg-green-dark py-12 text-center text-white sm:h-[420px] sm:min-h-0 sm:py-8">
       <div className="pointer-events-none absolute inset-0 -z-20">
         <Image src={backgroundImage} alt="" fill sizes="100vw" className="opacity-30" priority style={{ objectFit: "cover", objectPosition: "center" }} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-green-dark/75 to-green-dark" />
@@ -29,7 +29,7 @@ export default function PageHero({ title, subtitle, badge, backgroundImage, brea
         <Badge className="border-white/20 bg-white/10 text-white/85">{badge}</Badge>
         <h1 className="mt-6 font-montserrat text-4xl font-black leading-[1.04] tracking-[-0.04em] text-white sm:text-5xl md:text-6xl">{title}</h1>
         {subtitle && <p className="mx-auto mt-5 max-w-2xl font-montserrat text-base font-medium leading-relaxed text-white/75 sm:text-lg">{subtitle}</p>}
-        <div className="mx-auto mt-8 h-1 w-16 bg-gradient-to-r from-gold to-orange" aria-hidden="true" />
+        <OsramScrollCue className="mx-auto mt-7" />
       </div>
     </section>
   );

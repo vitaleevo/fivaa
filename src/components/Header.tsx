@@ -35,6 +35,12 @@ function DesktopDropdown({ link }: { link: NavigationLink }) {
       className="relative"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          setOpen(false);
+          event.stopPropagation();
+        }
+      }}
       onFocus={() => setOpen(true)}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node)) setOpen(false);
@@ -46,7 +52,6 @@ function DesktopDropdown({ link }: { link: NavigationLink }) {
           "flex items-center gap-1 rounded-lg px-3 py-2 font-montserrat text-[13px] font-semibold transition-all",
           isActive ? "bg-gold/10 text-gold" : "text-gray-medium hover:bg-gold/5 hover:text-gold"
         )}
-        aria-haspopup="menu"
         aria-expanded={open}
       >
         {link.label}
@@ -56,12 +61,12 @@ function DesktopDropdown({ link }: { link: NavigationLink }) {
       </Link>
       {open && (
         <div className="absolute left-0 top-full z-50 min-w-[220px] pt-2">
-          <div role="menu" className="rounded-2xl border border-gold/15 bg-warm-white p-2 shadow-xl shadow-green-dark/10">
+          <div className="rounded-2xl border border-gold/15 bg-warm-white p-2 shadow-xl shadow-green-dark/10">
             {children.map((child) => (
             <Link
               key={child.href}
               href={child.href}
-              role="menuitem"
+              onClick={() => setOpen(false)}
               className={cn(
                 "block rounded-lg px-4 py-2.5 font-montserrat text-sm transition-all",
                 pathname === child.href ? "bg-gold/10 font-semibold text-gold" : "text-gray-medium hover:bg-gold/5 hover:text-gold"
@@ -220,10 +225,10 @@ export default function Header() {
       <header className="sticky top-0 z-50 w-full border-b border-green-dark/10 bg-warm-white/95 shadow-[0_8px_28px_rgba(18,71,52,0.08)] backdrop-blur-xl">
         <div className="mx-auto flex h-[100px] max-w-7xl items-center justify-between gap-4 px-4 sm:h-[116px] sm:px-6 lg:px-8">
           <Link href="/" className="flex shrink-0 items-center rounded-lg" aria-label="FIVAA — Página inicial">
-            <LogoPrimary className="h-24 w-auto sm:h-28" />
+            <LogoPrimary className="h-16 w-36 sm:h-20 sm:w-52" />
           </Link>
 
-          <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navegação principal">
+          <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navegação principal">
             {navLinks.map((link) =>
               link.children ? (
                 <DesktopDropdown key={link.href} link={link} />
@@ -248,7 +253,7 @@ export default function Header() {
             </div>
           </nav>
 
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <LanguageSwitcher />
             <details className="group" open={mobileOpen ? true : undefined}>
               <summary
@@ -264,7 +269,7 @@ export default function Header() {
                 <span className="block h-0.5 w-6 bg-green-dark transition-all group-open:-translate-y-2 group-open:-rotate-45" />
               </summary>
               {mobileOpen && (
-                <div className="absolute left-0 right-0 top-full border-t border-gold/10 bg-warm-white/98 px-4 pb-6 pt-4 shadow-2xl backdrop-blur-xl">
+                <div className="absolute left-0 right-0 top-full max-h-[calc(100dvh-160px)] overflow-y-auto border-t border-gold/10 bg-warm-white/98 px-4 pb-6 pt-4 shadow-2xl backdrop-blur-xl" onKeyDown={(event) => { if (event.key === "Escape") setMobileOpen(false); }} onClick={(event) => { if ((event.target as HTMLElement).closest("a")) setMobileOpen(false); }}>
                   <nav className="flex flex-col gap-2" aria-label="Navegação móvel">
                     {navLinks.map((link) =>
                       link.children ? (

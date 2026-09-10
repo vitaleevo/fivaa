@@ -86,7 +86,7 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-gold/20 bg-white/5 p-10 text-center backdrop-blur-sm animate-fade-in">
+      <div role="status" className="rounded-2xl border border-gold/20 bg-white/5 p-10 text-center backdrop-blur-sm animate-fade-in">
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gold/10 text-gold">
           <svg className="h-10 w-10 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -97,7 +97,7 @@ export default function ContactForm() {
           Agradecemos o seu contacto. A nossa equipa irá responder-lhe com a maior brevidade possível.
         </p>
         <button
-          onClick={() => setStatus("idle")}
+          onClick={() => { setStartedAt(Date.now()); setStatus("idle"); }}
           aria-label="Enviar nova mensagem de contacto"
           className="rounded-full border border-white/20 px-8 py-3.5 font-montserrat text-xs font-semibold uppercase tracking-wider text-white/50 transition-all hover:border-gold hover:text-white"
         >
@@ -136,6 +136,8 @@ export default function ContactForm() {
             id={field.id}
             type={field.type}
             required
+            maxLength={field.id === "name" ? 80 : field.id === "subject" ? 100 : 254}
+            autoComplete={field.id === "name" ? "name" : field.id === "email" ? "email" : "off"}
             placeholder={field.placeholder}
             value={form[field.id as keyof typeof form]}
             aria-describedby={errors[field.id] ? `${field.id}-error` : undefined}
@@ -166,6 +168,7 @@ export default function ContactForm() {
         <textarea
           id="message"
           rows={5}
+          maxLength={1000}
           required
           placeholder="Escreva a sua mensagem aqui..."
           value={form.message}
@@ -188,14 +191,8 @@ export default function ContactForm() {
         </div>
       </div>
 
-      {status === "error" && (
-        <p className="text-sm font-medium text-rose-400">
-          Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.
-        </p>
-      )}
-
       {securityError && (
-        <p className="text-sm font-medium text-rose-400">
+        <p role="alert" className="text-sm font-medium text-rose-400">
           {securityError}
         </p>
       )}

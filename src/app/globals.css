@@ -103,6 +103,25 @@ summary {
   }
 }
 
+@keyframes osram-scroll-cue {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.osram-scroll-cue {
+  animation: osram-scroll-cue 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .osram-scroll-cue {
+    animation: none;
+  }
+}
+
 /* African pattern overlay */
 .african-pattern {
   background-image: 

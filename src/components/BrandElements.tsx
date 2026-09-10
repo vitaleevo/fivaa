@@ -102,6 +102,24 @@ export function AccentBar({ className = "" }: { className?: string }) {
   );
 }
 
+export function OsramScrollCue({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`osram-scroll-cue flex flex-col items-center text-gold ${className}`}
+      aria-hidden="true"
+      data-osram-scroll-cue
+    >
+      <svg viewBox="0 0 48 32" className="h-7 w-11" fill="none">
+        <path
+          d="M4 5C7.5 13.5 14.5 18 24 18S40.5 13.5 44 5C41.5 17.5 34.5 26 24 26S6.5 17.5 4 5Z"
+          fill="currentColor"
+        />
+      </svg>
+      <span className="sr-only">Conteúdo abaixo</span>
+    </div>
+  );
+}
+
 export function Badge({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 font-montserrat text-xs font-semibold uppercase tracking-[0.2em] text-gold ${className}`}>
