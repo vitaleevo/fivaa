@@ -1,7 +1,5 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const institutionalTestimonials = {
@@ -22,21 +20,9 @@ const institutionalTestimonials = {
   ],
 };
 
-const deprecatedDemoNames = new Set([
-  "Maria Santos",
-  "João Silva",
-  "Ana Costa",
-  "Pedro Mendes",
-  "Lucia Fernandes",
-  "Carlos Matos",
-]);
-
 export default function TestemunhosClient() {
-  const testemunhos = useQuery(api.testimonials.get);
   const { language } = useLanguage();
-
-  const approvedTestimonials = (testemunhos ?? []).filter((item) => !deprecatedDemoNames.has(item.name));
-  const items = approvedTestimonials.length > 0 ? approvedTestimonials : institutionalTestimonials[language];
+  const items = institutionalTestimonials[language];
 
   return (
     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
