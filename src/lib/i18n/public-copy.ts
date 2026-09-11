@@ -484,6 +484,23 @@ const copy: Copy[] = [
   ["Workshops de Aprendizagem", "Learning workshops", "Ateliers d'apprentissage"],
   ["Projeto prático concluído", "Completed practical project", "Projet pratique achevé"],
   ["Apresentação de projeto final", "Final-project presentation", "Présentation du projet final"],
+  ["Os oradores serão anunciados em breve.", "Speakers will be announced soon.", "Les intervenants seront annoncés prochainement."],
+  ["20 de novembro", "20 November", "20 novembre"],
+  ["21 de novembro", "21 November", "21 novembre"],
+  ["Painel: O Futuro das Indústrias Criativas em África", "Panel: The future of Africa's creative industries", "Table ronde : L'avenir des industries créatives en Afrique"],
+  ["Workshop: Estratégias de Preservação Cultural", "Workshop: Cultural preservation strategies", "Atelier : Stratégies de préservation culturelle"],
+  ["Intervalo para Almoço", "Lunch break", "Pause déjeuner"],
+  ["Exposição de Arte Africana Contemporânea", "Contemporary African art exhibition", "Exposition d'art africain contemporain"],
+  ["Masterclass: Empreendedorismo Criativo", "Masterclass: Creative entrepreneurship", "Masterclass : Entrepreneuriat créatif"],
+  ["Atuação Musical ao Vivo", "Live music performance", "Performance musicale en direct"],
+  ["Jantar de Networking", "Networking dinner", "Dîner de réseautage"],
+  ["Painel: Arte e Tecnologia", "Panel: Art and technology", "Table ronde : Art et technologie"],
+  ["Workshop: Curadoria e Museologia", "Workshop: Curating and museology", "Atelier : Commissariat d'exposition et muséologie"],
+  ["Apresentação de Casos de Sucesso", "Success stories presentation", "Présentation de réussites"],
+  ["Feira de Oportunidades e Parcerias", "Opportunities and partnerships fair", "Salon des opportunités et des partenariats"],
+  ["Painel de Encerramento", "Closing panel", "Table ronde de clôture"],
+  ["Cerimónia de Encerramento", "Closing ceremony", "Cérémonie de clôture"],
+  ["Festa de Gala", "Gala celebration", "Soirée de gala"],
 ];
 
 export const publicCopy = new Map(

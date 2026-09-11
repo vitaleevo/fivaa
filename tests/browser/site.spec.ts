@@ -96,6 +96,14 @@ test("testimonial page never exposes deprecated demo identities", async ({ page 
   }
 });
 
+test("approved programme and institutional testimonials remain available without live data", async ({ page }) => {
+  await page.route("https://*.convex.cloud/**", route => route.abort());
+  await page.goto("/programacao");
+  await expect(page.getByText("Painel: O Futuro das Indústrias Criativas em África", { exact: true })).toBeVisible();
+  await page.goto("/parceiros/testemunhos");
+  await expect(page.getByText("Direção do FIVAA", { exact: true })).toBeVisible();
+});
+
 for (const width of [320, 768, 1024, 1440]) {
   test(`layout and ticket controls at ${width}px`, async ({ page }, testInfo) => {
     await page.setViewportSize({ width, height: 900 });

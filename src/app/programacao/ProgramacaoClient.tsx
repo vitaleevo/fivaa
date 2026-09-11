@@ -31,23 +31,35 @@ const typeColorsDark: Record<string, string> = {
   "Pausa": "bg-white/10 text-white/40 border-white/20",
 };
 
+const fallbackSchedule = [
+  { _id: "fallback-01", day: "20 de novembro", time: "09:00", title: "Abertura Oficial", type: "Cerimónia" },
+  { _id: "fallback-02", day: "20 de novembro", time: "10:00", title: "Painel: O Futuro das Indústrias Criativas em África", type: "Painel" },
+  { _id: "fallback-03", day: "20 de novembro", time: "11:30", title: "Workshop: Estratégias de Preservação Cultural", type: "Workshop" },
+  { _id: "fallback-04", day: "20 de novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
+  { _id: "fallback-05", day: "20 de novembro", time: "14:30", title: "Exposição de Arte Africana Contemporânea", type: "Exposição" },
+  { _id: "fallback-06", day: "20 de novembro", time: "16:00", title: "Masterclass: Empreendedorismo Criativo", type: "Masterclass" },
+  { _id: "fallback-07", day: "20 de novembro", time: "18:00", title: "Atuação Musical ao Vivo", type: "Música" },
+  { _id: "fallback-08", day: "20 de novembro", time: "20:00", title: "Jantar de Networking", type: "Networking" },
+  { _id: "fallback-09", day: "21 de novembro", time: "09:00", title: "Painel: Arte e Tecnologia", type: "Painel" },
+  { _id: "fallback-10", day: "21 de novembro", time: "10:30", title: "Workshop: Curadoria e Museologia", type: "Workshop" },
+  { _id: "fallback-11", day: "21 de novembro", time: "12:00", title: "Apresentação de Casos de Sucesso", type: "Apresentação" },
+  { _id: "fallback-12", day: "21 de novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
+  { _id: "fallback-13", day: "21 de novembro", time: "14:30", title: "Feira de Oportunidades e Parcerias", type: "Feira" },
+  { _id: "fallback-14", day: "21 de novembro", time: "16:00", title: "Painel de Encerramento", type: "Painel" },
+  { _id: "fallback-15", day: "21 de novembro", time: "18:00", title: "Cerimónia de Encerramento", type: "Cerimónia" },
+  { _id: "fallback-16", day: "21 de novembro", time: "20:00", title: "Festa de Gala", type: "Música" },
+];
+
 export default function ProgramacaoClient() {
   const scheduleData = useQuery(api.schedule.get);
-
-  if (scheduleData === undefined) {
-    return (
-      <div className="flex h-64 items-center justify-center bg-green-dark">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-gold border-t-transparent"></div>
-      </div>
-    );
-  }
+  const scheduleItems = scheduleData && scheduleData.length > 0 ? scheduleData : fallbackSchedule;
 
   // Group by day
-  const grouped = scheduleData.reduce((acc, item) => {
+  const grouped = scheduleItems.reduce((acc, item) => {
     if (!acc[item.day]) acc[item.day] = [];
     acc[item.day].push(item);
     return acc;
-  }, {} as Record<string, typeof scheduleData>);
+  }, {} as Record<string, typeof scheduleItems>);
 
   const days = Object.keys(grouped).sort();
 

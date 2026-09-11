@@ -88,22 +88,22 @@ export const run = mutation({
     const existingSchedule = await ctx.db.query("schedule").collect();
     if (existingSchedule.length === 0) {
       const schedule = [
-        { day: "20 de Novembro", time: "09:00", title: "Abertura Oficial", type: "Cerimónia" },
-        { day: "20 de Novembro", time: "10:00", title: "Painel: O Futuro das Indústrias Criativas em África", type: "Painel" },
-        { day: "20 de Novembro", time: "11:30", title: "Workshop: Estratégias de Preservação Cultural", type: "Workshop" },
-        { day: "20 de Novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
-        { day: "20 de Novembro", time: "14:30", title: "Exposição de Arte Africana Contemporânea", type: "Exposição" },
-        { day: "20 de Novembro", time: "16:00", title: "Masterclass: Empreendedorismo Criativo", type: "Masterclass" },
-        { day: "20 de Novembro", time: "18:00", title: "Atuação Musical ao Vivo", type: "Música" },
-        { day: "20 de Novembro", time: "20:00", title: "Jantar de Networking", type: "Networking" },
-        { day: "21 de Novembro", time: "09:00", title: "Painel: Arte e Tecnologia", type: "Painel" },
-        { day: "21 de Novembro", time: "10:30", title: "Workshop: Curadoria e Museologia", type: "Workshop" },
-        { day: "21 de Novembro", time: "12:00", title: "Apresentação de Cases de Sucesso", type: "Apresentação" },
-        { day: "21 de Novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
-        { day: "21 de Novembro", time: "14:30", title: "Feira de Oportunidades e Parcerias", type: "Feira" },
-        { day: "21 de Novembro", time: "16:00", title: "Painel de Encerramento", type: "Painel" },
-        { day: "21 de Novembro", time: "18:00", title: "Cerimónia de Encerramento", type: "Cerimónia" },
-        { day: "21 de Novembro", time: "20:00", title: "Festa de Gala", type: "Música" },
+        { day: "20 de novembro", time: "09:00", title: "Abertura Oficial", type: "Cerimónia" },
+        { day: "20 de novembro", time: "10:00", title: "Painel: O Futuro das Indústrias Criativas em África", type: "Painel" },
+        { day: "20 de novembro", time: "11:30", title: "Workshop: Estratégias de Preservação Cultural", type: "Workshop" },
+        { day: "20 de novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
+        { day: "20 de novembro", time: "14:30", title: "Exposição de Arte Africana Contemporânea", type: "Exposição" },
+        { day: "20 de novembro", time: "16:00", title: "Masterclass: Empreendedorismo Criativo", type: "Masterclass" },
+        { day: "20 de novembro", time: "18:00", title: "Atuação Musical ao Vivo", type: "Música" },
+        { day: "20 de novembro", time: "20:00", title: "Jantar de Networking", type: "Networking" },
+        { day: "21 de novembro", time: "09:00", title: "Painel: Arte e Tecnologia", type: "Painel" },
+        { day: "21 de novembro", time: "10:30", title: "Workshop: Curadoria e Museologia", type: "Workshop" },
+        { day: "21 de novembro", time: "12:00", title: "Apresentação de Casos de Sucesso", type: "Apresentação" },
+        { day: "21 de novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
+        { day: "21 de novembro", time: "14:30", title: "Feira de Oportunidades e Parcerias", type: "Feira" },
+        { day: "21 de novembro", time: "16:00", title: "Painel de Encerramento", type: "Painel" },
+        { day: "21 de novembro", time: "18:00", title: "Cerimónia de Encerramento", type: "Cerimónia" },
+        { day: "21 de novembro", time: "20:00", title: "Festa de Gala", type: "Música" },
       ];
       for (const item of schedule) {
         await ctx.db.insert("schedule", item);

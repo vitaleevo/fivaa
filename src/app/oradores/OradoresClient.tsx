@@ -8,13 +8,9 @@ export default function OradoresClient() {
 
   return (
     <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      {speakers === undefined ? (
-        <div className="flex h-64 items-center justify-center">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-gold border-t-transparent"></div>
-        </div>
-      ) : speakers.length === 0 ? (
+      {speakers === undefined || speakers.length === 0 ? (
         <div className="text-center py-20 text-white/50">
-          Nenhum orador registado.
+          Os oradores serão anunciados em breve.
         </div>
       ) : (
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

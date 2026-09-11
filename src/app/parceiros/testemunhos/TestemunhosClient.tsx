@@ -35,15 +35,7 @@ export default function TestemunhosClient() {
   const testemunhos = useQuery(api.testimonials.get);
   const { language } = useLanguage();
 
-  if (testemunhos === undefined) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-gold border-t-transparent"></div>
-      </div>
-    );
-  }
-
-  const approvedTestimonials = testemunhos.filter((item) => !deprecatedDemoNames.has(item.name));
+  const approvedTestimonials = (testemunhos ?? []).filter((item) => !deprecatedDemoNames.has(item.name));
   const items = approvedTestimonials.length > 0 ? approvedTestimonials : institutionalTestimonials[language];
 
   return (
