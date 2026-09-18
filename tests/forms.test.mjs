@@ -18,10 +18,17 @@ test("invalid fields, bots, stale and future submissions are rejected", () => {
   }
 });
 test("registration requires a valid phone and ticket", () => {
-  const input = { ...valid(), phone: "+244 931238451", country: "Angola", ticketId: "ticket-id" };
+  const input = { ...valid(), phone: "+244 931238451", country: "Angola", ticketId: "ticket-id", paymentStorageId: "jd7pay", photoStorageId: "jd7photo" };
   assert.equal(registrationFields(input).org, "");
   assert.throws(() => registrationFields({ ...input, phone: "abcdefghijk" }));
   assert.throws(() => registrationFields({ ...input, ticketId: "" }));
+});
+test("registration requires payment proof and photo", () => {
+  const base = { ...valid(), phone: "+244 931238451", country: "Angola", org: "", ticketId: "ticket-id", paymentStorageId: "jd7pay", photoStorageId: "jd7photo" };
+  assert.equal(registrationFields(base).paymentStorageId, "jd7pay");
+  assert.equal(registrationFields(base).photoStorageId, "jd7photo");
+  assert.throws(() => registrationFields({ ...base, paymentStorageId: "" }), /Comprovativo/);
+  assert.throws(() => registrationFields({ ...base, photoStorageId: "" }), /Foto/);
 });
 test("JSON boundary rejects wrong types and malformed content", async () => {
   for (const value of ["null", "[]", "123", "{"]) await assert.rejects(() => readForm(request(value)), { status: 400 });

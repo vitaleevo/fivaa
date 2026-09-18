@@ -70,11 +70,15 @@ export function registrationFields(body: Record<string, unknown>) {
   const values = common(body);
   const phone = field(body, "phone", "Telefone", 9, 20);
   if (!/^\+?[0-9\s\-()]{9,20}$/.test(phone)) throw new FormError("Telefone inválido.");
+  const paymentStorageId = field(body, "paymentStorageId", "Comprovativo", 1, 200);
+  const photoStorageId = field(body, "photoStorageId", "Foto", 1, 200);
   return {
     ...values, phone,
     country: field(body, "country", "País", 2, 50),
     org: field(body, "org", "Organização", 0, 100),
     ticketId: field(body, "ticketId", "Bilhete", 1, 100),
+    paymentStorageId,
+    photoStorageId,
   };
 }
 
