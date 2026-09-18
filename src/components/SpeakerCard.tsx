@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 export type PublicSpeaker = {
   _id: string;
@@ -14,16 +17,19 @@ export type PublicSpeaker = {
 
 export function SpeakerCard({ speaker }: { speaker: PublicSpeaker }) {
   const src = speaker.resolvedPhotoUrl ?? speaker.photoUrl ?? null;
+  const [failed, setFailed] = useState(false);
+  const showImg = !!src && !failed;
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:border-gold/30 hover:bg-white/10">
       <div className={`relative h-64 overflow-hidden bg-gradient-to-br ${speaker.color}`}>
-        {src ? (
+        {showImg ? (
           <Image
             src={src}
             alt={speaker.name}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
+            onError={() => setFailed(true)}
           />
         ) : (
           <>
