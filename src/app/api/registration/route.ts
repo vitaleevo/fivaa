@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
+import type { Id } from "../../../../convex/_generated/dataModel";
 import { getClientIp, getSubmissionSecret } from "@/lib/request";
 import { fetchMutation } from "convex/nextjs";
 import { readForm, registrationFields, publicFormError } from "@/lib/form-validation";
@@ -22,6 +23,8 @@ export async function POST(request: Request) {
 
     await fetchMutation(api.registrations.create, {
       ...fields,
+      paymentStorageId: fields.paymentStorageId as Id<"_storage">,
+      photoStorageId: fields.photoStorageId as Id<"_storage">,
       clientIp,
       submissionSecret,
     });

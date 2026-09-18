@@ -7,6 +7,7 @@ import { ticketModes } from "@/lib/site";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { ticketTranslations } from "@/lib/i18n/tickets";
+import InscricaoForm from "./InscricaoForm";
 
 export default function InscricaoClient() {
   const { language } = useLanguage();
@@ -56,6 +57,22 @@ export default function InscricaoClient() {
             <div className="mb-2 flex justify-center text-gold"><IconCheck className="h-5 w-5" /></div>
             {copy.validity}
             <p className="mt-3"><Link href="/contactos" className="font-semibold text-green-dark underline underline-offset-4">{copy.form}</Link> · {copy.phone}: <a href="tel:+244931238451" className="font-semibold text-green-dark underline underline-offset-4">+244 931 238 451</a></p>
+          </div>
+        </div>
+      </section>
+      <section className="site-grid relative bg-cream py-20 md:py-28">
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <Badge>Inscreva-se</Badge>
+            <h2 className="mt-6 font-montserrat text-4xl font-black tracking-[-0.035em] text-green-dark sm:text-5xl">
+              Submeta a sua inscrição
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-gray-medium sm:text-lg">
+              Preencha os dados e anexe o comprovativo de pagamento e a foto. A equipa confirma de seguida.
+            </p>
+          </div>
+          <div className="mt-10">
+            <InscricaoForm />
           </div>
         </div>
       </section>
