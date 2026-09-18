@@ -40,7 +40,7 @@ export async function sendNewRegistrationEmail(ctx: MutationCtx, data: NewRegist
     throw new Error("RESEND_API_KEY not configured");
   }
   return await resend.sendEmail(ctx, {
-    from: "FIVAA <inscricoes@fivaaforum.com>",
+    from: "FIVAA <inscricoes@vitaleevo.ao>",
     to,
     subject: `Nova inscrição: ${data.name}`,
     html: emailHtml(data),

@@ -17,8 +17,8 @@ O admin aprova (confirmada) ou cancela no backoffice existente.
 - Uploads: mesmo processo dos oradores (Convex Storage via `generateUploadUrl`, preview,
   ≤5MB no client). Ambos os anexos **obrigatórios**.
 - Email: **Resend via componente oficial do Convex** (`@convex-dev/resend`).
-- Remetente: `inscricoes@fivaaforum.com` (exige domínio validado no DNS da Resend;
-  em dev usa-se `onboarding@resend.dev`, o endereço de teste da Resend).
+- Remetente: `FIVAA <inscricoes@vitaleevo.ao>` (domínio `vitaleevo.ao` já verificado
+  na conta Resend; trocar para `fivaaforum.com` quando esse domínio for validado no DNS).
 - Destinatário: variável nova `INSCRICOES_NOTIFY_EMAIL` (ex. `inscricoes@fivaaforum.com`).
 - Atomicidade: registo `pending` + agendamento do email na mesma transação
   (ou as duas coisas acontecem ou nenhuma).
