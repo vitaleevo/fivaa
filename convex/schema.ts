@@ -40,6 +40,8 @@ export default defineSchema({
     org: v.string(),
     ticketId: v.string(),
     status: v.string(),
+    paymentStorageId: v.optional(v.id("_storage")),
+    photoStorageId: v.optional(v.id("_storage")),
   }),
   messages: defineTable({
     name: v.string(),
