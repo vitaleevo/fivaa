@@ -172,10 +172,11 @@ export default function InscricoesAdmin() {
             <AdminTableHeadCell>Telefone</AdminTableHeadCell>
             <AdminTableHeadCell>País</AdminTableHeadCell>
             <AdminTableHeadCell>Bilhete</AdminTableHeadCell>
+            <AdminTableHeadCell>Anexos</AdminTableHeadCell>
             <AdminTableHeadCell>Estado</AdminTableHeadCell>
             <AdminTableHeadCell align="right">Ações</AdminTableHeadCell>
           </AdminTableHead>
-          <AdminTableBody empty={filtered.length === 0} emptyColSpan={7}>
+          <AdminTableBody empty={filtered.length === 0} emptyColSpan={8}>
             {paginated.map((reg) => (
               <AdminTableRow key={reg._id}>
                 <AdminTableCell primary>{reg.name}</AdminTableCell>
@@ -184,6 +185,23 @@ export default function InscricoesAdmin() {
                 <AdminTableCell>{reg.country}</AdminTableCell>
                 <AdminTableCell>
                   <AdminBadge variant="info">{ticketMap.get(reg.ticketId) ?? "—"}</AdminBadge>
+                </AdminTableCell>
+                <AdminTableCell>
+                  <div className="flex items-center gap-2">
+                    {reg.resolvedPhotoUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={reg.resolvedPhotoUrl} alt={reg.name} className="h-9 w-9 rounded-full object-cover" />
+                    ) : (
+                      <span className="rounded-full bg-amber-100 px-2 py-1 text-[11px] font-bold text-amber-700">sem foto</span>
+                    )}
+                    {reg.resolvedPaymentUrl ? (
+                      <a href={reg.resolvedPaymentUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-green-dark underline underline-offset-2">
+                        comprovativo
+                      </a>
+                    ) : (
+                      <span className="rounded-full bg-amber-100 px-2 py-1 text-[11px] font-bold text-amber-700">sem comprovativo</span>
+                    )}
+                  </div>
                 </AdminTableCell>
                 <AdminTableCell>
                   <select
