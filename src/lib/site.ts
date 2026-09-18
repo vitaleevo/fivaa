@@ -1,4 +1,4 @@
-export const contactEmail = "geral@fivaaforum.com";
+export const contactEmail = "fivaaforum@gmail.com";
 
 export function ticketDestination(configuredUrl: string | undefined, name: string) {
   try {

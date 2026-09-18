@@ -83,5 +83,5 @@ export function publicFormError(error: unknown) {
   const message = error instanceof Error ? error.message : "";
   if (message.includes("Muitas tentativas")) return { message: "Muitas tentativas. Tente novamente mais tarde.", status: 429 };
   if (message.includes("Bilhete inválido")) return { message: "Bilhete inválido. Volte a selecionar a modalidade.", status: 400 };
-  return { message: "O serviço está temporariamente indisponível. Tente novamente ou contacte geral@fivaaforum.com.", status: 503 };
+  return { message: "O serviço está temporariamente indisponível. Tente novamente ou contacte fivaaforum@gmail.com.", status: 503 };
 }

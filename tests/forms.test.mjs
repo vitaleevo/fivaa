@@ -40,7 +40,7 @@ test("ticket destinations reject unsafe URLs and provide a labelled contact fall
   for (const url of [undefined, "", "javascript:alert(1)", "http://ticket.ao", "https://user:password@ticket.ao"]) {
     const result = ticketDestination(url, "Acesso Fóruns");
     assert.equal(result.isOnlinePurchase, false);
-    assert.match(result.purchaseUrl, /^mailto:geral@fivaaforum.com\?/);
+    assert.match(result.purchaseUrl, /^mailto:fivaaforum@gmail.com\?/);
   }
   assert.deepEqual(ticketDestination(" https://ticket.ao/event/example/ ", "Example"), { purchaseUrl: "https://ticket.ao/event/example/", isOnlinePurchase: true });
 });

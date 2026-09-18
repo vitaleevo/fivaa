@@ -49,7 +49,7 @@ export default function PrivacidadePage() {
               <ul className="mt-3 space-y-1.5 text-sm text-gray-600">
                 <li><strong>Organização:</strong> FIVAA — Fórum Internacional para a Valorização da Arte Africana</li>
                 <li><strong>Sede do Evento:</strong> Palácio de Ferro, Rua Major Kanhangulo, Luanda, Angola</li>
-                <li><strong>E-mail para Assuntos de Privacidade:</strong> <a href="mailto:geral@fivaaforum.com" className="text-gold font-semibold hover:underline">geral@fivaaforum.com</a></li>
+                <li><strong>E-mail para Assuntos de Privacidade:</strong> <a href="mailto:fivaaforum@gmail.com" className="text-gold font-semibold hover:underline">fivaaforum@gmail.com</a></li>
               </ul>
             </div>
 
@@ -132,7 +132,7 @@ export default function PrivacidadePage() {
                 </div>
               </div>
               <p className="mt-4 text-sm text-gray-600">
-                Para exercer qualquer um destes direitos, basta enviar um e-mail para <a href="mailto:geral@fivaaforum.com" className="text-gold font-bold hover:underline">geral@fivaaforum.com</a>.
+                Para exercer qualquer um destes direitos, basta enviar um e-mail para <a href="mailto:fivaaforum@gmail.com" className="text-gold font-bold hover:underline">fivaaforum@gmail.com</a>.
               </p>
             </div>
 

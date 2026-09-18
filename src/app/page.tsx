@@ -2,6 +2,7 @@ import HeroSlideshow from "@/components/HeroSlideshow";
 import Link from "next/link";
 import { IconLectures, IconExhibition, IconLivePerformance, IconNetworking } from "@/components/HighlightIcons";
 import { AfricanPatternDark, Divider, Badge, MudclothPattern, TribalDivider } from "@/components/BrandElements";
+import HomeSpeakers from "./HomeSpeakers";
 
 const stats = [
   { number: "100+", label: "Artistas e Criadores" },
@@ -117,6 +118,9 @@ export default function Home() {
         </div>
       </section>
       <TribalDivider className="text-green-dark bg-warm-white rotate-180" />
+
+      {/* 4b. Oradores — Dark (publicado pelo admin) */}
+      <HomeSpeakers />
 
       {/* 5. Programação — Light */}
       <section className="site-grid relative bg-warm-white py-24 md:py-32">
