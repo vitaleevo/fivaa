@@ -1,4 +1,4 @@
-import Link from "next/link";
+import FlipLink from "@/components/FlipLink";
 import {
   Card,
   CardHeader,
@@ -43,16 +43,15 @@ function TagList({ tags, variant }: { tags: string[]; variant: "default" | "dark
 
 function MoreLink({ href, variant }: { href: string; variant: "default" | "dark" }) {
   return (
-    <Link
+    <FlipLink
       href={href}
-      onClick={(e) => e.stopPropagation()}
       className={cn(
         "inline-flex items-center gap-2 font-montserrat text-sm font-bold transition-colors",
         variant === "dark" ? "text-gold hover:text-gold/80" : "text-gold hover:text-gold/80"
       )}
     >
       Saber mais <span aria-hidden="true">→</span>
-    </Link>
+    </FlipLink>
   );
 }
 

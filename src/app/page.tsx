@@ -4,6 +4,7 @@ import { IconLectures, IconExhibition, IconLivePerformance, IconNetworking } fro
 import { AfricanPatternDark, Divider, Badge, MudclothPattern, TribalDivider } from "@/components/BrandElements";
 import HomeSpeakers from "./HomeSpeakers";
 import FlipCard from "@/components/FlipCard";
+import FlipLink from "@/components/FlipLink";
 
 const stats = [
   { number: "100+", label: "Artistas e Criadores" },
@@ -135,13 +136,12 @@ export default function Home() {
                         {item.desc}
                       </p>
                       <div className="mt-auto flex items-center justify-between pt-6">
-                        <Link
+                        <FlipLink
                           href={item.href}
-                          onClick={(e) => e.stopPropagation()}
                           className="inline-flex items-center gap-2 font-montserrat text-sm font-bold text-gold transition-colors hover:text-gold/80"
                         >
                           Explorar <span aria-hidden="true">→</span>
-                        </Link>
+                        </FlipLink>
                         <span className="text-xs text-white/40" aria-hidden="true">Voltar ↻</span>
                       </div>
                     </div>
