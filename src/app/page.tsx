@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IconLectures, IconExhibition, IconLivePerformance, IconNetworking } from "@/components/HighlightIcons";
 import { AfricanPatternDark, Divider, Badge, MudclothPattern, TribalDivider } from "@/components/BrandElements";
 import HomeSpeakers from "./HomeSpeakers";
+import FlipCard from "@/components/FlipCard";
 
 const stats = [
   { number: "100+", label: "Artistas e Criadores" },
@@ -16,21 +17,25 @@ const highlights = [
     title: "Palestras e Painéis",
     desc: "Debates com líderes do setor sobre o futuro das indústrias criativas africanas.",
     icon: IconLectures,
+    href: "/programacao/palestras",
   },
   {
     title: "Exposições de Arte",
     desc: "Mostra de obras de artistas africanos emergentes e consagrados.",
     icon: IconExhibition,
+    href: "/programacao/exposicoes",
   },
   {
     title: "Atuações ao Vivo",
     desc: "Música, dança e performances que celebram a riqueza cultural do continente.",
     icon: IconLivePerformance,
+    href: "/programacao/festival",
   },
   {
     title: "Networking",
     desc: "Oportunidades de conexão entre artistas, produtores e investidores.",
     icon: IconNetworking,
+    href: "/programacao",
   },
 ];
 
@@ -100,18 +105,48 @@ export default function Home() {
             {highlights.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.title} className="group relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-8 shadow-[0_14px_36px_rgba(0,0,0,0.14)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:bg-white/10">
-                  <div className="mb-6 text-gold">
-                    <Icon className="w-12 h-12" />
-                  </div>
-                  <h3 className="mb-3 font-montserrat text-lg font-bold text-white">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-white/60">
-                    {item.desc}
-                  </p>
-                  <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-orange transition-all group-hover:w-full" />
-                </div>
+                <FlipCard
+                  key={item.title}
+                  label={`Virar cartão: ${item.title}`}
+                  front={
+                    <div className="relative h-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-8 shadow-[0_14px_36px_rgba(0,0,0,0.14)] backdrop-blur-sm transition-colors hover:border-gold/40 hover:bg-white/10">
+                      <div className="mb-6 text-gold">
+                        <Icon className="w-12 h-12" />
+                      </div>
+                      <h3 className="mb-3 font-montserrat text-lg font-bold text-white">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-white/60">
+                        {item.desc}
+                      </p>
+                      <span className="absolute bottom-3 right-4 text-sm text-white/30" aria-hidden="true">↻</span>
+                      <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-orange transition-all group-hover:w-full" />
+                    </div>
+                  }
+                  back={
+                    <div className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-gold/40 bg-white/10 p-8 shadow-[0_14px_36px_rgba(0,0,0,0.14)] backdrop-blur-sm">
+                      <div className="mb-6 text-gold">
+                        <Icon className="w-12 h-12" />
+                      </div>
+                      <h3 className="mb-3 font-montserrat text-lg font-bold text-white">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-white/60">
+                        {item.desc}
+                      </p>
+                      <div className="mt-auto flex items-center justify-between pt-6">
+                        <Link
+                          href={item.href}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-2 font-montserrat text-sm font-bold text-gold transition-colors hover:text-gold/80"
+                        >
+                          Explorar <span aria-hidden="true">→</span>
+                        </Link>
+                        <span className="text-xs text-white/40" aria-hidden="true">Voltar ↻</span>
+                      </div>
+                    </div>
+                  }
+                />
               );
             })}
           </div>
