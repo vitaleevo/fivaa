@@ -41,8 +41,10 @@ export default function InscricoesAdmin() {
   const [page, setPage] = useState(1);
   const [deleteTarget, setDeleteTarget] = useState<{ id: Id<"registrations">; name: string } | null>(null);
   const [deleting, setDeleting] = useState(false);
-  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
   const [statusUpdating, setStatusUpdating] = useState(false);
+  const [statusTarget, setStatusTarget] = useState<{ id: Id<"registrations">; name: string; status: "pending" | "confirmed" | "cancelled" } | null>(null);
+  const [motive, setMotive] = useState("");
 
   const ticketMap = useMemo(() => {
     if (!tickets) return new Map();
@@ -94,11 +96,23 @@ export default function InscricoesAdmin() {
     }
   };
 
-  const handleStatusChange = async (id: Id<"registrations">, status: string) => {
+  const handleStatusChange = async () => {
+    if (!statusTarget) return;
+    if (statusTarget.status === "cancelled" && !motive.trim()) {
+      setToast({ message: "Indique o motivo do cancelamento.", type: "error" });
+      return;
+    }
     setStatusUpdating(true);
     try {
-      await updateStatus({ id, status: status as "pending" | "confirmed" | "cancelled" });
-      setToast({ message: `Inscrição marcada como ${statusLabels[status]}.`, type: "success" });
+      const result = await updateStatus({ id: statusTarget.id, status: statusTarget.status, motive: motive.trim() });
+      setToast({
+        message: result.notified
+          ? `Inscrição ${statusLabels[statusTarget.status].toLowerCase()} e email enviado ao cliente.`
+          : `Inscrição marcada como ${statusLabels[statusTarget.status]}.`,
+        type: "success",
+      });
+      setStatusTarget(null);
+      setMotive("");
     } catch {
       setToast({ message: "Erro ao atualizar estado.", type: "error" });
     } finally {
@@ -207,7 +221,15 @@ export default function InscricoesAdmin() {
                   <select
                     value={reg.status}
                     disabled={statusUpdating}
-                    onChange={(e) => handleStatusChange(reg._id, e.target.value)}
+                    onChange={(e) => {
+                      const next = e.target.value as "pending" | "confirmed" | "cancelled";
+                      if (next === reg.status) {
+                        setToast({ message: `A inscrição já está ${statusLabels[reg.status].toLowerCase()}.`, type: "info" });
+                        return;
+                      }
+                      setStatusTarget({ id: reg._id, name: reg.name, status: next });
+                      setMotive("");
+                    }}
                     className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs font-medium outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/20 disabled:opacity-50"
                     aria-label={`Estado da inscrição de ${reg.name}`}
                   >
@@ -230,6 +252,49 @@ export default function InscricoesAdmin() {
         </AdminTable>
         <AdminPagination page={page} totalPages={totalPages} onPageChange={setPage} />
       </AdminSectionCard>
+
+      {/* Status Dialog */}
+      {statusTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setStatusTarget(null)} />
+          <div className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+            <h3 className="text-lg font-bold text-gray-900">
+              Marcar como {statusLabels[statusTarget.status].toLowerCase()}
+            </h3>
+            <p className="mt-2 text-sm text-gray-500">
+              {statusTarget.name} vai receber um email com esta decisão.
+              {statusTarget.status === "cancelled" ? " O motivo é obrigatório." : ""}
+            </p>
+            <label className="mt-4 block text-sm font-medium text-gray-700">
+              Motivo{statusTarget.status === "cancelled" ? " *" : " (opcional)"}
+            </label>
+            <textarea
+              value={motive}
+              maxLength={500}
+              rows={3}
+              onChange={(e) => setMotive(e.target.value)}
+              placeholder={statusTarget.status === "cancelled" ? "Ex: comprovativo ilegível, pagamento em falta..." : "Mensagem adicional para o cliente..."}
+              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/20"
+            />
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                onClick={() => setStatusTarget(null)}
+                disabled={statusUpdating}
+                className="rounded-lg border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50"
+              >
+                Voltar
+              </button>
+              <button
+                onClick={handleStatusChange}
+                disabled={statusUpdating}
+                className="rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-green-dark transition-colors hover:bg-gold-metallic disabled:opacity-50"
+              >
+                {statusUpdating ? "A processar..." : "Confirmar e enviar email"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Delete Dialog */}
       <AdminConfirmDialog

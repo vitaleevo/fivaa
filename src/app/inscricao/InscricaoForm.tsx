@@ -127,27 +127,72 @@ export default function InscricaoForm() {
             <option key={t._id} value={t._id}>{t.name} — {t.price}</option>
           ))}
         </select>
-        <label className="rounded-xl border border-dashed border-green-dark/25 p-4 text-sm">
+        <div className="rounded-xl border border-dashed border-green-dark/25 p-4 text-sm">
           <span className="font-bold text-green-dark">Comprovativo de pagamento *</span>
           <span className="mt-1 block text-xs text-gray-medium">JPG, PNG ou PDF até 5MB</span>
-          {payment.fileName && <span className="mt-1 block text-xs font-semibold text-green-dark">{payment.fileName}</span>}
-          <input type="file" accept="image/*,application/pdf" className="mt-2 w-full text-xs"
-            disabled={uploading !== null}
-            onChange={(e) => upload("payment", e.target.files?.[0], true)} />
-          {uploading === "payment" && <span className="text-xs text-gray-medium">A enviar...</span>}
-        </label>
-        <label className="rounded-xl border border-dashed border-green-dark/25 p-4 text-sm">
+          {payment.storageId ? (
+            <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+              <p className="text-sm font-bold text-emerald-700">✓ Comprovativo carregado</p>
+              <p className="mt-1 break-all text-xs text-gray-medium">{payment.fileName}</p>
+              <div className="mt-2 flex gap-4">
+                <label className="cursor-pointer text-xs font-semibold text-green-dark underline underline-offset-2">
+                  Trocar ficheiro
+                  <input type="file" accept="image/*,application/pdf" className="hidden"
+                    disabled={uploading !== null}
+                    onChange={(e) => upload("payment", e.target.files?.[0], true)} />
+                </label>
+                <button type="button" onClick={() => setPayment(emptyUpload)}
+                  className="text-xs font-semibold text-red-600 underline underline-offset-2">
+                  Remover
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <input type="file" accept="image/*,application/pdf" className="mt-2 w-full text-xs"
+                disabled={uploading !== null}
+                onChange={(e) => upload("payment", e.target.files?.[0], true)} />
+              {uploading === "payment" && <span className="text-xs text-gray-medium">A enviar...</span>}
+            </>
+          )}
+        </div>
+        <div className="rounded-xl border border-dashed border-green-dark/25 p-4 text-sm">
           <span className="font-bold text-green-dark">Foto *</span>
           <span className="mt-1 block text-xs text-gray-medium">JPG ou PNG até 5MB</span>
-          {photo.preview && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={photo.preview} alt="Pré-visualização da foto" className="mt-2 h-16 w-16 rounded-full object-cover" />
+          {photo.storageId ? (
+            <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+              <div className="flex items-center gap-3">
+                {photo.preview && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={photo.preview} alt="Pré-visualização da foto" className="h-20 w-20 rounded-full object-cover" />
+                )}
+                <div>
+                  <p className="text-sm font-bold text-emerald-700">✓ Foto carregada</p>
+                  <p className="mt-1 break-all text-xs text-gray-medium">{photo.fileName}</p>
+                </div>
+              </div>
+              <div className="mt-2 flex gap-4">
+                <label className="cursor-pointer text-xs font-semibold text-green-dark underline underline-offset-2">
+                  Trocar foto
+                  <input type="file" accept="image/*" className="hidden"
+                    disabled={uploading !== null}
+                    onChange={(e) => upload("photo", e.target.files?.[0], false)} />
+                </label>
+                <button type="button" onClick={() => setPhoto(emptyUpload)}
+                  className="text-xs font-semibold text-red-600 underline underline-offset-2">
+                  Remover
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <input type="file" accept="image/*" className="mt-2 w-full text-xs"
+                disabled={uploading !== null}
+                onChange={(e) => upload("photo", e.target.files?.[0], false)} />
+              {uploading === "photo" && <span className="text-xs text-gray-medium">A enviar...</span>}
+            </>
           )}
-          <input type="file" accept="image/*" className="mt-2 w-full text-xs"
-            disabled={uploading !== null}
-            onChange={(e) => upload("photo", e.target.files?.[0], false)} />
-          {uploading === "photo" && <span className="text-xs text-gray-medium">A enviar...</span>}
-        </label>
+        </div>
       </div>
       {error && <p role="alert" className="mt-4 text-sm font-semibold text-red-600">{error}</p>}
       <button type="submit" disabled={sending || uploading !== null}

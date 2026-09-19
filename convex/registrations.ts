@@ -11,7 +11,7 @@ import {
   validatePhone,
   validateRequiredLength,
 } from "./security";
-import { sendNewRegistrationEmail } from "./emails";
+import { sendNewRegistrationEmail, sendRegistrationStatusEmail } from "./emails";
 
 const MAX_ATTACHMENT_BYTES = 5 * 1024 * 1024;
 
@@ -162,9 +162,33 @@ export const remove = mutation({
 });
 
 export const updateStatus = mutation({
-  args: { id: v.id("registrations"), status: v.union(v.literal("pending"), v.literal("confirmed"), v.literal("cancelled")) },
+  args: {
+    id: v.id("registrations"),
+    status: v.union(v.literal("pending"), v.literal("confirmed"), v.literal("cancelled")),
+    motive: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
     await requireAdmin(ctx);
-    return await ctx.db.patch(args.id, { status: args.status });
+    const existing = await ctx.db.get(args.id);
+    if (!existing) {
+      throw new Error("Inscrição não encontrada.");
+    }
+    // Só notifica em transição real: repetir o mesmo estado não reenvia email.
+    if (existing.status === args.status) {
+      return { notified: false };
+    }
+    const motive = sanitizeText(args.motive ?? "");
+    if (args.status === "cancelled" && !motive) {
+      throw new Error("Indique o motivo do cancelamento.");
+    }
+    validateOptionalLength("Motivo", motive, 500);
+    await ctx.db.patch(args.id, { status: args.status });
+    await sendRegistrationStatusEmail(ctx, {
+      to: existing.email,
+      name: existing.name,
+      status: args.status,
+      motive,
+    });
+    return { notified: true };
   },
 });
