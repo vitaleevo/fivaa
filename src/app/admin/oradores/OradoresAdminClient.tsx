@@ -19,6 +19,7 @@ import {
   AdminTableCell,
   AdminPagination,
 } from "@/components/admin/AdminUI";
+import SafeImg from "@/components/SafeImg";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -256,7 +257,16 @@ export default function OradoresAdmin() {
               <label className="mb-1 block text-sm font-medium text-gray-700">Foto</label>
               <div className="flex items-center gap-3">
                 {form.photoPreview ? (
-                  <img src={form.photoPreview} alt="Pré-visualização" className="h-14 w-14 rounded-full object-cover" />
+                  <SafeImg
+                    src={form.photoPreview}
+                    alt="Pré-visualização"
+                    className="h-14 w-14 rounded-full object-cover"
+                    fallback={
+                      <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-bold text-white bg-gradient-to-r ${form.color}`}>
+                        {form.name.charAt(0) || "?"}
+                      </div>
+                    }
+                  />
                 ) : (
                   <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-bold text-white bg-gradient-to-r ${form.color}`}>
                     {form.name.charAt(0) || "?"}
@@ -412,7 +422,16 @@ export default function OradoresAdmin() {
                   <AdminTableCell primary>
                     <div className="flex items-center gap-3">
                       {photo ? (
-                        <img src={photo} alt={speaker.name} className="h-9 w-9 shrink-0 rounded-full object-cover" />
+                        <SafeImg
+                          src={photo}
+                          alt={speaker.name}
+                          className="h-9 w-9 shrink-0 rounded-full object-cover"
+                          fallback={
+                            <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white bg-gradient-to-r ${speaker.color}`}>
+                              {speaker.name.charAt(0)}
+                            </div>
+                          }
+                        />
                       ) : (
                         <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white bg-gradient-to-r ${speaker.color}`}>
                           {speaker.name.charAt(0)}

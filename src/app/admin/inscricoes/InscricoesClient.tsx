@@ -21,6 +21,7 @@ import {
   AdminTableCell,
   AdminPagination,
 } from "@/components/admin/AdminUI";
+import SafeImg from "@/components/SafeImg";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -203,8 +204,14 @@ export default function InscricoesAdmin() {
                 <AdminTableCell>
                   <div className="flex items-center gap-2">
                     {reg.resolvedPhotoUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={reg.resolvedPhotoUrl} alt={reg.name} className="h-9 w-9 rounded-full object-cover" />
+                      <SafeImg
+                        src={reg.resolvedPhotoUrl}
+                        alt={reg.name}
+                        className="h-9 w-9 rounded-full object-cover"
+                        fallback={
+                          <span className="rounded-full bg-amber-100 px-2 py-1 text-[11px] font-bold text-amber-700">sem foto</span>
+                        }
+                      />
                     ) : (
                       <span className="rounded-full bg-amber-100 px-2 py-1 text-[11px] font-bold text-amber-700">sem foto</span>
                     )}
