@@ -36,3 +36,10 @@ test("flipped backs keep actions reachable", () => {
   assert.match(inscricao, /stopPropagation/);
   assert.match(home, /Explorar/);
 });
+
+test("server-rendered faces never pass handlers to Link (RSC serialisation)", () => {
+  assert.match(home, /FlipLink/);
+  assert.match(atividade, /FlipLink/);
+  assert.doesNotMatch(home, /<Link[^>]*onClick/);
+  assert.doesNotMatch(atividade, /<Link[^>]*onClick/);
+});
