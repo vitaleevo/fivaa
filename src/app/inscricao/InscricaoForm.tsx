@@ -166,7 +166,7 @@ export default function InscricaoForm() {
               <div className="flex items-center gap-3">
                 {photo.preview && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={photo.preview} alt="Pré-visualização da foto" className="h-20 w-20 rounded-full object-cover" />
+                  <img src={photo.preview} alt={t.forms.inscPreviewAlt} className="h-20 w-20 rounded-full object-cover" />
                 )}
                 <div>
                   <p className="text-sm font-bold text-emerald-700">{t.forms.inscLoadedPhoto}</p>

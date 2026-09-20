@@ -53,6 +53,7 @@ export const formsTranslations = {
     inscSending: "A enviar...",
     inscDoneTitle: "Inscrição recebida!",
     inscDoneDesc: "A nossa equipa vai rever o seu comprovativo. Receberá novidades por email.",
+    inscPreviewAlt: "Pré-visualização da foto",
   },
   en: {
     contactNameLabel: "Name",
@@ -108,6 +109,7 @@ export const formsTranslations = {
     inscSending: "Sending...",
     inscDoneTitle: "Registration received!",
     inscDoneDesc: "Our team will review your proof. You will hear from us by email.",
+    inscPreviewAlt: "Photo preview",
   },
   fr: {
     contactNameLabel: "Nom",
@@ -163,6 +165,7 @@ export const formsTranslations = {
     inscSending: "Envoi...",
     inscDoneTitle: "Inscription reçue !",
     inscDoneDesc: "Notre équipe va examiner votre preuve. Vous recevrez de nos nouvelles par e-mail.",
+    inscPreviewAlt: "Aperçu de la photo",
   },
 };
 
