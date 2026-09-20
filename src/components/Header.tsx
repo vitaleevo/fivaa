@@ -226,7 +226,7 @@ export default function Header() {
       <header className="sticky top-0 z-50 w-full border-b border-green-dark/10 bg-warm-white/95 shadow-[0_8px_28px_rgba(18,71,52,0.08)] backdrop-blur-xl">
         <div className="mx-auto flex h-[124px] max-w-7xl items-center justify-between gap-4 px-4 sm:h-[148px] sm:px-6 lg:px-8">
           <Link href="/" className="flex shrink-0 items-center rounded-lg" aria-label={t.nav.homeAria}>
-            <LogoPrimary className="h-24 w-56 sm:h-28 sm:w-72" />
+            <LogoPrimary className="h-24 w-44 sm:h-28 sm:w-52" />
           </Link>
 
           <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navegação principal">
