@@ -14,14 +14,14 @@ export default function Footer() {
   return (
     <footer className="border-t-4 border-gold bg-green-dark">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 xl:gap-12">
+          <div className="min-w-0">
             <Image
               src="/images/LOGO FIVAA - MONOCRÓMATICO - BRANCO SEM FUNDO.png"
               alt="FIVAA"
               width={480}
               height={150}
-              className="h-36 w-auto object-contain"
+              className="h-auto w-full max-w-[260px] object-contain object-left lg:max-w-[300px]"
             />
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               Plataforma internacional dedicada à promoção, valorização e
