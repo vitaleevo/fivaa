@@ -43,3 +43,22 @@ for (const f of ["app/HomeContent.tsx", "app/inscricao/InscricaoClient.tsx", "ap
     assert.ok(!s.includes("flipHint") && !s.includes("backHint") && !s.includes("clickToFlip"), `${f} ainda tem dicas de virar`);
   });
 }
+
+test("mentoria sem blocos de fase", () => {
+  const s = src("lib/i18n/sections/programacao.ts");
+  for (const b of ["mentoriaPhases", "Avaliação e Planeamento", "Encontros semanais com o mentor", "Avaliação final e certificação", "Assessment and Planning", "Évaluation et planification"]) {
+    assert.ok(!s.includes(b), `programacao.ts ainda contém "${b}"`);
+  }
+});
+test("cursos sem blocos de curso", () => {
+  const s = src("lib/i18n/sections/programacao.ts");
+  for (const b of ["cursosItems", "Teoria das cores", "Plano de negócios artístico", "Arte generativa", "Colour theory", "Théorie des couleurs"]) {
+    assert.ok(!s.includes(b), `programacao.ts ainda contém "${b}"`);
+  }
+});
+test("desafios sem blocos de desafio", () => {
+  const s = src("lib/i18n/sections/programacao.ts");
+  for (const b of ["desafiosItems", "Desafio Colaborativo", "Submissão de até 3 obras por artista", "Documentação do processo", "Collaborative Challenge", "Défi collaboratif"]) {
+    assert.ok(!s.includes(b), `programacao.ts ainda contém "${b}"`);
+  }
+});
