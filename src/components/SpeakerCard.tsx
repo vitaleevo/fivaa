@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export type PublicSpeaker = {
   _id: string;
@@ -44,6 +45,7 @@ function InitialAvatar({ speaker, size }: { speaker: PublicSpeaker; size: "lg" |
 }
 
 export function SpeakerCard({ speaker }: { speaker: PublicSpeaker }) {
+  const { t } = useLanguage();
   const src = speaker.resolvedPhotoUrl ?? speaker.photoUrl ?? null;
   const [failed, setFailed] = useState(false);
   const [flipped, setFlipped] = useState(false);
@@ -80,8 +82,8 @@ export function SpeakerCard({ speaker }: { speaker: PublicSpeaker }) {
       role="button"
       tabIndex={0}
       aria-pressed={flipped}
-      aria-label={`Virar cartão de ${speaker.name}`}
-      title="Clique para virar"
+      aria-label={t.common.flipCard.replace("{name}", speaker.name)}
+      title={t.common.clickToFlip}
       onClick={() => setFlipped((f) => !f)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -134,7 +136,7 @@ export function SpeakerCard({ speaker }: { speaker: PublicSpeaker }) {
             <div className="relative h-64 shrink-0 bg-black/50">
               <Image
                 src={src}
-                alt={`${speaker.name} — foto completa`}
+                alt={`${speaker.name} ${t.common.fullPhoto}`}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-contain"
@@ -150,7 +152,7 @@ export function SpeakerCard({ speaker }: { speaker: PublicSpeaker }) {
               <h3 className="font-montserrat text-lg font-bold text-white">{speaker.name}</h3>
               <p className="mt-1 text-sm font-medium text-gold">{speaker.role}</p>
               {speaker.bio && <p className="mt-3 text-sm leading-relaxed text-white/70">{speaker.bio}</p>}
-              <p className="mt-auto pt-4 text-xs text-white/40">Clique para voltar ↻</p>
+              <p className="mt-auto pt-4 text-xs text-white/40">{t.common.clickToReturn}</p>
             </div>
           </div>
         </div>

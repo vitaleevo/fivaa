@@ -9,6 +9,9 @@ export const ticketTranslations = {
     disclaimer: "Este contacto não confirma uma inscrição nem efetua um pagamento.",
     validity: "Cada acesso é válido para a modalidade e dias indicados no respetivo bilhete.",
     form: "Formulário de contacto", phone: "Telefone",
+    formBadge: "Inscreva-se",
+    formTitle: "Submeta a sua inscrição",
+    formDesc: "Preencha os dados e anexe o comprovativo de pagamento e a foto. A equipa confirma de seguida.",
     modes: [
       { name: "Acesso Fóruns", period: "1.º ou 2.º dia", description: "Acesso a todos os workshops, showcases, palestras, exposições e masterclasses programados para o dia escolhido." },
       { name: "Acesso Concertos", period: "1.º ou 2.º dia", description: "Acesso a todas as apresentações musicais programadas para o dia escolhido." },
@@ -25,6 +28,9 @@ export const ticketTranslations = {
     disclaimer: "This enquiry does not confirm registration or make a payment.",
     validity: "Each ticket is valid for the admission option and days indicated.",
     form: "Contact form", phone: "Phone",
+    formBadge: "Register",
+    formTitle: "Submit your registration",
+    formDesc: "Fill in your details and attach proof of payment and your photo. The team will confirm shortly.",
     modes: [
       { name: "Forum Access", period: "Day 1 or Day 2", description: "Access to all workshops, showcases, talks, exhibitions and masterclasses scheduled for the selected day." },
       { name: "Concert Access", period: "Day 1 or Day 2", description: "Access to all musical performances scheduled for the selected day." },
@@ -41,6 +47,9 @@ export const ticketTranslations = {
     disclaimer: "Cette demande ne confirme aucune inscription et n’effectue aucun paiement.",
     validity: "Chaque billet est valable pour la formule et les jours indiqués.",
     form: "Formulaire de contact", phone: "Téléphone",
+    formBadge: "Inscrivez-vous",
+    formTitle: "Soumettez votre inscription",
+    formDesc: "Remplissez vos coordonnées et joignez la preuve de paiement et votre photo. L'équipe confirmera ensuite.",
     modes: [
       { name: "Accès Forums", period: "1er ou 2e jour", description: "Accès à tous les ateliers, showcases, conférences, expositions et masterclasses prévus pour le jour choisi." },
       { name: "Accès Concerts", period: "1er ou 2e jour", description: "Accès à toutes les représentations musicales prévues pour le jour choisi." },

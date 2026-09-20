@@ -12,7 +12,7 @@ const inscricao = readFileSync(
   new URL("../src/app/inscricao/InscricaoClient.tsx", import.meta.url),
   "utf8",
 );
-const home = readFileSync(new URL("../src/app/page.tsx", import.meta.url), "utf8");
+const home = readFileSync(new URL("../src/app/HomeContent.tsx", import.meta.url), "utf8");
 
 test("FlipCard exposes hover, tap, keyboard and reduced-motion support", () => {
   assert.match(flip, /perspective:1200px/);
@@ -32,9 +32,9 @@ test("content cards use the shared FlipCard", () => {
 });
 
 test("flipped backs keep actions reachable", () => {
-  assert.match(atividade, /Saber mais/);
+  assert.match(atividade, /t\.common\.more/);
   assert.match(inscricao, /stopPropagation/);
-  assert.match(home, /Explorar/);
+  assert.match(home, /t\.common\.explore/);
 });
 
 test("server-rendered faces never pass handlers to Link (RSC serialisation)", () => {

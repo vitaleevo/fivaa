@@ -1,3 +1,5 @@
+"use client";
+
 import FlipLink from "@/components/FlipLink";
 import {
   Card,
@@ -8,6 +10,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import FlipCard from "@/components/FlipCard";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 
 interface CardAtividadeProps {
@@ -42,6 +45,7 @@ function TagList({ tags, variant }: { tags: string[]; variant: "default" | "dark
 }
 
 function MoreLink({ href, variant }: { href: string; variant: "default" | "dark" }) {
+  const { t } = useLanguage();
   return (
     <FlipLink
       href={href}
@@ -50,7 +54,7 @@ function MoreLink({ href, variant }: { href: string; variant: "default" | "dark"
         variant === "dark" ? "text-gold hover:text-gold/80" : "text-gold hover:text-gold/80"
       )}
     >
-      Saber mais <span aria-hidden="true">→</span>
+      {t.common.more} <span aria-hidden="true">→</span>
     </FlipLink>
   );
 }
@@ -65,6 +69,8 @@ export default function CardAtividade({
   tags,
   variant = "default",
 }: CardAtividadeProps) {
+  const { t } = useLanguage();
+  const flipLabel = t.common.flipCard.replace("{name}", title);
   const front = (
     <Card
       className={cn(
@@ -145,7 +151,7 @@ export default function CardAtividade({
           )}
           aria-hidden="true"
         >
-          Virar ↻
+          {t.common.flipHint}
         </span>
       </CardFooter>
     </Card>
@@ -205,11 +211,11 @@ export default function CardAtividade({
           )}
           aria-hidden="true"
         >
-          Voltar ↻
+          {t.common.backHint}
         </span>
       </CardFooter>
     </Card>
   );
 
-  return <FlipCard front={front} back={back} label={`Virar cartão: ${title}`} />;
+  return <FlipCard front={front} back={back} label={flipLabel} />;
 }

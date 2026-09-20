@@ -11,7 +11,7 @@ import InscricaoForm from "./InscricaoForm";
 import FlipCard from "@/components/FlipCard";
 
 export default function InscricaoClient() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const copy = ticketTranslations[language];
   return (
     <>
@@ -48,7 +48,7 @@ export default function InscricaoClient() {
               return (
                 <FlipCard
                   key={ticket.id}
-                  label={`Virar cartão: ${details.name}`}
+                  label={t.common.flipCard.replace("{name}", details.name)}
                   front={
                     <article className="flex h-full flex-col rounded-[2rem] border border-gold/20 bg-white p-8 shadow-[0_24px_70px_rgba(18,71,52,0.10)] transition-all hover:-translate-y-1">
                       <div className="inline-flex w-fit items-center gap-2 rounded-full bg-gold/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-green-dark">
@@ -59,7 +59,7 @@ export default function InscricaoClient() {
                       <p className="mt-3 font-montserrat text-4xl font-black text-green-dark">{ticket.price}</p>
                       <div className="mt-auto pt-8">
                         {cta}
-                        <p className="mt-3 text-center text-xs text-gray-medium" aria-hidden="true">Virar para detalhes ↻</p>
+                        <p className="mt-3 text-center text-xs text-gray-medium" aria-hidden="true">{t.common.flipHint}</p>
                       </div>
                     </article>
                   }
@@ -89,12 +89,12 @@ export default function InscricaoClient() {
       <section className="site-grid relative bg-cream py-20 md:py-28">
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <Badge>Inscreva-se</Badge>
+            <Badge>{copy.formBadge}</Badge>
             <h2 className="mt-6 font-montserrat text-4xl font-black tracking-[-0.035em] text-green-dark sm:text-5xl">
-              Submeta a sua inscrição
+              {copy.formTitle}
             </h2>
             <p className="mt-5 text-base leading-relaxed text-gray-medium sm:text-lg">
-              Preencha os dados e anexe o comprovativo de pagamento e a foto. A equipa confirma de seguida.
+              {copy.formDesc}
             </p>
           </div>
           <div className="mt-10">

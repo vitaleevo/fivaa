@@ -3,23 +3,25 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-const slides = [
-  { bg: "/images/hero/fivaa-forum-hero.webp", title: "FIVAA 2026", subtitle: "Fórum Internacional para a Valorização da Arte Africana" },
-  { bg: "/images/hero/fivaa-art-culture.webp", title: "Arte & Cultura", subtitle: "Dois dias de imersão na arte africana" },
-  { bg: "/images/hero/fivaa-palacio-ferro.webp", title: "20 e 21 de novembro", subtitle: "Palácio de Ferro, Luanda, Angola" },
-  { bg: "/images/hero/fivaa-junte-se.webp", title: "Junte-se a nós", subtitle: "Consulte as modalidades de acesso ao maior evento de arte africana" },
-  { bg: "/images/hero/fivaa-educacao.webp", title: "Luanda, Angola", subtitle: "Palácio de Ferro — o palco da arte africana" },
-  { bg: "/images/hero/fivaa-experiencia.webp", title: "Experiência única", subtitle: "Música, exposições, networking e muito mais" },
+const slideBackgrounds = [
+  "/images/hero/fivaa-forum-hero.webp",
+  "/images/hero/fivaa-art-culture.webp",
+  "/images/hero/fivaa-palacio-ferro.webp",
+  "/images/hero/fivaa-junte-se.webp",
+  "/images/hero/fivaa-educacao.webp",
+  "/images/hero/fivaa-experiencia.webp",
 ];
 
 export default function HeroSlideshow() {
+  const { t } = useLanguage();
   const [current, setCurrent] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [paused, setPaused] = useState(false);
 
-  const next = useCallback(() => setCurrent((previous) => (previous + 1) % slides.length), []);
-  const previous = useCallback(() => setCurrent((value) => (value - 1 + slides.length) % slides.length), []);
+  const next = useCallback(() => setCurrent((previous) => (previous + 1) % t.home.heroSlides.length), [t]);
+  const previous = useCallback(() => setCurrent((value) => (value - 1 + t.home.heroSlides.length) % t.home.heroSlides.length), [t]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -35,12 +37,13 @@ export default function HeroSlideshow() {
     return () => window.clearInterval(timer);
   }, [next, reducedMotion, paused]);
 
+  const slides = t.home.heroSlides.map((s, i) => ({ ...s, bg: slideBackgrounds[i] }));
   const activeSlide = slides[current];
 
   return (
     <section className="relative h-[calc(100vh-7rem)] min-h-[620px] w-full overflow-hidden bg-green-dark supports-[height:100svh]:h-[calc(100svh-7rem)]" aria-label="Apresentação de imagens do evento FIVAA">
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        Slide {current + 1} de {slides.length}: {activeSlide.title} — {activeSlide.subtitle}
+        {t.home.heroSlideWord} {current + 1} {t.home.heroOfWord} {slides.length}: {activeSlide.title} — {activeSlide.subtitle}
       </div>
 
       {slides.map((slide, index) => {
@@ -83,22 +86,22 @@ export default function HeroSlideshow() {
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <Link href="/inscricao" className="group inline-flex items-center gap-3 rounded-full bg-gold px-8 py-4 font-montserrat text-sm font-extrabold text-green-dark shadow-xl shadow-black/20 transition-all hover:-translate-y-0.5 hover:bg-gold-metallic hover:shadow-2xl sm:px-10">
-              Garanta o seu acesso
+              {t.home.heroCta}
               <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
-            <span className="font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-white/75">20 - 21 Nov · Palácio de Ferro</span>
+            <span className="font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-white/75">{t.home.heroDate}</span>
           </div>
         </div>
       </div>
 
-      <button onClick={previous} className="absolute left-4 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/15 text-white backdrop-blur-sm transition-all hover:border-gold hover:bg-green-dark/70 hover:text-gold active:scale-95 sm:flex md:left-8" aria-label="Slide anterior">
+      <button onClick={previous} className="absolute left-4 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/15 text-white backdrop-blur-sm transition-all hover:border-gold hover:bg-green-dark/70 hover:text-gold active:scale-95 sm:flex md:left-8" aria-label={t.home.heroPrev}>
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
-      <button onClick={next} className="absolute right-4 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/15 text-white backdrop-blur-sm transition-all hover:border-gold hover:bg-green-dark/70 hover:text-gold active:scale-95 sm:flex md:right-8" aria-label="Próximo slide">
+      <button onClick={next} className="absolute right-4 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/15 text-white backdrop-blur-sm transition-all hover:border-gold hover:bg-green-dark/70 hover:text-gold active:scale-95 sm:flex md:right-8" aria-label={t.home.heroNext}>
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </svg>
@@ -115,11 +118,11 @@ export default function HeroSlideshow() {
             type="button"
             onClick={() => setCurrent(index)}
             aria-pressed={index === current}
-            aria-label={`Ir para slide ${index + 1}: ${slide.title}`}
+            aria-label={`${t.home.heroGoTo} ${index + 1}: ${slide.title}`}
             className={`h-2.5 rounded-full transition-all duration-300 ${index === current ? "w-8 bg-gold" : "w-2.5 bg-white/35 hover:bg-white/70"}`}
           />
         ))}
-        <button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused} className="ml-2 rounded-full border border-white/40 bg-green-dark px-4 py-2 text-xs font-semibold text-white">{paused ? "Retomar" : "Pausar"}</button>
+        <button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused} className="ml-2 rounded-full border border-white/40 bg-green-dark px-4 py-2 text-xs font-semibold text-white">{paused ? t.home.heroResume : t.home.heroPause}</button>
       </div>
     </section>
   );

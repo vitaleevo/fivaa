@@ -1,6 +1,9 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { commonTranslations, type CommonTranslations } from "./sections/common";
+import { homeTranslations, type HomeTranslations } from "./sections/home";
+import { oradoresTranslations, type OradoresTranslations } from "./sections/oradores";
 
 export type Language = "pt" | "en" | "fr";
 
@@ -32,30 +35,9 @@ export interface Translations {
     contacts: string;
     register: string;
   };
-  home: {
-    heroTag: string;
-    heroTitle: string;
-    heroSubtitle: string;
-    manifestoBadge: string;
-    manifestoQuote: string;
-    manifestoAuthor: string;
-    statsCreators: string;
-    statsCountries: string;
-    statsSpeakers: string;
-    statsAttendees: string;
-    highlightsBadge: string;
-    highlightsTitle: string;
-    scheduleBadge: string;
-    scheduleTitle: string;
-    scheduleViewAll: string;
-    venueBadge: string;
-    venueTitle: string;
-    venueSubtitle: string;
-    ctaTitle1: string;
-    ctaTitle2: string;
-    ctaSubtitle: string;
-    ctaButton: string;
-  };
+  home: HomeTranslations;
+  oradores: OradoresTranslations;
+  common: CommonTranslations;
   cookies: {
     title: string;
     text: string;
@@ -104,30 +86,9 @@ export const translations: Record<Language, Translations> = {
       contacts: "Contactos",
       register: "Bilhetes",
     },
-    home: {
-      heroTag: "FIVAA 2026 • Luanda, Angola",
-      heroTitle: "Fórum Internacional da Valorização da Arte Africana",
-      heroSubtitle: "20 e 21 de novembro de 2026 no emblemático Palácio de Ferro. O maior encontro de criatividade, cultura e indústrias criativas de África.",
-      manifestoBadge: "O nosso manifesto",
-      manifestoQuote: "A arte africana não precisa de validação externa. Ela precisa de um palco. O FIVAA é esse palco.",
-      manifestoAuthor: "FIVAA 2026",
-      statsCreators: "Artistas e Criadores",
-      statsCountries: "Países Representados",
-      statsSpeakers: "Oradores e Palestrantes",
-      statsAttendees: "Participantes Esperados",
-      highlightsBadge: "O Evento",
-      highlightsTitle: "O que vai encontrar",
-      scheduleBadge: "Programação",
-      scheduleTitle: "Dois dias de imersão",
-      scheduleViewAll: "Ver programação completa",
-      venueBadge: "Local do Evento",
-      venueTitle: "Palácio de Ferro",
-      venueSubtitle: "Um dos mais emblemáticos edifícios de Luanda, Angola",
-      ctaTitle1: "Vai perder esta",
-      ctaTitle2: "oportunidade",
-      ctaSubtitle: "Junte-se a nós no maior evento de valorização da arte africana. Lugares limitados.",
-      ctaButton: "Consultar bilhetes",
-    },
+    home: homeTranslations.pt,
+    oradores: oradoresTranslations.pt,
+    common: commonTranslations.pt,
     cookies: {
       title: "Privacidade e Gestão de Cookies",
       text: "Utilizamos cookies e tecnologias semelhantes em conformidade com a Lei de Proteção de Dados Pessoais de Angola (Lei n.º 22/11) e normas internacionais (GDPR/LGPD) para melhorar a sua experiência de navegação.",
@@ -174,30 +135,9 @@ export const translations: Record<Language, Translations> = {
       contacts: "Contact",
       register: "Tickets",
     },
-    home: {
-      heroTag: "FIVAA 2026 • Luanda, Angola",
-      heroTitle: "International Forum for the Appreciation of African Art",
-      heroSubtitle: "November 20-21, 2026 at the iconic Iron Palace (Palácio de Ferro). The premier gathering of African creativity, culture, and creative industries.",
-      manifestoBadge: "Our Manifesto",
-      manifestoQuote: "African art does not need external validation. It needs a stage. FIVAA is that stage.",
-      manifestoAuthor: "FIVAA 2026",
-      statsCreators: "Artists & Creators",
-      statsCountries: "Countries Represented",
-      statsSpeakers: "Speakers & Panelists",
-      statsAttendees: "Expected Attendees",
-      highlightsBadge: "The Event",
-      highlightsTitle: "What to Expect",
-      scheduleBadge: "Schedule",
-      scheduleTitle: "Two Days of Immersion",
-      scheduleViewAll: "View Full Schedule",
-      venueBadge: "Event Venue",
-      venueTitle: "Iron Palace (Palácio de Ferro)",
-      venueSubtitle: "One of Luanda's most iconic architectural landmarks, Angola",
-      ctaTitle1: "Don't miss this",
-      ctaTitle2: "opportunity",
-      ctaSubtitle: "Join us at the largest event celebrating African art and creative economy. Limited seats.",
-      ctaButton: "View tickets",
-    },
+    home: homeTranslations.en,
+    oradores: oradoresTranslations.en,
+    common: commonTranslations.en,
     cookies: {
       title: "Privacy & Cookie Management",
       text: "We use cookies and similar technologies in compliance with Angola's Personal Data Protection Law (Law No. 22/11) and international standards (GDPR/LGPD) to provide the best browsing experience.",
@@ -244,30 +184,9 @@ export const translations: Record<Language, Translations> = {
       contacts: "Contact",
       register: "Billets",
     },
-    home: {
-      heroTag: "FIVAA 2026 • Luanda, Angola",
-      heroTitle: "Forum International de Valorisation de l'Art Africain",
-      heroSubtitle: "20-21 Novembre 2026 au Palais de Fer à Luanda. Le grand rendez-vous de la créativité et des industries culturelles africaines.",
-      manifestoBadge: "Notre Manifeste",
-      manifestoQuote: "L'art africain n'a pas besoin de validation externe. Il a besoin d'une scène. Le FIVAA est cette scène.",
-      manifestoAuthor: "FIVAA 2026",
-      statsCreators: "Artistes & Créateurs",
-      statsCountries: "Pays Représentés",
-      statsSpeakers: "Intervenants & Experts",
-      statsAttendees: "Participants Attendus",
-      highlightsBadge: "L'Événement",
-      highlightsTitle: "Ce qui vous attend",
-      scheduleBadge: "Programme",
-      scheduleTitle: "Deux jours d'immersion",
-      scheduleViewAll: "Voir tout le programme",
-      venueBadge: "Lieu de l'Événement",
-      venueTitle: "Palais de Fer (Palácio de Ferro)",
-      venueSubtitle: "L'un des monuments les plus emblématiques de Luanda, Angola",
-      ctaTitle1: "Ne manquez pas cette",
-      ctaTitle2: "opportunité",
-      ctaSubtitle: "Rejoignez-nous au plus grand événement de valorisation de l'art africain. Places limitées.",
-      ctaButton: "Voir les billets",
-    },
+    home: homeTranslations.fr,
+    oradores: oradoresTranslations.fr,
+    common: commonTranslations.fr,
     cookies: {
       title: "Confidentialité et Gestion des Cookies",
       text: "Nous utilisons des cookies conformément à la loi angolaise sur la protection des données (Loi n° 22/11) et aux normes internationales (RGPD/LGPD) pour améliorer votre expérience.",
