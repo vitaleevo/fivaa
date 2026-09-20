@@ -7,8 +7,9 @@ import { formsTranslations } from "../src/lib/i18n/sections/forms.ts";
 import { contactosTranslations } from "../src/lib/i18n/sections/contactos.ts";
 import { programacaoTranslations } from "../src/lib/i18n/sections/programacao.ts";
 import { educacaoTranslations } from "../src/lib/i18n/sections/educacao.ts";
+import { sobreTranslations } from "../src/lib/i18n/sections/sobre.ts";
 
-const sections = { common: commonTranslations, home: homeTranslations, oradores: oradoresTranslations, forms: formsTranslations, contactos: contactosTranslations, programacao: programacaoTranslations, educacao: educacaoTranslations };
+const sections = { common: commonTranslations, home: homeTranslations, oradores: oradoresTranslations, forms: formsTranslations, contactos: contactosTranslations, programacao: programacaoTranslations, educacao: educacaoTranslations, sobre: sobreTranslations };
 
 function leafPaths(value, prefix = "") {
   if (Array.isArray(value)) return value.flatMap((v, i) => leafPaths(v, `${prefix}[${i}]`));
