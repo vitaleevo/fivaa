@@ -26,8 +26,7 @@ export default function FeedbackContent() {
           <div className="grid gap-8 md:grid-cols-2">
             {t.programacao.feedbackItems.map((s) => (
               <div key={s.title} className="rounded-2xl border border-gold/10 bg-white p-8 shadow-md shadow-gold/5 transition-all hover:border-gold/30 hover:shadow-lg">
-                <span className="inline-block rounded-full bg-gold/10 px-3 py-1 font-montserrat text-xs font-bold text-gold">{s.schedule}</span>
-                <h3 className="mt-4 mb-3 font-montserrat text-xl font-bold text-green-dark">{s.title}</h3>
+                <h3 className="mb-3 font-montserrat text-xl font-bold text-green-dark">{s.title}</h3>
                 <p className="mb-6 text-sm text-gray-medium">{s.desc}</p>
                 <h4 className="mb-2 font-montserrat text-sm font-bold text-green-dark">{t.programacao.feedbackHowTitle}</h4>
                 <ul className="space-y-1">

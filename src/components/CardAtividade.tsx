@@ -1,6 +1,6 @@
 "use client";
 
-import FlipLink from "@/components/FlipLink";
+import Link from "next/link";
 import {
   Card,
   CardHeader,
@@ -9,7 +9,6 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import FlipCard from "@/components/FlipCard";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 
@@ -44,21 +43,6 @@ function TagList({ tags, variant }: { tags: string[]; variant: "default" | "dark
   );
 }
 
-function MoreLink({ href, variant }: { href: string; variant: "default" | "dark" }) {
-  const { t } = useLanguage();
-  return (
-    <FlipLink
-      href={href}
-      className={cn(
-        "inline-flex items-center gap-2 font-montserrat text-sm font-bold transition-colors",
-        variant === "dark" ? "text-gold hover:text-gold/80" : "text-gold hover:text-gold/80"
-      )}
-    >
-      {t.common.more} <span aria-hidden="true">→</span>
-    </FlipLink>
-  );
-}
-
 export default function CardAtividade({
   title,
   description,
@@ -70,11 +54,10 @@ export default function CardAtividade({
   variant = "default",
 }: CardAtividadeProps) {
   const { t } = useLanguage();
-  const flipLabel = t.common.flipCard.replace("{name}", title);
   const front = (
     <Card
       className={cn(
-        "content-card h-full rounded-[1.5rem] transition-all",
+        "content-card h-full rounded-[1.5rem] transition-transform duration-300 motion-safe:hover:scale-[1.02] hover:shadow-xl",
         variant === "dark"
           ? "border-white/10 bg-white/5 text-white"
           : "border-gold/10 bg-white"
@@ -144,78 +127,20 @@ export default function CardAtividade({
       )}
 
       <CardFooter>
-        <span
-          className={cn(
-            "text-xs font-semibold",
-            variant === "dark" ? "text-white/40" : "text-gray-medium"
-          )}
-          aria-hidden="true"
-        >
-          {t.common.flipHint}
-        </span>
-      </CardFooter>
-    </Card>
-  );
-
-  const back = (
-    <Card
-      className={cn(
-        "content-card flex h-full flex-col rounded-[1.5rem] transition-all",
-        variant === "dark"
-          ? "border-gold/30 bg-white/10 text-white"
-          : "border-gold/30 bg-cream"
-      )}
-    >
-      <CardHeader>
-        <CardTitle
-          className={cn(
-            "font-montserrat text-xl font-bold",
-            variant === "dark" ? "text-white" : "text-green-dark"
-          )}
-        >
-          {title}
-        </CardTitle>
-        <CardDescription
-          className={cn(
-            "text-sm leading-relaxed",
-            variant === "dark" ? "text-white/70" : "text-gray-medium"
-          )}
-        >
-          {description}
-        </CardDescription>
-      </CardHeader>
-
-      {(tags && tags.length > 0) && (
-        <CardContent>
-          <TagList tags={tags} variant={variant} />
-        </CardContent>
-      )}
-
-      <CardFooter className="mt-auto flex items-center justify-between gap-3">
-        {href ? (
-          <MoreLink href={href} variant={variant} />
-        ) : (
-          <span
+        {href && (
+          <Link
+            href={href}
             className={cn(
-              "text-xs",
-              variant === "dark" ? "text-white/40" : "text-gray-medium"
+              "inline-flex items-center gap-2 font-montserrat text-sm font-bold transition-colors",
+              variant === "dark" ? "text-gold hover:text-gold/80" : "text-gold hover:text-gold/80"
             )}
           >
-            {schedule ?? time ?? ""}
-          </span>
+            {t.common.more} <span aria-hidden="true">→</span>
+          </Link>
         )}
-        <span
-          className={cn(
-            "text-xs font-semibold",
-            variant === "dark" ? "text-white/40" : "text-gray-medium"
-          )}
-          aria-hidden="true"
-        >
-          {t.common.backHint}
-        </span>
       </CardFooter>
     </Card>
   );
 
-  return <FlipCard front={front} back={back} label={flipLabel} />;
+  return front;
 }

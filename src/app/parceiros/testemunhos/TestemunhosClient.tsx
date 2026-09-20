@@ -1,6 +1,5 @@
 "use client";
 
-import FlipCard from "@/components/FlipCard";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const institutionalTestimonials = {
@@ -28,42 +27,23 @@ export default function TestemunhosClient() {
   return (
     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {items.map((t) => (
-        <FlipCard
+        <div
           key={`${t.name}-${t.role}-${t.location}`}
-          label={`Virar testemunho de ${t.name}`}
-          front={
-            <div className="flex h-full flex-col rounded-2xl border border-gold/10 bg-white p-8 shadow-md shadow-gold/5 transition-all hover:border-gold/30 hover:shadow-lg">
-              <div className="mb-4 text-4xl text-gold/30">&ldquo;</div>
-              <p className="mb-6 text-sm text-gray-medium italic line-clamp-2">&ldquo;{t.quote}&rdquo;</p>
-              <div className="mt-auto flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-gold to-orange font-montserrat text-lg font-bold text-white">
-                  {t.name.charAt(0)}
-                </div>
-                <div>
-                  <h4 className="font-montserrat text-sm font-bold text-green-dark">{t.name}</h4>
-                  <p className="text-xs text-gray-medium">{t.role}</p>
-                </div>
-                <span className="ml-auto text-xs text-gray-medium" aria-hidden="true">↻</span>
-              </div>
+          className="flex h-full flex-col rounded-2xl border border-gold/10 bg-white p-8 shadow-md shadow-gold/5 transition-transform duration-300 motion-safe:hover:scale-[1.02] hover:border-gold/30 hover:shadow-xl"
+        >
+          <div className="mb-4 text-4xl text-gold/30">&ldquo;</div>
+          <p className="mb-6 text-sm text-gray-medium italic">&ldquo;{t.quote}&rdquo;</p>
+          <div className="mt-auto flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-gold to-orange font-montserrat text-lg font-bold text-white">
+              {t.name.charAt(0)}
             </div>
-          }
-          back={
-            <div className="flex h-full flex-col rounded-2xl border border-gold/30 bg-cream p-8 shadow-md shadow-gold/5">
-              <div className="mb-4 text-4xl text-gold/30">&ldquo;</div>
-              <p className="mb-6 text-sm leading-relaxed text-gray-medium italic">&ldquo;{t.quote}&rdquo;</p>
-              <div className="mt-auto flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-gold to-orange font-montserrat text-lg font-bold text-white">
-                  {t.name.charAt(0)}
-                </div>
-                <div>
-                  <h4 className="font-montserrat text-sm font-bold text-green-dark">{t.name}</h4>
-                  <p className="text-xs text-gray-medium">{t.role}</p>
-                  <p className="text-xs text-gold">{t.location}</p>
-                </div>
-              </div>
+            <div>
+              <h4 className="font-montserrat text-sm font-bold text-green-dark">{t.name}</h4>
+              <p className="text-xs text-gray-medium">{t.role}</p>
+              <p className="text-xs text-gold">{t.location}</p>
             </div>
-          }
-        />
+          </div>
+        </div>
       ))}
     </div>
   );

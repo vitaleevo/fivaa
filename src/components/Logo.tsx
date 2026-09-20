@@ -4,12 +4,13 @@ export function LogoPrimary({ className = "h-12 w-auto" }: { className?: string 
   return (
     <span className={`relative block overflow-hidden ${className}`} data-public-logo>
       <Image
-        src="/images/LOGO FIVAA - PRINCIPAL  SEM FUNDO.png"
+        src="/images/logo-fivaa-principal-header.png"
         alt="FIVAA"
         fill
         sizes="(max-width: 639px) 160px, 208px"
         priority
-        className="object-cover object-center"
+        quality={90}
+        className="object-contain object-center"
       />
     </span>
   );
@@ -22,6 +23,7 @@ export function LogoWhite({ className = "h-12 w-auto" }: { className?: string })
       alt="FIVAA"
       width={1000}
       height={1000}
+      quality={90}
       className={className}
     />
   );

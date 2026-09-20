@@ -31,7 +31,6 @@ export default function WorkshopsContent() {
   return (
     <>
       <PageHero
-        badge={t.programacao.workshopsHeroBadge}
         title={t.programacao.workshopsHeroTitle}
         subtitle={t.programacao.workshopsHeroSubtitle}
         backgroundImage="/images/hero/fivaa-art-culture.webp"
@@ -51,8 +50,6 @@ export default function WorkshopsContent() {
                   key={ws.title}
                   title={ws.title}
                   description={ws.desc}
-                  schedule={ws.schedule}
-                  time={ws.time}
                   tags={[...ws.tags]}
                   icon={<BookOpenIcon className="h-5 w-5 text-gold" />}
                 />
