@@ -207,7 +207,7 @@ export default function Header() {
           </div>
           <div className="flex shrink-0 items-center gap-3 sm:gap-4">
             <span className="hidden font-montserrat text-[10px] font-semibold uppercase tracking-[0.16em] text-gold/90 lg:block">
-              20–21 Nov 2026 · Luanda
+              20 - 21 Nov 2026 · Luanda
             </span>
             <span className="hidden h-3 w-px bg-white/20 lg:block" aria-hidden="true" />
             {socialLinks.map((social) => {
@@ -223,9 +223,9 @@ export default function Header() {
       </div>
 
       <header className="sticky top-0 z-50 w-full border-b border-green-dark/10 bg-warm-white/95 shadow-[0_8px_28px_rgba(18,71,52,0.08)] backdrop-blur-xl">
-        <div className="mx-auto flex h-[100px] max-w-7xl items-center justify-between gap-4 px-4 sm:h-[116px] sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-[124px] max-w-7xl items-center justify-between gap-4 px-4 sm:h-[148px] sm:px-6 lg:px-8">
           <Link href="/" className="flex shrink-0 items-center rounded-lg" aria-label="FIVAA — Página inicial">
-            <LogoPrimary className="h-16 w-36 sm:h-20 sm:w-52" />
+            <LogoPrimary className="h-24 w-56 sm:h-28 sm:w-72" />
           </Link>
 
           <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navegação principal">

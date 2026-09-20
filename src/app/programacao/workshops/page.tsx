@@ -100,7 +100,7 @@ export default function ProgramacaoWorkshops() {
           <h2 className="font-montserrat text-3xl font-bold text-white">Interessado nos nossos workshops?</h2>
           <p className="mt-4 text-white/70">Consulte as modalidades de acesso e descubra os workshops do FIVAA</p>
           <Link href="/inscricao" className="mt-8 inline-block rounded-full bg-gold px-8 py-4 font-montserrat text-sm font-bold text-green-dark shadow-lg shadow-gold/20 transition-all hover:bg-gold/90 hover:shadow-xl">
-            Consultar bilhetes
+            Garanta o seu acesso
           </Link>
         </div>
       </section>

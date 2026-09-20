@@ -83,12 +83,12 @@ export default function HeroSlideshow() {
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <Link href="/inscricao" className="group inline-flex items-center gap-3 rounded-full bg-gold px-8 py-4 font-montserrat text-sm font-extrabold text-green-dark shadow-xl shadow-black/20 transition-all hover:-translate-y-0.5 hover:bg-gold-metallic hover:shadow-2xl sm:px-10">
-              Consultar bilhetes
+              Garanta o seu acesso
               <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
-            <span className="font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-white/75">20–21 Nov · Palácio de Ferro</span>
+            <span className="font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-white/75">20 - 21 Nov · Palácio de Ferro</span>
           </div>
         </div>
       </div>

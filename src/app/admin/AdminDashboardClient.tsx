@@ -246,7 +246,7 @@ export default function AdminDashboard() {
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-gold">FIVAA 2026</h3>
             <p className="mt-1 text-sm text-gray-600">
-              20–21 Novembro · Palácio de Ferro · Luanda, Angola
+              20 e 21 de novembro · Palácio de Ferro · Luanda, Angola
             </p>
           </div>
           <a

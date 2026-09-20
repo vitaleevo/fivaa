@@ -13,7 +13,7 @@ const passos = [
   {
     step: "1",
     title: "Contacte-nos",
-    desc: "Entre em contacto connosco através do formulário ou por e-mail para manifestar o seu interesse.",
+    desc: "Entre em contato, nos enviando uma mensagem ou um e-mail para manifestar o seu interesse.",
   },
   {
     step: "2",

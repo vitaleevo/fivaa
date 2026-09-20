@@ -232,7 +232,7 @@ export default function Home() {
             Lugares limitados.
           </p>
           <Link href="/inscricao" className="group relative inline-block overflow-hidden rounded-full bg-gold px-14 py-5 font-montserrat text-base font-extrabold text-green-dark transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-gold/30">
-            <span className="relative z-10">Consultar bilhetes</span>
+            <span className="relative z-10">Garanta o seu acesso</span>
             <div className="absolute inset-0 bg-gradient-to-r from-gold to-gold-metallic opacity-0 transition-opacity group-hover:opacity-100" />
           </Link>
           </div>
