@@ -1,17 +1,16 @@
 "use client";
 
 import { IconCheck, IconTicket } from "@/components/Icon";
-import { AccentBar, AfricanPattern, Badge, Divider, TribalDivider } from "@/components/BrandElements";
+import { AccentBar, AfricanPattern, Badge, TribalDivider } from "@/components/BrandElements";
 import PageHero from "@/components/PageHero";
 import { ticketModes } from "@/lib/site";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { ticketTranslations } from "@/lib/i18n/tickets";
 import InscricaoForm from "./InscricaoForm";
-import FlipCard from "@/components/FlipCard";
 
 export default function InscricaoClient() {
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const copy = ticketTranslations[language];
   return (
     <>
@@ -38,7 +37,6 @@ export default function InscricaoClient() {
                   href={ticket.purchaseUrl}
                   target={ticket.isOnlinePurchase ? "_blank" : undefined}
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
                   aria-label={`${ticket.isOnlinePurchase ? copy.buy : copy.contact}: ${details.name}`}
                   className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 font-montserrat text-sm font-extrabold text-green-dark transition-all hover:-translate-y-0.5 hover:bg-gold-metallic hover:shadow-xl hover:shadow-gold/20"
                 >
@@ -46,36 +44,20 @@ export default function InscricaoClient() {
                 </a>
               );
               return (
-                <FlipCard
+                <article
                   key={ticket.id}
-                  label={t.common.flipCard.replace("{name}", details.name)}
-                  front={
-                    <article className="flex h-full flex-col rounded-[2rem] border border-gold/20 bg-white p-8 shadow-[0_24px_70px_rgba(18,71,52,0.10)] transition-all hover:-translate-y-1">
-                      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-gold/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-green-dark">
-                        <IconTicket className="h-4 w-4 text-gold" />
-                        {details.period}
-                      </div>
-                      <h3 className="mt-6 font-montserrat text-2xl font-black text-green-dark">{details.name}</h3>
-                      <p className="mt-3 font-montserrat text-4xl font-black text-green-dark">{ticket.price}</p>
-                      <div className="mt-auto pt-8">
-                        {cta}
-                        <p className="mt-3 text-center text-xs text-gray-medium" aria-hidden="true">{t.common.flipHint}</p>
-                      </div>
-                    </article>
-                  }
-                  back={
-                    <article className="flex h-full flex-col rounded-[2rem] border border-gold/30 bg-cream p-8 shadow-[0_24px_70px_rgba(18,71,52,0.10)]">
-                      <h3 className="font-montserrat text-2xl font-black text-green-dark">{details.name}</h3>
-                      <Divider className="my-5" />
-                      <p className="text-sm leading-relaxed text-gray-medium">{copy.includes}</p>
-                      <p className="mt-3 text-sm leading-relaxed text-gray-medium">{details.description}</p>
-                      <div className="mt-auto pt-8">
-                        {cta}
-                        {!ticket.isOnlinePurchase && <p className="mt-3 text-center text-xs leading-relaxed text-gray-medium">{copy.disclaimer}</p>}
-                      </div>
-                    </article>
-                  }
-                />
+                  className="flex h-full flex-col rounded-[2rem] border border-gold/20 bg-white p-8 shadow-[0_24px_70px_rgba(18,71,52,0.10)] transition-transform duration-300 motion-safe:hover:scale-[1.02] hover:-translate-y-1 hover:shadow-xl"
+                >
+                  <div className="inline-flex w-fit items-center gap-2 rounded-full bg-gold/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-green-dark">
+                    <IconTicket className="h-4 w-4 text-gold" />
+                    {details.period}
+                  </div>
+                  <h3 className="mt-6 font-montserrat text-2xl font-black text-green-dark">{details.name}</h3>
+                  <p className="mt-3 font-montserrat text-4xl font-black text-green-dark">{ticket.price}</p>
+                  <div className="mt-auto pt-8">
+                    {cta}
+                  </div>
+                </article>
               );
             })}
           </div>

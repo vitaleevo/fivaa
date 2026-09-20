@@ -35,3 +35,11 @@ test("CardAtividade sem flip, com zoom subtil", () => {
   assert.ok(s.includes("hover:scale-"), "sem efeito zoom no hover");
   assert.ok(!s.includes("rotateY"), "ainda tem rotateY");
 });
+
+for (const f of ["app/HomeContent.tsx", "app/inscricao/InscricaoClient.tsx", "app/parceiros/testemunhos/TestemunhosClient.tsx", "components/SpeakerCard.tsx"]) {
+  test(`sem flip em ${f}`, () => {
+    const s = src(f);
+    assert.ok(!s.includes("FlipCard") && !s.includes("FlipLink") && !s.includes("rotateY"), `${f} ainda tem flip`);
+    assert.ok(!s.includes("flipHint") && !s.includes("backHint") && !s.includes("clickToFlip"), `${f} ainda tem dicas de virar`);
+  });
+}

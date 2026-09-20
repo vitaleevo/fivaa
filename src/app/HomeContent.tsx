@@ -4,8 +4,6 @@ import HeroSlideshow from "@/components/HeroSlideshow";
 import Link from "next/link";
 import { IconLectures, IconExhibition, IconLivePerformance, IconNetworking } from "@/components/HighlightIcons";
 import { AfricanPatternDark, Divider, Badge, MudclothPattern, TribalDivider } from "@/components/BrandElements";
-import FlipCard from "@/components/FlipCard";
-import FlipLink from "@/components/FlipLink";
 import HomeSpeakers from "./HomeSpeakers";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
@@ -87,47 +85,29 @@ export default function HomeContent() {
             {t.home.highlights.map((item, hi) => {
               const Icon = highlightIcons[hi];
               return (
-                <FlipCard
+                <div
                   key={item.title}
-                  label={`${t.common.flipHint}: ${item.title}`}
-                  front={
-                    <div className="relative h-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-8 shadow-[0_14px_36px_rgba(0,0,0,0.14)] backdrop-blur-sm transition-colors hover:border-gold/40 hover:bg-white/10">
-                      <div className="mb-6 text-gold">
-                        <Icon className="w-12 h-12" />
-                      </div>
-                      <h3 className="mb-3 font-montserrat text-lg font-bold text-white">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-white/60">
-                        {item.desc}
-                      </p>
-                      <span className="absolute bottom-3 right-4 text-sm text-white/30" aria-hidden="true">↻</span>
-                      <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-orange transition-all group-hover:w-full" />
-                    </div>
-                  }
-                  back={
-                    <div className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-gold/40 bg-white/10 p-8 shadow-[0_14px_36px_rgba(0,0,0,0.14)] backdrop-blur-sm">
-                      <div className="mb-6 text-gold">
-                        <Icon className="w-12 h-12" />
-                      </div>
-                      <h3 className="mb-3 font-montserrat text-lg font-bold text-white">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-white/60">
-                        {item.desc}
-                      </p>
-                      <div className="mt-auto flex items-center justify-between pt-6">
-                        <FlipLink
-                          href={highlightHrefs[hi]}
-                          className="inline-flex items-center gap-2 font-montserrat text-sm font-bold text-gold transition-colors hover:text-gold/80"
-                        >
-                          {t.common.explore} <span aria-hidden="true">→</span>
-                        </FlipLink>
-                        <span className="text-xs text-white/40" aria-hidden="true">{t.common.backHint}</span>
-                      </div>
-                    </div>
-                  }
-                />
+                  className="group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-8 shadow-[0_14px_36px_rgba(0,0,0,0.14)] backdrop-blur-sm transition-transform duration-300 motion-safe:hover:scale-[1.02] hover:border-gold/40 hover:bg-white/10 hover:shadow-xl"
+                >
+                  <div className="mb-6 text-gold">
+                    <Icon className="w-12 h-12" />
+                  </div>
+                  <h3 className="mb-3 font-montserrat text-lg font-bold text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-white/60">
+                    {item.desc}
+                  </p>
+                  <div className="mt-auto pt-6">
+                    <Link
+                      href={highlightHrefs[hi]}
+                      className="inline-flex items-center gap-2 font-montserrat text-sm font-bold text-gold transition-colors hover:text-gold/80"
+                    >
+                      {t.common.explore} <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+                  <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-orange transition-all group-hover:w-full" />
+                </div>
               );
             })}
           </div>
