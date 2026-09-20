@@ -135,7 +135,7 @@ export const translations: Record<Language, Translations> = {
       socialText: "Siga o FIVAA nas redes sociais.",
       privacy: "Política de Privacidade (Lei 22/11)",
       terms: "Termos de Uso",
-      rights: "FIVAA — Fórum Internacional da Valorização da Arte Africana. Todos os direitos reservados.",
+      rights: "FIVAA — Fórum Internacional para Valorização da Arte Africana. Todos os direitos reservados.",
     },
   },
   en: {
