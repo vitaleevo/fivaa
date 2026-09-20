@@ -4,6 +4,7 @@ import { Badge, AfricanPatternDark } from "@/components/BrandElements";
 import { iconMap } from "@/components/ScheduleIcons";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const typeColors: Record<string, string> = {
   "Painel": "bg-orange/10 text-orange border-orange/20",
@@ -51,6 +52,7 @@ const fallbackSchedule = [
 ];
 
 export default function ProgramacaoClient() {
+  const { t } = useLanguage();
   const scheduleData = useQuery(api.schedule.get);
   const scheduleItems = scheduleData && scheduleData.length > 0 ? scheduleData : fallbackSchedule;
 
@@ -81,7 +83,7 @@ export default function ProgramacaoClient() {
               
               {items.length === 0 ? (
                 <div className={`text-center py-10 ${isDark ? 'text-white/50' : 'text-gray-medium'}`}>
-                  Nenhuma atividade agendada.
+                  {t.programacao.overviewEmptyDay}
                 </div>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -123,7 +125,7 @@ export default function ProgramacaoClient() {
       
       {days.length === 0 && (
         <section className="bg-green-dark py-20 text-center text-white/50">
-          A programação será anunciada em breve.
+          {t.programacao.overviewEmptyAll}
         </section>
       )}
     </>

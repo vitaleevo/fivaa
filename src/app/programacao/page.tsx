@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { AccentBar } from "@/components/BrandElements";
-import PageHero from "@/components/PageHero";
-import { ProgramacaoWrapper } from "./ProgramacaoWrapper";
+import ProgramacaoContent from "./ProgramacaoContent";
 
 export const metadata: Metadata = {
   title: "Programação — FIVAA",
@@ -10,17 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Programacao() {
-  return (
-    <>
-      <PageHero
-        badge="Programação"
-        title="Dois dias de imersão"
-        subtitle="Na arte e cultura africana"
-        backgroundImage="/images/hero/fivaa-art-culture.webp"
-      />
-
-      <AccentBar />
-      <ProgramacaoWrapper />
-    </>
-  );
+  return <ProgramacaoContent />;
 }
