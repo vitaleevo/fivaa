@@ -5,7 +5,7 @@ import BreadcrumbNav from "@/components/BreadcrumbNav";
 interface PageHeroProps {
   title: string;
   subtitle?: string;
-  badge: string;
+  badge?: string;
   backgroundImage: string;
   breadcrumbs?: { label: string; href?: string }[];
 }
@@ -26,7 +26,7 @@ export default function PageHero({ title, subtitle, badge, backgroundImage, brea
             <BreadcrumbNav items={breadcrumbs} />
           </div>
         )}
-        <Badge className="border-white/20 bg-white/10 text-white/85">{badge}</Badge>
+        {badge && <Badge className="border-white/20 bg-white/10 text-white/85">{badge}</Badge>}
         <h1 className="mt-6 font-montserrat text-4xl font-black leading-[1.04] tracking-[-0.04em] text-white sm:text-5xl md:text-6xl">{title}</h1>
         {subtitle && <p className="mx-auto mt-5 max-w-2xl font-montserrat text-base font-medium leading-relaxed text-white/75 sm:text-lg">{subtitle}</p>}
         <OsramScrollCue className="mx-auto mt-7" />

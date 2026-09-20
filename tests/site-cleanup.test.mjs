@@ -62,3 +62,21 @@ test("desafios sem blocos de desafio", () => {
     assert.ok(!s.includes(b), `programacao.ts ainda contém "${b}"`);
   }
 });
+test("workshops sem programação mensal nem datas", () => {
+  const s = src("lib/i18n/sections/programacao.ts");
+  // CUIDADO (brief): valores PT/EN/FR do hero ("Programação Mensal"/"Monthly Programme"/"Programme mensuel")
+  // são idênticos entre workshopsHeroBadge e palestrasHeroBadge — assertar a CHAVE, não o valor.
+  assert.ok(!s.includes("workshopsHeroBadge"), 'programacao.ts ainda contém "workshopsHeroBadge"');
+  assert.ok(s.includes("palestrasHeroBadge"), 'palestrasHeroBadge foi apagada por acidente (era para manter)');
+  for (const b of ["1ª segunda-feira", "2ª segunda-feira", "3ª segunda-feira", "4ª segunda-feira", "1st Monday", "2nd Monday", "3rd Monday", "4th Monday", "1er lundi", "2e lundi", "3e lundi", "4e lundi"]) {
+    assert.ok(!s.includes(b), `programacao.ts ainda contém "${b}"`);
+  }
+  // Tempos: valores nus ("18:30 - 20:30", "6:30 - 8:30 PM", "18h30 - 20h30") colidem com feedbackItems
+  // (ex.: schedule "Terças-feiras, 18:30 - 20:30") — assertar com prefixo `time:` que só existe nos workshops.
+  for (const b of ['time: "18:30 - 20:30"', 'time: "6:30 - 8:30 PM"', 'time: "18h30 - 20h30"']) {
+    assert.ok(!s.includes(b), `programacao.ts ainda contém "${b}"`);
+  }
+  for (const keep of ["Workshop de Técnicas Artísticas", "Workshop de Criação", "Workshop de Gestão Artística", "Workshop Colaborativo"]) {
+    assert.ok(s.includes(keep), `workshops perdeu "${keep}" (era para manter)`);
+  }
+});
