@@ -3,8 +3,10 @@ import assert from "node:assert/strict";
 import { commonTranslations } from "../src/lib/i18n/sections/common.ts";
 import { homeTranslations } from "../src/lib/i18n/sections/home.ts";
 import { oradoresTranslations } from "../src/lib/i18n/sections/oradores.ts";
+import { formsTranslations } from "../src/lib/i18n/sections/forms.ts";
+import { contactosTranslations } from "../src/lib/i18n/sections/contactos.ts";
 
-const sections = { common: commonTranslations, home: homeTranslations, oradores: oradoresTranslations };
+const sections = { common: commonTranslations, home: homeTranslations, oradores: oradoresTranslations, forms: formsTranslations, contactos: contactosTranslations };
 
 function leafPaths(value, prefix = "") {
   if (Array.isArray(value)) return value.flatMap((v, i) => leafPaths(v, `${prefix}[${i}]`));

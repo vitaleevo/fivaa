@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function ContactForm() {
+  const { t } = useLanguage();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [honeypot, setHoneypot] = useState("");
   const [startedAt, setStartedAt] = useState(() => Date.now());
@@ -19,26 +21,26 @@ export default function ContactForm() {
     const messageVal = form.message.trim();
 
     if (nameVal.length < 3) {
-      newErrors.name = "O nome deve conter pelo menos 3 caracteres.";
+      newErrors.name = t.forms.contactErrNameMin;
     } else if (nameVal.length > 80) {
-      newErrors.name = "O nome não deve exceder 80 caracteres.";
+      newErrors.name = t.forms.contactErrNameMax;
     }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(emailVal)) {
-      newErrors.email = "Por favor, insira um e-mail válido.";
+      newErrors.email = t.forms.contactErrEmail;
     }
 
     if (subjectVal.length < 3) {
-      newErrors.subject = "O assunto deve conter pelo menos 3 caracteres.";
+      newErrors.subject = t.forms.contactErrSubjectMin;
     } else if (subjectVal.length > 100) {
-      newErrors.subject = "O assunto não deve exceder 100 caracteres.";
+      newErrors.subject = t.forms.contactErrSubjectMax;
     }
 
     if (messageVal.length < 10) {
-      newErrors.message = "A mensagem deve conter pelo menos 10 caracteres.";
+      newErrors.message = t.forms.contactErrMessageMin;
     } else if (messageVal.length > 1000) {
-      newErrors.message = "A mensagem não deve exceder 1000 caracteres.";
+      newErrors.message = t.forms.contactErrMessageMax;
     }
 
     setErrors(newErrors);
@@ -69,7 +71,7 @@ export default function ContactForm() {
         const result = (await response.json()) as { error?: string };
 
         if (!response.ok) {
-          throw new Error(result.error ?? "Ocorreu um erro ao enviar a mensagem.");
+          throw new Error(result.error ?? t.forms.contactErrSubmit);
         }
 
         setStatus("success");
@@ -78,7 +80,7 @@ export default function ContactForm() {
         setStartedAt(Date.now());
       } catch (error) {
         console.error("Erro ao enviar mensagem:", error);
-        setSecurityError(error instanceof Error ? error.message : "Falha ao enviar a mensagem.");
+        setSecurityError(error instanceof Error ? error.message : t.forms.contactErrSubmitUnknown);
         setStatus("error");
       }
     }
@@ -92,23 +94,23 @@ export default function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="mb-3 font-montserrat text-2xl font-bold text-white">Mensagem Enviada!</h3>
+        <h3 className="mb-3 font-montserrat text-2xl font-bold text-white">{t.forms.contactSuccessTitle}</h3>
         <p className="mb-6 text-sm text-white/60">
-          Agradecemos o seu contacto. A nossa equipa irá responder-lhe com a maior brevidade possível.
+          {t.forms.contactSuccessDesc}
         </p>
         <button
           onClick={() => { setStartedAt(Date.now()); setStatus("idle"); }}
-          aria-label="Enviar nova mensagem de contacto"
+          aria-label={t.forms.contactAgainAria}
           className="rounded-full border border-white/20 px-8 py-3.5 font-montserrat text-xs font-semibold uppercase tracking-wider text-white/50 transition-all hover:border-gold hover:text-white"
         >
-          Enviar Nova Mensagem
+          {t.forms.contactAgain}
         </button>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5" aria-label="Formulário de contacto">
+    <form onSubmit={handleSubmit} className="space-y-5" aria-label={t.forms.contactFormAria}>
       <div className="hidden" aria-hidden="true">
         <label htmlFor="contact-website">Website</label>
         <input
@@ -124,9 +126,9 @@ export default function ContactForm() {
 
 
       {[
-        { id: "name", label: "Nome", type: "text", placeholder: "Insira o seu nome" },
-        { id: "email", label: "E-mail", type: "email", placeholder: "exemplo@fivaaforum.com" },
-        { id: "subject", label: "Assunto", type: "text", placeholder: "Assunto do contacto" },
+        { id: "name", label: t.forms.contactNameLabel, type: "text", placeholder: t.forms.contactNamePh },
+        { id: "email", label: t.forms.contactEmailLabel, type: "email", placeholder: t.forms.contactEmailPh },
+        { id: "subject", label: t.forms.contactSubjectLabel, type: "text", placeholder: t.forms.contactSubjectPh },
       ].map((field) => (
         <div key={field.id}>
           <label htmlFor={field.id} className="mb-2 block font-montserrat text-sm font-semibold text-white/60">
@@ -163,14 +165,14 @@ export default function ContactForm() {
       
       <div>
         <label htmlFor="message" className="mb-2 block font-montserrat text-sm font-semibold text-white/60">
-          Mensagem
+          {t.forms.contactMessageLabel}
         </label>
         <textarea
           id="message"
           rows={5}
           maxLength={1000}
           required
-          placeholder="Escreva a sua mensagem aqui..."
+          placeholder={t.forms.contactMessagePh}
           value={form.message}
           aria-describedby={errors.message ? "message-error" : undefined}
           aria-invalid={errors.message ? "true" : "false"}
@@ -200,7 +202,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        aria-label={status === "loading" ? "A enviar mensagem..." : "Enviar mensagem de contacto"}
+        aria-label={status === "loading" ? t.forms.contactSubmittingAria : t.forms.contactSubmitAria}
         className="flex items-center justify-center gap-3 rounded-full bg-gold px-12 py-5 font-montserrat text-base font-bold text-green-dark transition-all hover:shadow-2xl hover:shadow-gold/20 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {status === "loading" ? (
@@ -209,10 +211,10 @@ export default function ContactForm() {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
-            <span>A enviar...</span>
+            <span>{t.forms.contactSending}</span>
           </>
         ) : (
-          <span>Enviar Mensagem</span>
+          <span>{t.forms.contactSubmit}</span>
         )}
       </button>
     </form>

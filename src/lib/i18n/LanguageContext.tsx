@@ -4,6 +4,8 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { commonTranslations, type CommonTranslations } from "./sections/common";
 import { homeTranslations, type HomeTranslations } from "./sections/home";
 import { oradoresTranslations, type OradoresTranslations } from "./sections/oradores";
+import { formsTranslations, type FormsTranslations } from "./sections/forms";
+import { contactosTranslations, type ContactosTranslations } from "./sections/contactos";
 
 export type Language = "pt" | "en" | "fr";
 
@@ -38,6 +40,8 @@ export interface Translations {
   home: HomeTranslations;
   oradores: OradoresTranslations;
   common: CommonTranslations;
+  forms: FormsTranslations;
+  contactos: ContactosTranslations;
   cookies: {
     title: string;
     text: string;
@@ -89,6 +93,8 @@ export const translations: Record<Language, Translations> = {
     home: homeTranslations.pt,
     oradores: oradoresTranslations.pt,
     common: commonTranslations.pt,
+    forms: formsTranslations.pt,
+    contactos: contactosTranslations.pt,
     cookies: {
       title: "Privacidade e Gestão de Cookies",
       text: "Utilizamos cookies e tecnologias semelhantes em conformidade com a Lei de Proteção de Dados Pessoais de Angola (Lei n.º 22/11) e normas internacionais (GDPR/LGPD) para melhorar a sua experiência de navegação.",
@@ -138,6 +144,8 @@ export const translations: Record<Language, Translations> = {
     home: homeTranslations.en,
     oradores: oradoresTranslations.en,
     common: commonTranslations.en,
+    forms: formsTranslations.en,
+    contactos: contactosTranslations.en,
     cookies: {
       title: "Privacy & Cookie Management",
       text: "We use cookies and similar technologies in compliance with Angola's Personal Data Protection Law (Law No. 22/11) and international standards (GDPR/LGPD) to provide the best browsing experience.",
@@ -187,6 +195,8 @@ export const translations: Record<Language, Translations> = {
     home: homeTranslations.fr,
     oradores: oradoresTranslations.fr,
     common: commonTranslations.fr,
+    forms: formsTranslations.fr,
+    contactos: contactosTranslations.fr,
     cookies: {
       title: "Confidentialité et Gestion des Cookies",
       text: "Nous utilisons des cookies conformément à la loi angolaise sur la protection des données (Loi n° 22/11) et aux normes internationales (RGPD/LGPD) pour améliorer votre expérience.",
