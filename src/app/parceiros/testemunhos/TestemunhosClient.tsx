@@ -32,7 +32,7 @@ export default function TestemunhosClient() {
           className="flex h-full flex-col rounded-2xl border border-gold/10 bg-white p-8 shadow-md shadow-gold/5 transition-transform duration-300 motion-safe:hover:scale-[1.02] hover:border-gold/30 hover:shadow-xl"
         >
           <div className="mb-4 text-4xl text-gold/30">&ldquo;</div>
-          <p className="mb-6 text-sm text-gray-medium italic line-clamp-2">&ldquo;{t.quote}&rdquo;</p>
+          <p className="mb-6 text-sm text-gray-medium italic">&ldquo;{t.quote}&rdquo;</p>
           <div className="mt-auto flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-gold to-orange font-montserrat text-lg font-bold text-white">
               {t.name.charAt(0)}
@@ -40,6 +40,7 @@ export default function TestemunhosClient() {
             <div>
               <h4 className="font-montserrat text-sm font-bold text-green-dark">{t.name}</h4>
               <p className="text-xs text-gray-medium">{t.role}</p>
+              <p className="text-xs text-gold">{t.location}</p>
             </div>
           </div>
         </div>

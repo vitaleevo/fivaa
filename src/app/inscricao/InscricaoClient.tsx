@@ -56,6 +56,9 @@ export default function InscricaoClient() {
                   <p className="mt-3 font-montserrat text-4xl font-black text-green-dark">{ticket.price}</p>
                   <div className="mt-auto pt-8">
                     {cta}
+                    <p className="mt-3 text-xs leading-relaxed text-gray-medium">{copy.includes}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-gray-medium">{details.description}</p>
+                    {!ticket.isOnlinePurchase && <p className="mt-2 text-xs leading-relaxed text-gray-medium">{copy.disclaimer}</p>}
                   </div>
                 </article>
               );
