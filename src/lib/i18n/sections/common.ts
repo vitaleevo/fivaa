@@ -1,10 +1,5 @@
 export const commonTranslations = {
   pt: {
-    flipCard: "Virar cartão de {name}",
-    flipHint: "Virar ↻",
-    backHint: "Voltar ↻",
-    clickToFlip: "Clique para virar",
-    clickToReturn: "Clique para voltar ↻",
     fullPhoto: "— foto completa",
     explore: "Explorar",
     more: "Saber mais",
@@ -16,11 +11,6 @@ export const commonTranslations = {
     pageErrorRetry: "Tentar novamente",
   },
   en: {
-    flipCard: "Flip {name}'s card",
-    flipHint: "Flip ↻",
-    backHint: "Back ↻",
-    clickToFlip: "Click to flip",
-    clickToReturn: "Click to flip back ↻",
     fullPhoto: "— full photo",
     explore: "Explore",
     more: "Learn more",
@@ -32,11 +22,6 @@ export const commonTranslations = {
     pageErrorRetry: "Try again",
   },
   fr: {
-    flipCard: "Retourner la carte de {name}",
-    flipHint: "Retourner ↻",
-    backHint: "Retour ↻",
-    clickToFlip: "Cliquez pour retourner",
-    clickToReturn: "Cliquez pour revenir ↻",
     fullPhoto: "— photo complète",
     explore: "Explorer",
     more: "En savoir plus",
