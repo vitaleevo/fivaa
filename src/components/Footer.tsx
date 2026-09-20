@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DividerWhite } from "@/components/BrandElements";
-import { Instagram, Facebook, Linkedin } from "@/components/SocialIcons";
+import { Instagram, Facebook } from "@/components/SocialIcons";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { contactEmail, socialLinks as fivaaSocialLinks } from "@/lib/site";
@@ -11,7 +11,6 @@ import { contactEmail, socialLinks as fivaaSocialLinks } from "@/lib/site";
 const socialLinks = [
   { Icon: Instagram, ...fivaaSocialLinks[0], label: "Instagram" },
   { Icon: Facebook, ...fivaaSocialLinks[1], label: "Facebook" },
-  { Icon: Linkedin, ...fivaaSocialLinks[2], label: "LinkedIn" },
 ];
 
 export default function Footer() {
@@ -21,17 +20,16 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t-4 border-gold bg-green-dark">
       <div className="pointer-events-none absolute inset-0 opacity-[0.06] kente-stripes" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <div className="relative h-36 w-80 overflow-hidden sm:h-44 sm:w-96">
-              <Image
-                src="/images/LOGO FIVAA - MONOCRÓMATICO - BRANCO SEM FUNDO.png"
-                alt="FIVAA"
-                fill
-                sizes="(max-width: 639px) 320px, 384px"
-                className="object-cover object-center"
-              />
-            </div>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 xl:gap-12">
+          <div className="min-w-0">
+            <Image
+              src="/images/logo-fivaa-branco-footer.png"
+              alt="FIVAA"
+              width={659}
+              height={360}
+              sizes="(max-width: 1024px) 220px, 260px"
+              className="h-auto w-full max-w-[220px] lg:max-w-[260px]"
+            />
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               {t.footer.desc}
             </p>
