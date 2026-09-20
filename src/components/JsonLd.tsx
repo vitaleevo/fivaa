@@ -41,7 +41,6 @@ export function EventJsonLd() {
       sameAs: [
         "https://www.instagram.com/fivaaforum",
         "https://www.facebook.com/fivaaforum",
-        "https://www.linkedin.com/company/fivaa",
       ],
     },
     offers: [
@@ -106,7 +105,6 @@ export function OrganizationJsonLd() {
     sameAs: [
       "https://www.instagram.com/fivaaforum",
       "https://www.facebook.com/fivaaforum",
-      "https://www.linkedin.com/company/fivaa",
     ],
     contactPoint: {
       "@type": "ContactPoint",

@@ -3,14 +3,13 @@
 import { AccentBar, Badge, AfricanPatternDark } from "@/components/BrandElements";
 import PageHero from "@/components/PageHero";
 import { ContactFormWrapper } from "@/components/ContactFormWrapper";
-import { Instagram, Facebook, Linkedin } from "@/components/SocialIcons";
+import { Instagram, Facebook } from "@/components/SocialIcons";
 import { contactEmail, socialLinks as fivaaSocialLinks } from "@/lib/site";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const socialLinks = [
   { Icon: Instagram, ...fivaaSocialLinks[0], label: "Instagram" },
   { Icon: Facebook, ...fivaaSocialLinks[1], label: "Facebook" },
-  { Icon: Linkedin, ...fivaaSocialLinks[2], label: "LinkedIn" },
 ];
 
 export default function ContactosContent() {

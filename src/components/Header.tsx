@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Instagram, Facebook, Linkedin } from "@/components/SocialIcons";
+import { Instagram, Facebook } from "@/components/SocialIcons";
 import { LogoPrimary } from "@/components/Logo";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -13,7 +13,6 @@ import { contactEmail, socialLinks as fivaaSocialLinks } from "@/lib/site";
 const socialLinks = [
   { Icon: Instagram, ...fivaaSocialLinks[0], label: "Instagram" },
   { Icon: Facebook, ...fivaaSocialLinks[1], label: "Facebook" },
-  { Icon: Linkedin, ...fivaaSocialLinks[2], label: "LinkedIn" },
 ];
 
 type NavigationLink = {

@@ -18,7 +18,6 @@ export function ticketDestination(configuredUrl: string | undefined, name: strin
 export const socialLinks = [
   { network: "Instagram", href: "https://www.instagram.com/fivaaforum" },
   { network: "Facebook", href: "https://www.facebook.com/fivaaforum" },
-  { network: "LinkedIn", href: "https://www.linkedin.com/company/fivaa" },
 ] as const;
 
 export const ticketModes = [
