@@ -13,7 +13,7 @@ test("logos usam assets aparados com ratio natural (sem object-cover em marca)",
 });
 
 test("LinkedIn removido de todo o site", () => {
-  const banned = ["Linkedin", "linkedin"];
+  const banned = ["Linkedin", "linkedin", "LinkedIn", "linkedin.com"];
   const files = [
     "components/Header.tsx",
     "components/Footer.tsx",
@@ -26,4 +26,12 @@ test("LinkedIn removido de todo o site", () => {
     const s = src(f);
     for (const b of banned) assert.ok(!s.includes(b), `${f} ainda contém "${b}"`);
   }
+});
+
+test("CardAtividade sem flip, com zoom subtil", () => {
+  const s = src("components/CardAtividade.tsx");
+  assert.ok(!s.includes("FlipCard") && !s.includes("FlipLink"), "ainda importa flip");
+  assert.ok(!s.includes("flipHint") && !s.includes("backHint"), "ainda mostra dicas de virar");
+  assert.ok(s.includes("hover:scale-"), "sem efeito zoom no hover");
+  assert.ok(!s.includes("rotateY"), "ainda tem rotateY");
 });
