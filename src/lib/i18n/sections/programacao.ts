@@ -100,7 +100,6 @@ export const programacaoTranslations = {
     feedbackItems: [
       {
         title: "Sessão de Crítica Construtiva",
-        schedule: "Terças-feiras, 18:30 - 20:30",
         desc: "Espaço seguro para apresentar trabalhos em progresso e receber feedback honesto e construtivo de colegas e mentores.",
         rules: [
           "Traga um trabalho em progresso ou concluído",
@@ -111,7 +110,6 @@ export const programacaoTranslations = {
       },
       {
         title: "Roda de Arte",
-        schedule: "Quintas-feiras, 19:00 - 21:00",
         desc: "Apresentação informal de trabalhos recentes seguida de discussão aberta.",
         rules: [
           "Apresente até 3 trabalhos",
@@ -272,7 +270,6 @@ export const programacaoTranslations = {
     feedbackItems: [
       {
         title: "Constructive Critique Session",
-        schedule: "Tuesdays, 6:30 - 8:30 PM",
         desc: "A safe space to present works in progress and receive honest, constructive feedback from peers and mentors.",
         rules: [
           "Bring a work in progress or finished",
@@ -283,7 +280,6 @@ export const programacaoTranslations = {
       },
       {
         title: "Art Circle",
-        schedule: "Thursdays, 7:00 - 9:00 PM",
         desc: "Informal showcase of recent works followed by open discussion.",
         rules: [
           "Present up to 3 works",
@@ -444,7 +440,6 @@ export const programacaoTranslations = {
     feedbackItems: [
       {
         title: "Séance de critique constructive",
-        schedule: "Mardis, 18h30 - 20h30",
         desc: "Un espace sûr pour présenter des travaux en cours et recevoir des retours honnêtes de pairs et mentors.",
         rules: [
           "Apportez un travail en cours ou terminé",
@@ -455,7 +450,6 @@ export const programacaoTranslations = {
       },
       {
         title: "Cercle d'art",
-        schedule: "Jeudis, 19h00 - 21h00",
         desc: "Présentation informelle de travaux récents suivie d'une discussion ouverte.",
         rules: [
           "Présentez jusqu'à 3 travaux",

@@ -80,3 +80,13 @@ test("workshops sem programação mensal nem datas", () => {
     assert.ok(s.includes(keep), `workshops perdeu "${keep}" (era para manter)`);
   }
 });
+
+test("feedback sem dias nem horas", () => {
+  const s = src("lib/i18n/sections/programacao.ts");
+  for (const b of ["Terças-feiras, 18:30 - 20:30", "Quintas-feiras, 19:00 - 21:00", "Tuesdays, 6:30 - 8:30 PM", "Thursdays, 7:00 - 9:00 PM", "Mardis, 18h30 - 20h30", "Jeudis, 19h00 - 21h00"]) {
+    assert.ok(!s.includes(b), `programacao.ts ainda contém "${b}"`);
+  }
+  for (const keep of ["Sessão de Crítica Construtiva", "Roda de Arte", "Como funciona", "feedbackHowTitle"]) {
+    assert.ok(s.includes(keep), `feedback perdeu "${keep}" (era para manter)`);
+  }
+});
