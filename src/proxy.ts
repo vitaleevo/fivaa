@@ -16,23 +16,21 @@ function buildContentSecurityPolicy(nonce: string) {
     `style-src 'self' https://fonts.googleapis.com ${
       isDevelopment ? "'unsafe-inline'" : `'nonce-${nonce}'`
     }`,
+    // Next/Image and React use style attributes; script and style elements remain nonce-protected.
+    "style-src-attr 'unsafe-inline'",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: https:",
     "frame-src https://challenges.cloudflare.com",
     "connect-src 'self' https://*.convex.cloud https://*.convex.site wss://*.convex.cloud wss://*.convex.site https://challenges.cloudflare.com",
-    "upgrade-insecure-requests",
+    ...(isDevelopment ? [] : ["upgrade-insecure-requests"]),
   ].join("; ");
 }
 
 function applySecurityHeaders(
   response: NextResponse,
-  headers: Headers,
   nonce: string,
 ) {
   const contentSecurityPolicy = buildContentSecurityPolicy(nonce);
-
-  headers.set("x-nonce", nonce);
-  headers.set("Content-Security-Policy", contentSecurityPolicy);
 
   response.headers.set("Content-Security-Policy", contentSecurityPolicy);
   response.headers.set("X-Frame-Options", "DENY");
@@ -50,25 +48,38 @@ function applySecurityHeaders(
   return response;
 }
 
+const ADMIN_HOST = "admin.fivaaforum.com";
+
 export default convexAuthNextjsMiddleware(async (request: NextRequest) => {
-  try {
     const requestHeaders = new Headers(request.headers);
     const nonce = crypto.randomUUID().replace(/-/g, "");
-    const contentSecurityPolicy = buildContentSecurityPolicy(nonce);
-
     requestHeaders.set("x-nonce", nonce);
-    requestHeaders.set("Content-Security-Policy", contentSecurityPolicy);
+    requestHeaders.set("Content-Security-Policy", buildContentSecurityPolicy(nonce));
+    const forwarding = { request: { headers: requestHeaders } };
+    const host = request.headers.get("host") ?? "";
+    const normalizedHost = host.toLowerCase();
+    const pathname = request.nextUrl.pathname;
+    const isAdminSubdomain = normalizedHost === ADMIN_HOST;
 
-    const response = NextResponse.next({
-      request: {
-        headers: requestHeaders,
-      },
-    });
+    if (isAdminSubdomain) {
+      const url = request.nextUrl.clone();
 
-    return applySecurityHeaders(response, requestHeaders, nonce);
-  } catch {
-    return NextResponse.next();
-  }
+      if (pathname === "/") {
+        url.pathname = "/admin";
+        return applySecurityHeaders(NextResponse.rewrite(url, forwarding), nonce);
+      }
+
+      if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+        return applySecurityHeaders(NextResponse.next(forwarding), nonce);
+      }
+
+      if (pathname !== "/api" && !pathname.startsWith("/api/")) {
+        url.pathname = `/admin${pathname}`;
+        return applySecurityHeaders(NextResponse.rewrite(url, forwarding), nonce);
+      }
+    }
+
+    return applySecurityHeaders(NextResponse.next(forwarding), nonce);
 });
 
 export const config = {

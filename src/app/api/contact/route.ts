@@ -1,22 +1,14 @@
 import { NextResponse } from "next/server";
-import { fetchMutation } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
-import { getClientIp, getErrorStatus, getSubmissionSecret } from "@/lib/request";
-import { validateTurnstileToken } from "@/lib/turnstile";
+import { getClientIp, getSubmissionSecret } from "@/lib/request";
+import { fetchMutation } from "convex/nextjs";
+import { readForm, contactFields, publicFormError } from "@/lib/form-validation";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as {
-      name?: string;
-      email?: string;
-      subject?: string;
-      message?: string;
-      startedAt?: number;
-      honeypot?: string;
-      turnstileToken?: string;
-    };
+    const fields = contactFields(await readForm(request));
 
     const submissionSecret = getSubmissionSecret();
     if (!submissionSecret) {
@@ -27,37 +19,17 @@ export async function POST(request: Request) {
     }
 
     const clientIp = getClientIp(request);
-    const verification = await validateTurnstileToken({
-      token: body.turnstileToken?.trim() ?? "",
-      remoteIp: clientIp,
-      expectedAction: "contact_form",
-    });
-
-    if (!verification.success) {
-      return NextResponse.json(
-        { error: "Verificação anti-bot falhou." },
-        { status: 400 },
-      );
-    }
 
     await fetchMutation(api.messages.create, {
-      name: body.name ?? "",
-      email: body.email ?? "",
-      message: `[Assunto: ${(body.subject ?? "").trim()}]\n\n${body.message ?? ""}`,
-      submittedAt: Number(body.startedAt ?? 0),
-      honeypot: body.honeypot ?? "",
+      ...fields,
       clientIp,
       submissionSecret,
     });
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Falha ao enviar a mensagem.";
-
-    return NextResponse.json(
-      { error: message },
-      { status: getErrorStatus(message) },
-    );
+    const { message, status } = publicFormError(error);
+    console.error("contact_submission_failed", { status });
+    return NextResponse.json({ error: message }, { status });
   }
 }

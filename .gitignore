@@ -10,6 +10,8 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
 
 # next.js
 /.next/
@@ -50,3 +52,6 @@ next-env.d.ts
 
 # convex
 /uploads/
+
+# helper scripts with credentials
+/scripts/

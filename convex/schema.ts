@@ -9,6 +9,10 @@ export default defineSchema({
     role: v.string(),
     country: v.string(),
     color: v.string(),
+    bio: v.optional(v.string()),
+    category: v.optional(v.string()),
+    photoStorageId: v.optional(v.id("_storage")),
+    photoUrl: v.optional(v.string()),
   }),
   schedule: defineTable({
     day: v.string(),
@@ -36,6 +40,8 @@ export default defineSchema({
     org: v.string(),
     ticketId: v.string(),
     status: v.string(),
+    paymentStorageId: v.optional(v.id("_storage")),
+    photoStorageId: v.optional(v.id("_storage")),
   }),
   messages: defineTable({
     name: v.string(),

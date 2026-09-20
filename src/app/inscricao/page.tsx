@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { InscricaoWrapper } from "./InscricaoWrapper";
+import InscricaoClient from "./InscricaoClient";
 
 export const metadata: Metadata = {
-  title: "Inscrição — FIVAA",
+  title: "Bilhetes — FIVAA",
   description:
-    "Inscreva-se no FIVAA 2026. Garanta o seu lugar no maior evento de valorização da arte africana.",
+    "Consulte as modalidades e preços do FIVAA 2026. A venda será realizada na Ticket.ao; informações sobre a abertura disponíveis junto da equipa.",
 };
 
 export default function InscricaoPage() {
-  return <InscricaoWrapper />;
+  return <InscricaoClient />;
 }

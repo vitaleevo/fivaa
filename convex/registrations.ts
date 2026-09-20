@@ -11,6 +11,18 @@ import {
   validatePhone,
   validateRequiredLength,
 } from "./security";
+import { sendNewRegistrationEmail, sendRegistrationStatusEmail } from "./emails";
+
+const MAX_ATTACHMENT_BYTES = 5 * 1024 * 1024;
+
+// Public: browser uploads go straight to Storage (unguessable URLs).
+// Abuse is bounded by the 5MB client check and the rate limit on `create`.
+export const generateUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.storage.generateUploadUrl();
+  },
+});
 
 // Public: anyone can create a registration (form submission)
 export const create = mutation({
@@ -21,6 +33,8 @@ export const create = mutation({
     country: v.string(),
     org: v.string(),
     ticketId: v.string(),
+    paymentStorageId: v.id("_storage"),
+    photoStorageId: v.id("_storage"),
     submittedAt: v.number(),
     honeypot: v.optional(v.string()),
     clientIp: v.string(),
@@ -47,10 +61,25 @@ export const create = mutation({
     validateOptionalLength("Organização / Cargo", org, 100);
 
     const availableTickets = await ctx.db.query("tickets").collect();
-    const hasValidTicket = availableTickets.some((ticket) => ticket._id === ticketId);
+    const ticket = availableTickets.find((t) => t._id === ticketId);
 
-    if (!hasValidTicket) {
+    if (!ticket) {
       throw new Error("Bilhete inválido.");
+    }
+
+    const paymentMeta = await ctx.storage.getMetadata(args.paymentStorageId);
+    if (!paymentMeta) {
+      throw new Error("Comprovativo inválido.");
+    }
+    if (paymentMeta.size > MAX_ATTACHMENT_BYTES) {
+      throw new Error("Comprovativo excede 5MB.");
+    }
+    const photoMeta = await ctx.storage.getMetadata(args.photoStorageId);
+    if (!photoMeta) {
+      throw new Error("Foto inválida.");
+    }
+    if (photoMeta.size > MAX_ATTACHMENT_BYTES) {
+      throw new Error("Foto excede 5MB.");
     }
 
     await enforceSubmissionRateLimit(ctx, {
@@ -62,24 +91,56 @@ export const create = mutation({
       blockMs: 1000 * 60 * 60,
     });
 
-    return await ctx.db.insert("registrations", {
+    const id = await ctx.db.insert("registrations", {
       name,
       email,
       phone,
       country,
       org,
       ticketId,
+      paymentStorageId: args.paymentStorageId,
+      photoStorageId: args.photoStorageId,
       status: "pending",
     });
+
+    const paymentUrl = await ctx.storage.getUrl(args.paymentStorageId);
+    const photoUrl = await ctx.storage.getUrl(args.photoStorageId);
+    if (!paymentUrl || !photoUrl) {
+      throw new Error("Falha a resolver anexos.");
+    }
+
+    await sendNewRegistrationEmail(ctx, {
+      name,
+      email,
+      phone,
+      country,
+      org,
+      ticketName: ticket.name,
+      paymentUrl,
+      photoUrl,
+    });
+
+    return id;
   },
 });
 
-// Protected: only authenticated users can read or delete registrations
+// Protected: only authenticated admins can read registrations
 export const get = query({
   args: {},
   handler: async (ctx) => {
     await requireAdmin(ctx);
-    return await ctx.db.query("registrations").collect();
+    const rows = await ctx.db.query("registrations").collect();
+    return await Promise.all(
+      rows.map(async (r) => ({
+        ...r,
+        resolvedPaymentUrl: r.paymentStorageId
+          ? await ctx.storage.getUrl(r.paymentStorageId)
+          : null,
+        resolvedPhotoUrl: r.photoStorageId
+          ? await ctx.storage.getUrl(r.photoStorageId)
+          : null,
+      })),
+    );
   },
 });
 
@@ -87,6 +148,47 @@ export const remove = mutation({
   args: { id: v.id("registrations") },
   handler: async (ctx, args) => {
     await requireAdmin(ctx);
+    const existing = await ctx.db.get(args.id);
+    for (const fileId of [existing?.paymentStorageId, existing?.photoStorageId]) {
+      if (!fileId) continue;
+      try {
+        await ctx.storage.delete(fileId);
+      } catch {
+        // best-effort: não bloquear remoção se ficheiro já sumiu
+      }
+    }
     await ctx.db.delete(args.id);
+  },
+});
+
+export const updateStatus = mutation({
+  args: {
+    id: v.id("registrations"),
+    status: v.union(v.literal("pending"), v.literal("confirmed"), v.literal("cancelled")),
+    motive: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+    const existing = await ctx.db.get(args.id);
+    if (!existing) {
+      throw new Error("Inscrição não encontrada.");
+    }
+    // Só notifica em transição real: repetir o mesmo estado não reenvia email.
+    if (existing.status === args.status) {
+      return { notified: false };
+    }
+    const motive = sanitizeText(args.motive ?? "");
+    if (args.status === "cancelled" && !motive) {
+      throw new Error("Indique o motivo do cancelamento.");
+    }
+    validateOptionalLength("Motivo", motive, 500);
+    await ctx.db.patch(args.id, { status: args.status });
+    await sendRegistrationStatusEmail(ctx, {
+      to: existing.email,
+      name: existing.name,
+      status: args.status,
+      motive,
+    });
+    return { notified: true };
   },
 });

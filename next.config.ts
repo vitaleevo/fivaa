@@ -9,9 +9,16 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [{ source: "/programacao/festival", destination: "/programacao", permanent: true }];
+  },
   images: {
     unoptimized: false,
     formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      { protocol: "https", hostname: "**.convex.cloud" },
+      { protocol: "https", hostname: "**.convex.site" },
+    ],
   },
   turbopack: {
     root: process.cwd(),

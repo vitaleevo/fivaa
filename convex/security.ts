@@ -1,7 +1,7 @@
 import type { MutationCtx, QueryCtx } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 
-const DEFAULT_ADMIN_EMAILS = ["info@fivaa.com"];
+const DEFAULT_ADMIN_EMAILS = ["admin@fivaaforum.com"];
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PHONE_REGEX = /^\+?[0-9\s\-()]{9,20}$/;
 const RATE_LIMIT_WINDOW_MS = 1000 * 60 * 10;

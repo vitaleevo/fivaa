@@ -46,3 +46,28 @@ export const remove = mutation({
     await ctx.db.delete(args.id);
   },
 });
+
+export const update = mutation({
+  args: {
+    id: v.id("schedule"),
+    day: v.string(),
+    time: v.string(),
+    title: v.string(),
+    type: v.string(),
+  },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+
+    const day = sanitizeText(args.day);
+    const time = sanitizeText(args.time);
+    const title = sanitizeText(args.title);
+    const type = sanitizeText(args.type);
+
+    validateRequiredLength("Dia", day, 3, 40);
+    validateRequiredLength("Hora", time, 3, 10);
+    validateRequiredLength("Título", title, 3, 140);
+    validateRequiredLength("Tipo", type, 2, 40);
+
+    return await ctx.db.patch(args.id, { day, time, title, type });
+  },
+});

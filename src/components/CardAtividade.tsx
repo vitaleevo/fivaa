@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+
+import FlipLink from "@/components/FlipLink";
 import {
   Card,
   CardHeader,
@@ -7,6 +9,8 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import FlipCard from "@/components/FlipCard";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
 
 interface CardAtividadeProps {
@@ -20,6 +24,41 @@ interface CardAtividadeProps {
   variant?: "default" | "dark";
 }
 
+function TagList({ tags, variant }: { tags: string[]; variant: "default" | "dark" }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <span
+          key={tag}
+          className={cn(
+            "rounded-full px-3 py-1 text-xs font-medium",
+            variant === "dark"
+              ? "bg-white/10 text-white/70"
+              : "bg-gold/10 text-gold"
+          )}
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function MoreLink({ href, variant }: { href: string; variant: "default" | "dark" }) {
+  const { t } = useLanguage();
+  return (
+    <FlipLink
+      href={href}
+      className={cn(
+        "inline-flex items-center gap-2 font-montserrat text-sm font-bold transition-colors",
+        variant === "dark" ? "text-gold hover:text-gold/80" : "text-gold hover:text-gold/80"
+      )}
+    >
+      {t.common.more} <span aria-hidden="true">→</span>
+    </FlipLink>
+  );
+}
+
 export default function CardAtividade({
   title,
   description,
@@ -30,13 +69,15 @@ export default function CardAtividade({
   tags,
   variant = "default",
 }: CardAtividadeProps) {
-  const cardContent = (
+  const { t } = useLanguage();
+  const flipLabel = t.common.flipCard.replace("{name}", title);
+  const front = (
     <Card
       className={cn(
-        "transition-all hover:shadow-lg hover:shadow-gold/10",
+        "content-card h-full rounded-[1.5rem] transition-all",
         variant === "dark"
           ? "border-white/10 bg-white/5 text-white"
-          : "border-gold/10 bg-white shadow-md shadow-gold/5 hover:border-gold/30"
+          : "border-gold/10 bg-white"
       )}
     >
       <CardHeader>
@@ -88,7 +129,7 @@ export default function CardAtividade({
         </CardTitle>
         <CardDescription
           className={cn(
-            "text-sm",
+            "text-sm line-clamp-3",
             variant === "dark" ? "text-white/60" : "text-gray-medium"
           )}
         >
@@ -98,43 +139,83 @@ export default function CardAtividade({
 
       {(tags && tags.length > 0) && (
         <CardContent>
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className={cn(
-                  "rounded-full px-3 py-1 text-xs font-medium",
-                  variant === "dark"
-                    ? "bg-white/10 text-white/70"
-                    : "bg-gold/10 text-gold"
-                )}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          <TagList tags={tags} variant={variant} />
         </CardContent>
       )}
 
-      {href && (
-        <CardFooter>
-          <Link
-            href={href}
-            className={cn(
-              "font-montserrat text-sm font-bold transition-colors",
-              variant === "dark" ? "text-gold hover:text-gold/80" : "text-gold hover:text-gold/80"
-            )}
-          >
-            Saber mais &rarr;
-          </Link>
-        </CardFooter>
-      )}
+      <CardFooter>
+        <span
+          className={cn(
+            "text-xs font-semibold",
+            variant === "dark" ? "text-white/40" : "text-gray-medium"
+          )}
+          aria-hidden="true"
+        >
+          {t.common.flipHint}
+        </span>
+      </CardFooter>
     </Card>
   );
 
-  if (href && !tags) {
-    return <Link href={href} className="block">{cardContent}</Link>;
-  }
+  const back = (
+    <Card
+      className={cn(
+        "content-card flex h-full flex-col rounded-[1.5rem] transition-all",
+        variant === "dark"
+          ? "border-gold/30 bg-white/10 text-white"
+          : "border-gold/30 bg-cream"
+      )}
+    >
+      <CardHeader>
+        <CardTitle
+          className={cn(
+            "font-montserrat text-xl font-bold",
+            variant === "dark" ? "text-white" : "text-green-dark"
+          )}
+        >
+          {title}
+        </CardTitle>
+        <CardDescription
+          className={cn(
+            "text-sm leading-relaxed",
+            variant === "dark" ? "text-white/70" : "text-gray-medium"
+          )}
+        >
+          {description}
+        </CardDescription>
+      </CardHeader>
 
-  return cardContent;
+      {(tags && tags.length > 0) && (
+        <CardContent>
+          <TagList tags={tags} variant={variant} />
+        </CardContent>
+      )}
+
+      <CardFooter className="mt-auto flex items-center justify-between gap-3">
+        {href ? (
+          <MoreLink href={href} variant={variant} />
+        ) : (
+          <span
+            className={cn(
+              "text-xs",
+              variant === "dark" ? "text-white/40" : "text-gray-medium"
+            )}
+          >
+            {schedule ?? time ?? ""}
+          </span>
+        )}
+        <span
+          className={cn(
+            "text-xs font-semibold",
+            variant === "dark" ? "text-white/40" : "text-gray-medium"
+          )}
+          aria-hidden="true"
+        >
+          {t.common.backHint}
+        </span>
+      </CardFooter>
+    </Card>
+  );
+
+  return <FlipCard front={front} back={back} label={flipLabel} />;
 }

@@ -3,22 +3,25 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-const slides = [
-  { bg: "/images/hero/11.webp", title: "FIVAA 2026", subtitle: "Fórum Internacional para a Valorização da Arte Africana" },
-  { bg: "/images/hero/387c1334-f070-4f6a-a569-6d63e85e9101.webp", title: "Arte & Cultura", subtitle: "Dois dias de imersão na arte africana" },
-  { bg: "/images/hero/banner-xs.webp", title: "20–21 Novembro", subtitle: "Palácio de Ferro, Luanda, Angola" },
-  { bg: "/images/hero/BeauxArtsFestival-3_F6F5D918-D076-2506-9708329E3D1124EA_f6f70129-d4ea-262f-31953200ed3efa60.webp", title: "Junte-se a nós", subtitle: "Inscreva-se agora no maior evento de arte africana" },
-  { bg: "/images/hero/LC_CERT-10-1.webp", title: "Luanda, Angola", subtitle: "Palácio de Ferro — o palco da arte africana" },
-  { bg: "/images/hero/whatsapp-image-2025-09-08-at-10-01-27-am-1200x800.jpeg", title: "Experiência única", subtitle: "Música, exposições, networking e muito mais" },
+const slideBackgrounds = [
+  "/images/hero/fivaa-forum-hero.webp",
+  "/images/hero/fivaa-art-culture.webp",
+  "/images/hero/fivaa-palacio-ferro.webp",
+  "/images/hero/fivaa-junte-se.webp",
+  "/images/hero/fivaa-educacao.webp",
+  "/images/hero/fivaa-experiencia.webp",
 ];
 
 export default function HeroSlideshow() {
+  const { t } = useLanguage();
   const [current, setCurrent] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [paused, setPaused] = useState(false);
 
-  const next = useCallback(() => setCurrent((previous) => (previous + 1) % slides.length), []);
-  const previous = useCallback(() => setCurrent((value) => (value - 1 + slides.length) % slides.length), []);
+  const next = useCallback(() => setCurrent((previous) => (previous + 1) % t.home.heroSlides.length), [t]);
+  const previous = useCallback(() => setCurrent((value) => (value - 1 + t.home.heroSlides.length) % t.home.heroSlides.length), [t]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -29,18 +32,18 @@ export default function HeroSlideshow() {
   }, []);
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || paused) return;
     const timer = window.setInterval(next, 7000);
     return () => window.clearInterval(timer);
-  }, [next, reducedMotion]);
+  }, [next, reducedMotion, paused]);
 
+  const slides = t.home.heroSlides.map((s, i) => ({ ...s, bg: slideBackgrounds[i] }));
   const activeSlide = slides[current];
 
   return (
-    <section className="relative h-[calc(100svh-7rem)] min-h-[560px] w-full overflow-hidden bg-green-dark" aria-label="Apresentação de imagens do evento FIVAA">
-      <h1 className="sr-only">FIVAA 2026 — Fórum Internacional para a Valorização da Arte Africana em Luanda, Angola</h1>
+    <section className="relative h-[calc(100vh-7rem)] min-h-[620px] w-full overflow-hidden bg-green-dark supports-[height:100svh]:h-[calc(100svh-7rem)]" aria-label={t.home.heroAria}>
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        Slide {current + 1} de {slides.length}: {activeSlide.title} — {activeSlide.subtitle}
+        {t.home.heroSlideWord} {current + 1} {t.home.heroOfWord} {slides.length}: {activeSlide.title} — {activeSlide.subtitle}
       </div>
 
       {slides.map((slide, index) => {
@@ -48,7 +51,7 @@ export default function HeroSlideshow() {
         return (
           <div
             key={slide.bg}
-            className={`absolute inset-0 ${reducedMotion ? "" : "transition-opacity duration-1000 ease-in-out"} ${active ? "z-10 opacity-100" : "z-0 pointer-events-none opacity-0"}`}
+            className={`absolute inset-0 ${reducedMotion ? "" : "transition-opacity duration-1000 ease-in-out"} ${active ? "z-10 opacity-100" : "pointer-events-none z-0 opacity-0"}`}
             aria-hidden="true"
           >
             <Image
@@ -66,59 +69,60 @@ export default function HeroSlideshow() {
       })}
 
       <div className="absolute inset-0 z-10 bg-black/35" aria-hidden="true" />
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-green-dark via-green-dark/35 to-black/50" aria-hidden="true" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-green-dark via-green-dark/65 to-green-dark/10" aria-hidden="true" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-green-dark/85 via-transparent to-black/35" aria-hidden="true" />
+      <div className="absolute left-0 top-0 z-20 h-full w-1 bg-gradient-to-b from-gold via-orange to-transparent" aria-hidden="true" />
 
-      <div className="absolute inset-0 z-20 flex items-center justify-center px-5 pb-12 pt-20 text-center sm:px-8">
-        <div className="max-w-4xl">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-green-dark/60 px-4 py-2 shadow-lg backdrop-blur-md">
-            <span className="font-montserrat text-[10px] font-extrabold uppercase tracking-[0.24em] text-gold sm:text-xs">FIVAA Fórum & Festival 2026</span>
+      <div className="absolute inset-0 z-20 flex items-center justify-center px-5 pb-16 pt-20 sm:px-8 lg:px-12">
+        <div className="w-full max-w-4xl text-left">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-green-dark/60 px-4 py-2 shadow-lg backdrop-blur-md">
+            <span className="font-montserrat text-[10px] font-extrabold uppercase tracking-[0.24em] text-gold sm:text-xs">{t.home.heroTag}</span>
           </div>
-          <h2 className="font-montserrat text-5xl font-black leading-[0.98] tracking-[-0.045em] text-white drop-shadow-[0_5px_16px_rgba(0,0,0,0.55)] sm:text-6xl md:text-7xl lg:text-8xl">
+          <h1 className="max-w-3xl font-montserrat text-5xl font-black leading-[0.98] tracking-[-0.045em] text-white drop-shadow-[0_5px_16px_rgba(0,0,0,0.55)] sm:text-6xl md:text-7xl lg:text-8xl">
             {activeSlide.title}
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl font-montserrat text-base font-medium leading-relaxed text-white/90 drop-shadow-[0_2px_5px_rgba(0,0,0,0.6)] sm:text-lg lg:text-xl">
+          </h1>
+          <p className="mt-6 max-w-2xl font-montserrat text-base font-medium leading-relaxed text-white/90 drop-shadow-[0_2px_5px_rgba(0,0,0,0.6)] sm:text-lg lg:text-xl">
             {activeSlide.subtitle}
           </p>
-          <div className="mt-9">
+          <div className="mt-9 flex flex-wrap items-center gap-5">
             <Link href="/inscricao" className="group inline-flex items-center gap-3 rounded-full bg-gold px-8 py-4 font-montserrat text-sm font-extrabold text-green-dark shadow-xl shadow-black/20 transition-all hover:-translate-y-0.5 hover:bg-gold-metallic hover:shadow-2xl sm:px-10">
-              Inscreva-se agora
+              {t.home.heroCta}
               <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
+            <span className="font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-white/75">{t.home.heroDate}</span>
           </div>
         </div>
       </div>
 
-      <button onClick={previous} className="absolute left-4 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/15 text-white backdrop-blur-sm transition-all hover:border-gold hover:bg-green-dark/70 hover:text-gold active:scale-95 sm:flex md:left-8" aria-label="Slide anterior">
+      <button onClick={previous} className="absolute left-4 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/15 text-white backdrop-blur-sm transition-all hover:border-gold hover:bg-green-dark/70 hover:text-gold active:scale-95 sm:flex md:left-8" aria-label={t.home.heroPrev}>
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
-      <button onClick={next} className="absolute right-4 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/15 text-white backdrop-blur-sm transition-all hover:border-gold hover:bg-green-dark/70 hover:text-gold active:scale-95 sm:flex md:right-8" aria-label="Próximo slide">
+      <button onClick={next} className="absolute right-4 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/15 text-white backdrop-blur-sm transition-all hover:border-gold hover:bg-green-dark/70 hover:text-gold active:scale-95 sm:flex md:right-8" aria-label={t.home.heroNext}>
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </svg>
       </button>
 
-      <div className="absolute left-5 top-5 z-30 sm:left-8 sm:top-8">
-        <div className="rounded-full border border-gold/30 bg-green-dark/80 px-4 py-2.5 shadow-lg backdrop-blur-md">
-          <span className="font-montserrat text-[10px] font-extrabold uppercase tracking-[0.2em] text-gold sm:text-xs">20–21 Nov 2026 · Luanda</span>
-        </div>
+      <div className="absolute bottom-0 right-0 z-20 hidden h-40 w-40 border-l border-t border-gold/30 bg-green-dark/20 backdrop-blur-sm lg:block" aria-hidden="true">
+        <div className="absolute bottom-7 right-8 whitespace-nowrap font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-gold">Luanda · Angola</div>
       </div>
 
-      <div className="absolute bottom-7 left-0 right-0 z-30 flex items-center justify-center gap-3" role="tablist" aria-label="Navegação de slides">
+      <div className="absolute bottom-7 left-0 right-0 z-30 flex items-center justify-center gap-3" role="group" aria-label={t.home.slidesNav}>
         {slides.map((slide, index) => (
           <button
             key={slide.bg}
             type="button"
             onClick={() => setCurrent(index)}
-            role="tab"
-            aria-selected={index === current}
-            aria-label={`Ir para slide ${index + 1}: ${slide.title}`}
+            aria-pressed={index === current}
+            aria-label={`${t.home.heroGoTo} ${index + 1}: ${slide.title}`}
             className={`h-2.5 rounded-full transition-all duration-300 ${index === current ? "w-8 bg-gold" : "w-2.5 bg-white/35 hover:bg-white/70"}`}
           />
         ))}
+        <button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused} className="ml-2 rounded-full border border-white/40 bg-green-dark px-4 py-2 text-xs font-semibold text-white">{paused ? t.home.heroResume : t.home.heroPause}</button>
       </div>
     </section>
   );

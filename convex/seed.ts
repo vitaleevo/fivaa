@@ -33,22 +33,22 @@ export const run = mutation({
     if (existingTickets.length === 0) {
       const tickets = [
         {
-          name: "Presencial",
-          price: "150.000 Kz",
-          desc: "Acesso completo aos 2 dias do evento no Palácio de Ferro.",
-          features: ["Todas as palestras e painéis", "Workshops e masterclasses", "Exposições e feira", "Coffee breaks e almoço", "Certificado de participação"],
+          name: "Acesso Fóruns",
+          price: "3.000 AKZ",
+          desc: "Acesso aos workshops, showcases, palestras, exposições e masterclasses do dia escolhido.",
+          features: ["1.º ou 2.º dia", "Workshops", "Showcases", "Palestras", "Exposições", "Masterclasses"],
         },
         {
-          name: "Online",
-          price: "50.000 Kz",
-          desc: "Acesso virtual a todas as transmissões ao vivo do evento.",
-          features: ["Streaming de palestras", "Conteúdo gravado por 30 dias", "Chat com oradores", "Certificado digital"],
+          name: "Acesso Concertos",
+          price: "5.000 AKZ",
+          desc: "Acesso a todas as apresentações musicais do dia escolhido.",
+          features: ["1.º ou 2.º dia", "Apresentações musicais"],
         },
         {
-          name: "Pack Institucional",
-          price: "500.000 Kz",
-          desc: "Pacote premium para instituições e parceiros.",
-          features: ["Acesso presencial VIP", "Jantar de gala", "Meeting com oradores", "Kit institucional", "Visita guiada à exposição", "Certificado VIP"],
+          name: "Acesso Total",
+          price: "14.000 AKZ",
+          desc: "Acesso completo aos fóruns e concertos dos dois dias do evento.",
+          features: ["1.º e 2.º dia", "Workshops", "Showcases", "Palestras", "Exposições", "Masterclasses", "Apresentações musicais"],
         },
       ];
       for (const ticket of tickets) {
@@ -61,40 +61,22 @@ export const run = mutation({
     if (existingTestimonials.length === 0) {
       const testimonials = [
         {
-          name: "Maria Santos",
-          role: "Artista Visual",
-          quote: "O FIVAA transformou a minha carreira. Através dos workshops e da mentoria, consegui desenvolver um estilo próprio e receber reconhecimento internacional.",
+          name: "Direção do FIVAA",
+          role: "Direção Institucional",
+          quote: "O FIVAA nasce para dar à arte africana o palco, a projeção e as oportunidades que merece, aproximando criadores, instituições e mercados.",
           location: "Luanda, Angola",
         },
         {
-          name: "João Silva",
-          role: "Parceiro Empresarial",
-          quote: "Associar a nossa marca ao FIVAA foi uma decisão estratégica. O retorno em visibilidade e networking superou todas as expectativas.",
+          name: "Coordenação de Parcerias",
+          role: "Parcerias Estratégicas",
+          quote: "Cada parceria é construída para gerar valor partilhado, ampliar o impacto cultural e criar ligações duradouras no ecossistema criativo africano.",
           location: "Luanda, Angola",
         },
         {
-          name: "Ana Costa",
-          role: "Mentora",
-          quote: "Partilhar o meu conhecimento com artistas emergentes é extremamente gratificante. O FIVAA cria um ambiente perfeito para esta troca.",
-          location: "Maputo, Moçambique",
-        },
-        {
-          name: "Pedro Mendes",
-          role: "Galerista",
-          quote: "O Festival Anual do FIVAA é um dos eventos culturais mais importantes da região. É onde encontro os novos talentos da arte africana.",
-          location: "Johannesburg, África do Sul",
-        },
-        {
-          name: "Lucia Fernandes",
-          role: "Estudante de Arte",
-          quote: "Os recursos educativos do FIVAA são incomparáveis. Aprendi mais em 6 meses do que em anos de estudo formal.",
-          location: "Windhoek, Namíbia",
-        },
-        {
-          name: "Carlos Matos",
-          role: "Músico",
-          quote: "A comunidade do FIVAA é como uma família. O apoio e a encorajamento que recebo são fundamentais para a minha evolução artística.",
-          location: "Maputo, Moçambique",
+          name: "Curadoria do FIVAA",
+          role: "Direção Artística",
+          quote: "A programação reúne diferentes linguagens, gerações e territórios para celebrar a diversidade e projetar novas narrativas da arte africana.",
+          location: "Luanda, Angola",
         },
       ];
       for (const testimonial of testimonials) {
@@ -106,22 +88,22 @@ export const run = mutation({
     const existingSchedule = await ctx.db.query("schedule").collect();
     if (existingSchedule.length === 0) {
       const schedule = [
-        { day: "20 de Novembro", time: "09:00", title: "Abertura Oficial", type: "Cerimónia" },
-        { day: "20 de Novembro", time: "10:00", title: "Painel: O Futuro das Indústrias Criativas em África", type: "Painel" },
-        { day: "20 de Novembro", time: "11:30", title: "Workshop: Estratégias de Preservação Cultural", type: "Workshop" },
-        { day: "20 de Novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
-        { day: "20 de Novembro", time: "14:30", title: "Exposição de Arte Africana Contemporânea", type: "Exposição" },
-        { day: "20 de Novembro", time: "16:00", title: "Masterclass: Empreendedorismo Criativo", type: "Masterclass" },
-        { day: "20 de Novembro", time: "18:00", title: "Atuação Musical ao Vivo", type: "Música" },
-        { day: "20 de Novembro", time: "20:00", title: "Jantar de Networking", type: "Networking" },
-        { day: "21 de Novembro", time: "09:00", title: "Painel: Arte e Tecnologia", type: "Painel" },
-        { day: "21 de Novembro", time: "10:30", title: "Workshop: Curadoria e Museologia", type: "Workshop" },
-        { day: "21 de Novembro", time: "12:00", title: "Apresentação de Cases de Sucesso", type: "Apresentação" },
-        { day: "21 de Novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
-        { day: "21 de Novembro", time: "14:30", title: "Feira de Oportunidades e Parcerias", type: "Feira" },
-        { day: "21 de Novembro", time: "16:00", title: "Painel de Encerramento", type: "Painel" },
-        { day: "21 de Novembro", time: "18:00", title: "Cerimónia de Encerramento", type: "Cerimónia" },
-        { day: "21 de Novembro", time: "20:00", title: "Festa de Gala", type: "Música" },
+        { day: "20 de novembro", time: "09:00", title: "Abertura Oficial", type: "Cerimónia" },
+        { day: "20 de novembro", time: "10:00", title: "Painel: O Futuro das Indústrias Criativas em África", type: "Painel" },
+        { day: "20 de novembro", time: "11:30", title: "Workshop: Estratégias de Preservação Cultural", type: "Workshop" },
+        { day: "20 de novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
+        { day: "20 de novembro", time: "14:30", title: "Exposição de Arte Africana Contemporânea", type: "Exposição" },
+        { day: "20 de novembro", time: "16:00", title: "Masterclass: Empreendedorismo Criativo", type: "Masterclass" },
+        { day: "20 de novembro", time: "18:00", title: "Atuação Musical ao Vivo", type: "Música" },
+        { day: "20 de novembro", time: "20:00", title: "Jantar de Networking", type: "Networking" },
+        { day: "21 de novembro", time: "09:00", title: "Painel: Arte e Tecnologia", type: "Painel" },
+        { day: "21 de novembro", time: "10:30", title: "Workshop: Curadoria e Museologia", type: "Workshop" },
+        { day: "21 de novembro", time: "12:00", title: "Apresentação de Casos de Sucesso", type: "Apresentação" },
+        { day: "21 de novembro", time: "13:00", title: "Intervalo para Almoço", type: "Pausa" },
+        { day: "21 de novembro", time: "14:30", title: "Feira de Oportunidades e Parcerias", type: "Feira" },
+        { day: "21 de novembro", time: "16:00", title: "Painel de Encerramento", type: "Painel" },
+        { day: "21 de novembro", time: "18:00", title: "Cerimónia de Encerramento", type: "Cerimónia" },
+        { day: "21 de novembro", time: "20:00", title: "Festa de Gala", type: "Música" },
       ];
       for (const item of schedule) {
         await ctx.db.insert("schedule", item);

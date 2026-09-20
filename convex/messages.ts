@@ -75,3 +75,16 @@ export const markRead = mutation({
     await ctx.db.patch(args.id, { read: true });
   },
 });
+
+export const markAllRead = mutation({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+    const messages = await ctx.db.query("messages").collect();
+    for (const message of messages) {
+      if (!message.read) {
+        await ctx.db.patch(message._id, { read: true });
+      }
+    }
+  },
+});
