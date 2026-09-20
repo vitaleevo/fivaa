@@ -41,6 +41,11 @@ export interface Translations {
     testimonials: string;
     contacts: string;
     register: string;
+    menuLabel: string;
+    submenuLabel: string;
+    homeAria: string;
+    topDate: string;
+    langLabel: string;
   };
   home: HomeTranslations;
   oradores: OradoresTranslations;
@@ -99,6 +104,11 @@ export const translations: Record<Language, Translations> = {
       testimonials: "Testemunhos",
       contacts: "Contactos",
       register: "Bilhetes",
+      menuLabel: "Menu",
+      submenuLabel: "Abrir submenu",
+      homeAria: "FIVAA — Página inicial",
+      topDate: "20 - 21 Nov 2026 · Luanda",
+      langLabel: "Selecionar idioma",
     },
     home: homeTranslations.pt,
     oradores: oradoresTranslations.pt,
@@ -155,6 +165,11 @@ export const translations: Record<Language, Translations> = {
       testimonials: "Testimonials",
       contacts: "Contact",
       register: "Tickets",
+      menuLabel: "Menu",
+      submenuLabel: "Open submenu",
+      homeAria: "FIVAA — Homepage",
+      topDate: "Nov 20 - 21, 2026 · Luanda",
+      langLabel: "Select language",
     },
     home: homeTranslations.en,
     oradores: oradoresTranslations.en,
@@ -211,6 +226,11 @@ export const translations: Record<Language, Translations> = {
       testimonials: "Témoignages",
       contacts: "Contact",
       register: "Billets",
+      menuLabel: "Menu",
+      submenuLabel: "Ouvrir le sous-menu",
+      homeAria: "FIVAA — Page d'accueil",
+      topDate: "20 - 21 nov. 2026 · Luanda",
+      langLabel: "Choisir la langue",
     },
     home: homeTranslations.fr,
     oradores: oradoresTranslations.fr,

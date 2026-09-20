@@ -90,7 +90,7 @@ export default function Footer() {
             <p className="mb-4 text-sm text-white/60">
               {t.footer.socialText}
             </p>
-            <div className="flex gap-3" aria-label="Redes sociais">
+            <div className="flex gap-3" aria-label={t.footer.social}>
               {socialLinks.map((social) => {
                 const IconComponent = social.Icon;
                 return (

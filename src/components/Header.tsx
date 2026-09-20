@@ -84,6 +84,7 @@ function DesktopDropdown({ link }: { link: NavigationLink }) {
 
 function MobileDropdown({ link }: { link: NavigationLink }) {
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
   const pathname = usePathname();
   const children = link.children;
   if (!children) return null;
@@ -106,7 +107,7 @@ function MobileDropdown({ link }: { link: NavigationLink }) {
           type="button"
           onClick={() => setOpen(!open)}
           className="mr-2 rounded-md p-2 text-gray-medium"
-          aria-label={`Abrir submenu ${link.label}`}
+          aria-label={`${t.nav.submenuLabel} ${link.label}`}
           aria-expanded={open}
         >
           <svg className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -207,7 +208,7 @@ export default function Header() {
           </div>
           <div className="flex shrink-0 items-center gap-3 sm:gap-4">
             <span className="hidden font-montserrat text-[10px] font-semibold uppercase tracking-[0.16em] text-gold/90 lg:block">
-              20 - 21 Nov 2026 · Luanda
+              {t.nav.topDate}
             </span>
             <span className="hidden h-3 w-px bg-white/20 lg:block" aria-hidden="true" />
             {socialLinks.map((social) => {
@@ -224,7 +225,7 @@ export default function Header() {
 
       <header className="sticky top-0 z-50 w-full border-b border-green-dark/10 bg-warm-white/95 shadow-[0_8px_28px_rgba(18,71,52,0.08)] backdrop-blur-xl">
         <div className="mx-auto flex h-[124px] max-w-7xl items-center justify-between gap-4 px-4 sm:h-[148px] sm:px-6 lg:px-8">
-          <Link href="/" className="flex shrink-0 items-center rounded-lg" aria-label="FIVAA — Página inicial">
+          <Link href="/" className="flex shrink-0 items-center rounded-lg" aria-label={t.nav.homeAria}>
             <LogoPrimary className="h-24 w-56 sm:h-28 sm:w-72" />
           </Link>
 
@@ -258,7 +259,7 @@ export default function Header() {
             <details className="group" open={mobileOpen ? true : undefined}>
               <summary
                 className="flex cursor-pointer list-none flex-col gap-1.5 rounded-md p-2"
-                aria-label="Menu"
+                aria-label={t.nav.menuLabel}
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileOpen(!mobileOpen);

@@ -11,7 +11,7 @@ const languages: { code: Language; label: string; flag: string; country: string 
 ];
 
 export function LanguageSwitcher({ className }: { className?: string }) {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +35,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         className="flex items-center gap-1.5 rounded-full border border-gold/30 bg-white/80 px-2.5 py-1.5 text-xs font-bold text-green-dark shadow-sm backdrop-blur-sm transition-all hover:border-gold hover:bg-white focus:outline-none focus:ring-2 focus:ring-gold/40"
         aria-expanded={open}
         aria-haspopup="true"
-        aria-label="Selecionar idioma"
+        aria-label={t.nav.langLabel}
       >
         <span className="text-sm">{currentLang.flag}</span>
         <span className="font-montserrat tracking-wider">{currentLang.label}</span>
