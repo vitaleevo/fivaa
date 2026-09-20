@@ -10,6 +10,7 @@ import { programacaoTranslations, type ProgramacaoTranslations } from "./section
 import { educacaoTranslations, type EducacaoTranslations } from "./sections/educacao";
 import { sobreTranslations, type SobreTranslations } from "./sections/sobre";
 import { parceirosTranslations, type ParceirosTranslations } from "./sections/parceiros";
+import { legalTranslations, type LegalTranslations } from "./sections/legal";
 
 export type Language = "pt" | "en" | "fr";
 
@@ -50,6 +51,7 @@ export interface Translations {
   educacao: EducacaoTranslations;
   sobre: SobreTranslations;
   parceiros: ParceirosTranslations;
+  legal: LegalTranslations;
   cookies: {
     title: string;
     text: string;
@@ -107,6 +109,7 @@ export const translations: Record<Language, Translations> = {
     educacao: educacaoTranslations.pt,
     sobre: sobreTranslations.pt,
     parceiros: parceirosTranslations.pt,
+    legal: legalTranslations.pt,
     cookies: {
       title: "Privacidade e Gestão de Cookies",
       text: "Utilizamos cookies e tecnologias semelhantes em conformidade com a Lei de Proteção de Dados Pessoais de Angola (Lei n.º 22/11) e normas internacionais (GDPR/LGPD) para melhorar a sua experiência de navegação.",
@@ -162,6 +165,7 @@ export const translations: Record<Language, Translations> = {
     educacao: educacaoTranslations.en,
     sobre: sobreTranslations.en,
     parceiros: parceirosTranslations.en,
+    legal: legalTranslations.en,
     cookies: {
       title: "Privacy & Cookie Management",
       text: "We use cookies and similar technologies in compliance with Angola's Personal Data Protection Law (Law No. 22/11) and international standards (GDPR/LGPD) to provide the best browsing experience.",
@@ -217,6 +221,7 @@ export const translations: Record<Language, Translations> = {
     educacao: educacaoTranslations.fr,
     sobre: sobreTranslations.fr,
     parceiros: parceirosTranslations.fr,
+    legal: legalTranslations.fr,
     cookies: {
       title: "Confidentialité et Gestion des Cookies",
       text: "Nous utilisons des cookies conformément à la loi angolaise sur la protection des données (Loi n° 22/11) et aux normes internationales (RGPD/LGPD) pour améliorer votre expérience.",
